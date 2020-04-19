@@ -1,0 +1,12 @@
+base
+gridExtra
+ggplot2
+egg
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
