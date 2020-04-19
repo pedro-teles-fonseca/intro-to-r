@@ -1,4 +1,5 @@
 
+#examples for the ggplot lecture:
 
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy), shape = 2, color = "purple")

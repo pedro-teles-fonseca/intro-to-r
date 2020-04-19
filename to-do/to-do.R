@@ -3,7 +3,7 @@
 # na aula dos data frames, no dataframe people, transformar a variavel child num fator (para evitar fazer child == FALSE, NAs podem ser problema)
 # meter os vetores letters e afins na aula dos vetores e quando estiver retirar dos slides de data Wrangling
 
-#### cartesian product 
+#### cartesian product -> R and SQL with the same order of rows
 
 set.seed(1)
 
