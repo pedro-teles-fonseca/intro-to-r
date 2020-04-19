@@ -1,5 +1,5 @@
 
-#examples for the ggplot lecture:
+# examples for the ggplot lecture:
 
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy), shape = 2, color = "purple")
@@ -22,19 +22,7 @@ ggplot(data = diamonds) +
     fun.y = median
   )
 
-pointrange
 
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, y = ..prop..), stat = "count")
-
-
-plt <- ggplot(data = diamonds) +
-  geom_bar(mapping = aes(x = cut))
-plt_b <- ggplot_build(plt)
-plt_b$data[[1]]
-
-ggplot(mpg) +
-  geom_point(aes(x = displ, y = hwy, colour = cty))
 
 #### logo no topo! 
 
