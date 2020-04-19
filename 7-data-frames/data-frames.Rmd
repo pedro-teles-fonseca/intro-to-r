@@ -1,0 +1,568 @@
+---
+title: "Introduction to R Programming"
+subtitle: "Data Frames"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+author: Pedro Fonseca
+output: beamer_presentation
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Preliminars
+
+The `ifelse()` function performs vectorized if-then-else statments.
+
+```{r, eval = FALSE}
+ifelse(test, x, y)
+```
+
+- `test` can be anything that returns a logical vector or matrix
+
+- `ifelse()`returns `x` in the positions where the corresponding element of `test` is `TRUE` and `y` in the positions where the corresponding element of `test` is `FALSE`
+
+## Preliminars
+
+```{r}
+vec <- 1:5
+```
+
+```{r}
+ifelse(vec > 2, 2, 1)
+ifelse(vec > 2, "large", "small")
+ifelse(vec > 2, vec - 1, vec + 1)
+```
+## Preliminars
+
+You can chain multiple `ifelse()` calls:
+
+```{r}
+heights <- c(1.66, 1.88, 1.76, 1.68, 1.7, 1.9)
+
+shirts <- ifelse(heights >= 1.9, "XL",
+                 ifelse(heights > 1.8, "L",
+                        ifelse(heights > 1.75, "M",
+                               "S")
+                        )
+                 )
+shirts
+```
+
+## Datasets
+
+In a typical dataset:
+
+- Rows represent observations
+- Columns represent variables
+
+  
+![A retangular dataset](dataset){width=200px}
+
+## What is a data frame?
+
+Data frames are designed specifically for retangular datasets.
+
+- Why not matrices? We may need different data types for differen columns.
+
+- Why not lists? Not very practical nor visually appealing.
+
+## My first data frame
+
+You can create a data frame by supplying name-vector pairs to `data.frame()`:
+
+```{r}
+df <- data.frame(
+age = c(20, 38, 50, 19),
+smoker = c(TRUE, FALSE, FALSE, FALSE),
+marital = factor(c("M", "S", "W", "S"))
+)
+df
+```
+
+Data frame rows are numbered by default.
+
+## Some utilities 
+
+```{r}
+summary(df)
+```
+
+Try this:
+
+```{r, eval = FALSE}
+View(df)
+```
+
+## What is a data frame?
+
+```{r}
+str(df)
+```
+
+- Similar to the structure of a list?
+- Actually, data frames are build on top of lists.
+- A data frame is a list of atomic vectors with equal length.
+
+## What is a data frame?
+
+A data frame is a named list of vectors with attributes for column `names`, `row.names`, and its own class:
+
+```{r}
+typeof(df) 
+class(df) 
+```
+
+## What is a data frame?
+
+Due to their rectangular scructure, data frames share the properties of both matrices and lists:
+
+- A data frame has `rownames()` and `colnames()`. The `names()` of a data frame are the column names.
+
+- A data frame has `nrow()` rows and `ncol()` columns. `The length()` of a data frame is the number of columns.
+
+## My second data frame
+
+```{r}
+name <- c("Anne", "Pete", "Frank", "Julia", "Cath")
+age <- c(28, 30, 21, 39, 35)
+child <- c(FALSE, TRUE, TRUE, FALSE, TRUE)
+
+df2 <- data.frame(name, age, child)
+df2
+```
+
+Unlike `list()`, `data.frame()` keeps the names of the vectors.
+
+## Assign `names()` to a data frame
+
+Data frame columns always have names. If you dont provide them,
+default names will be assigned:
+
+```{r}
+df3 <- data.frame(
+  c(1, 4, 6),
+  c(6, 7, 9)
+) 
+
+df3
+```
+
+## Assign `names()` to a data frame
+
+```{r}
+names(df3) <- c("a-name", "some-other-name")
+df3
+```
+
+## Row names
+
+`data.frame()` allows you to label row indexes. You can provide a vector of unique values to the `row.names` argument:
+
+```{r}
+df4 <- data.frame(
+  age = c(35, 27, 18),
+  hair = c("blond", "brown", "black"),
+  row.names = c("Bob", "Susan", "Sam") # row names!
+) 
+
+df4
+```
+
+```{r}
+rownames(df4)
+```
+
+## Row names
+
+You can also set (or ovewright) row names after the data frame is created:
+
+```{r}
+rownames(df4) <- c("Bob M.", "Susab B.", "Sam L.") 
+df4
+```
+
+## `stringsAsFactors`
+
+```{r}
+
+df5 <- data.frame(
+  person = c("John", "Matt", "Mary"),
+  age = c(20, 38, 50),
+  smoker = c(TRUE, FALSE, FALSE),
+  marital = factor(c("M", "S", "S"))
+)
+
+str(df5)
+```
+
+The `person` variable is a factor! Why?
+
+## stringsAsFactors
+
+The `stringsAsFactors` argument of `data.frame` is set to `TRUE` by default.
+
+```{r}
+df6 <- data.frame(
+  person = c("John", "Matt", "Mary"),
+  age = c(20, 38, 50),
+  smoker = c(TRUE, FALSE, FALSE),
+  marital = factor(c("M", "S", "S")),
+  stringsAsFactors = FALSE
+)
+str(df6)
+```
+
+## Testing and coercing
+
+To check if an object is a data frame use `is.data.frame()`:
+
+```{r}
+is.data.frame(df6)
+```
+
+You can coerce an object to a data frame with `as.data.frame()`:
+
+```{r}
+M <- matrix(1:9, ncol = 3)
+as.data.frame(M)
+```
+
+## Subsetting
+
+Data frames inherit subsetting syntax from both matrices and lists. You can subset a data frame:
+
+- Like a 2D structure (behaves like a matrix)
+- Like a 1D structure (behaves like a list)
+
+## Subsetting
+
+```{r}
+name <- c("Anne", "Pete", "Frank", "Julia", "Cath") 
+age <- c(28, 30, 21, 39, NA)
+child <- c(FALSE, FALSE, TRUE, FALSE, TRUE)
+
+people <- data.frame(name, age, child, 
+                     stringsAsFactors = FALSE)
+people
+```
+
+## Subsetting with matrix syntax
+
+```{r}
+people[3, ] # returns a data frame
+people[c(1, 3), ] # data frame
+people[3, 2] # vector
+people[3, "age"] # vector
+
+```
+
+## Subsetting with matrix syntax
+
+```{r}
+people[, "age"] # vector
+people[, 1] #  vector
+people[c(3, 5), c("age", "child")] # data frame
+```
+
+## Subsetting with matrix syntax
+
+See the pattern?
+
+- When you subset a dataframe like a 2D object with `[` you get a vector if only one column is extracted. You get a data frame otherwise.
+
+- This is a frequent source of bugs when using `[` in a function, unless you always remember to use `drop = FALSE`.
+
+## Subsetting with matrix syntax
+
+```{r}
+people[, "age", drop = FALSE] # data frame!
+```
+
+Setting `drop = FALSE` prevents `[` from coercing to a lower dimension.
+
+## Subsetting with matrix syntax
+
+You can also subset using logical conditions.
+
+Show `name` and `child` for the people with known `age`:
+
+```{r}
+people[!is.na(people[, "age"]), c("name", "child")]
+```
+
+## Subsetting with matrix syntax
+
+Show `name` and `child` for the people who are older than 21:
+
+```{r}
+people[!is.na(people[, "age"]) & people[, "age"] > 21,
+       c("name", "child")]
+```
+
+## Subsetting with matrix syntax
+
+If available, row names can be used for subseting:
+
+```{r}
+df4
+
+df4["Bob M.", ]
+df4["Bob M.", "hair"]
+```
+
+## Subsetting with list syntax
+
+```{r}
+people[2] # data frame
+people["age"] # data frame
+
+```
+
+## Subsetting with list syntax
+
+```{r}
+people[c(1, 3)] # data frame
+people[c("name", "child")] # data frame
+```
+
+## Subsetting with list syntax
+
+```{r}
+people["age"] # data frame
+people[["age"]] # vector
+people$age # vector
+```
+
+## Subsetting with list syntax
+
+```{r}
+people[["age"]][1]
+people[["age"]][c(1, 4)]
+people$age[1]
+people$age[c(1, 4)]
+```
+
+## Subsetting with list syntax
+
+```{r}
+people[[2]] # same as people[["age"]]
+people[[2]][1]
+people[[2]][c(1, 4)]
+```
+
+## Subsetting with list syntax
+
+Since data frames are lists of vectors, when you subset a dataframe like a 1D object:
+
+  - with `[` you get a dataframe.
+  - with `[[` or `$` you get a vector.
+
+## Partial matching with `$`
+
+When you attempt to extract a column from `df` with `df$name` and there is no column `name`, a data frame will instead select any variable that starts with `name`. If no variable starts with `name` (or if more than one do), `df$name` will return `NULL`.
+
+```{r}
+names(df)
+df$a
+```
+
+By default, `[[` does not do partial matching. Why? Run `?"[["` and check what is the default value of the `exact` argument.
+
+`df$name` is equivalent to `df[["name", exact = FALSE]]`
+
+## Add columns with `$`
+
+So far our data frame `people` has 5 rows and 3 columns.
+
+```{r}
+str(people)
+```
+
+## Add columns with `$`
+
+Let’s add a column with the people’s heigth:
+
+```{r}
+height <- c(175, 170, 166, 182, 172) 
+people$height <- height
+
+str(people)
+```
+
+## Add columns with `cbind()`
+
+Now let’s add a column with the people’s weight:
+
+```{r}
+ weight <- c(86, 63, 68, 55, 56)
+ people <- cbind(people, weight)
+ 
+ str(people)
+
+```
+
+## Modify columns
+
+We can overwrite existing columns.
+
+Lets convert `height` from centimenters to meters:
+
+```{r}
+people$height <- people$height/100
+
+people
+```
+
+## Calculations with existing columns
+
+We can create new colums using the values of existing columns.
+
+Let’s use `weight` and `height` to calculate the body mass index:
+
+```{r}
+people$bmi <- round(
+  people$weight/((people$height)^2)
+  )
+people
+```
+
+## Calculations with existing columns
+
+Now let’s the the body mass index to calculate the weigth status:
+
+```{r}
+people$weight_status <- ifelse(
+  people$bmi < 18.5, "underweight",
+    ifelse(people$bmi < 24.9, "normal", 
+           ifelse(people$bmi < 29.9, "overweight", 
+                  "obese")
+           )
+  )
+```
+
+## Calculations with existing columns
+
+```{r}
+people
+```
+
+## Drop columns
+
+Lets drop the `bmi` and `weight_status` columns. By name:
+
+```{r}
+people$bmi <- NULL 
+people$weight_status <- NULL
+```
+
+Lets drop the `weight` column. By position:
+
+```{r}
+people <- people[, -5]
+people
+```
+
+## Add a row 
+
+```{r, error = TRUE}
+tom <- data.frame("Tom", 37, FALSE, 1.83)
+```
+
+```{r, eval = FALSE}
+rbind(people, tom)
+## Error in match.names(clabs, names(xi)) : names do
+## not match previous names
+```
+
+## Add a row 
+
+The default names do not match the names of the `people` dataframe:
+
+```{r}
+names(tom)
+names(people)
+```
+
+## Add a row 
+
+```{r}
+tom <- data.frame(name = "Tom", age = 37, 
+                  child = FALSE, height = 1.83)
+rbind(people, tom)
+```
+
+## Add a row
+
+You can also add rows using vectors, as long as they have appropriate names and the correct length:
+
+```{r}
+new_obs <- t(c(name = "Peter", age = 30, 
+               child = FALSE, height = 1.86))
+
+rbind(people, new_obs)
+```
+
+## Combining matrix and list syntax
+
+Show the name and age of the people without children:
+
+```{r}
+people[people$child == FALSE, c("name", "age")]
+```
+
+## Combining matrix and list syntax
+
+Show the name and age of the people without children who are taller than 1.70:
+
+```{r}
+people[people$child == FALSE & people$height > 1.70,
+       c("name", "age")]
+```
+
+## Sorting
+
+```{r}
+people$age
+sort(people$age)
+ranks <- order(people$age)
+ranks
+people$age[ranks]
+
+```
+
+## Sorting
+
+Sort the rows by ascending `age`:
+
+```{r}
+people[ranks, ]
+```
+
+## Sorting
+
+Sort the rows by descending `age`:
+
+```{r}
+people[order(-people$age), ]
+```
+
+## Sorting
+
+Sort the rows by descending `height`:
+
+```{r}
+people[order(people$height, decreasing = TRUE), ]
+```
+
+## Sorting
+
+Sort the rows by `name`:
+
+```{r}
+people[order(people$name), ]
+```
+
+
+
+

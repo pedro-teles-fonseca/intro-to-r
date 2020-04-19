@@ -1,0 +1,1160 @@
+---
+title: "Introduction to R Programming"
+subtitle: "Data Wrangling"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+author: "Pedro Fonseca"
+output:
+  beamer_presentation:
+    includes:
+      in_header: mystyle.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Built in datasets 
+
+R has many built in datasets. For a complete list see:
+
+```{r, eval = FALSE}
+library(help = "datasets")
+```
+
+In this lecture we will use some of these datasets, namely:
+
+  - airquality
+  - USArrests
+
+For information about a specific dataset see, for example:
+
+```{r, eval = FALSE}
+?airquality
+```
+
+## The `head()` and `tails()` functions
+
+`head()` shows the first rows of a dataframe. `tail()` shows the last rows. Both `head()` and `tails()` print six rows by default. 
+
+```{r}
+nrow(airquality)
+head(airquality)
+```
+
+## The `head()` and `tails()` functions
+
+```{r}
+head(airquality, n = 2)
+```
+
+```{r}
+tail(airquality, n = 3) 
+```
+
+## Built in constants
+
+R also provides some built in constants and vectors:
+
+```{r}
+head(letters)
+tail(letters)
+
+head(LETTERS)
+tail(LETTERS)
+```
+
+For a complete list of built in constants see `?Constants`
+
+## The `subset()` function
+
+`subset()` is a generic function that can be used to subset data frames using logical condictions. 
+
+## The `subset()` function
+
+```{r}
+df <-  data.frame(
+  name = c("Yu","Matt","Jane","Tim", "Dave", "Marie"),
+  inc = c(6, 1, 2, NA, 5, 9),
+  gender = factor(c("F", "M","F","M", "M", "F")),
+  state = factor(c("AZ","KS", NA, "CA","FL", "MA")))
+
+df
+```
+
+## The `subset()` function
+
+```{r}
+subset(df, inc > 4)
+subset(df, name == "Marie")
+subset(df, inc > 4 & name != "Marie")
+```
+
+## The `subset()` function
+
+```{r}
+subset(df, inc > 4 & name != "Marie" & gender == "F")
+subset(df, inc >= 2 & state %in% c("MA", "FL", "CA"))
+```
+
+## The `subset()` function
+
+You can use the `select` argument to choose columns:
+
+```{r}
+subset(df, inc == 5, select = c(state, name))
+subset(df, inc == 5, select = c(1, 4))
+subset(df, inc == 5, select = inc:state)
+```
+
+## The `subset()` function
+
+And also to drop columns:
+
+```{r}
+subset(df, inc == 5, select = -c(state, name))
+subset(df, inc == 5, select = -c(state, name, gender))
+```
+
+## The `subset()` function
+
+You can use `subset()` to filter out mising data with respect to specific variables:
+
+```{r}
+subset(df, !is.na(state), select = c(name, inc))
+```
+
+## The `subset()` function
+
+```{r}
+subset(df, !is.na(inc) & !is.na(state), 
+       select = c(name, inc, state))
+```
+
+## The `subset()` function
+
+`subset()`:
+
+  - Also works with vectors, matrices and lists.
+  - Doesn’t drop dimensions (by default).
+
+In the logical expressions that indicate which rows to keep, missing values are taken as `FALSE`.
+
+## Modifying columns with `transform()`
+
+`transform()` can be used to modify the columns of a data frame: 
+
+```{r}
+transform(df, state = paste0(state, "-US"))
+```
+
+## Modifying columns with `transform()`
+
+Let's change how the levels of the `gender` factor are displayed:
+
+```{r}
+transform(df, gender = factor(
+  gender, labels = c("Female", "Male")))
+```
+
+## Modifying columns with `transform()`
+
+Now let's express `inc` in euros:
+
+```{r}
+transform(df, inc = ifelse(is.na(inc), NA, 
+                           paste0(inc * 1000, "€")
+                           )
+          )
+```
+
+## Create columns with `transform()`
+
+`Transform()` can also be used to create new variables.
+
+Let's create a variable with income in the logarithmic scale:
+
+```{r}
+transform(df, logInc = log(inc))
+```
+
+## Create columns with `transform()`
+
+Now lets standardize the income column:
+
+```{r}
+standardize <- function(x){
+  z <- (x-mean(x, na.rm = TRUE))/sd(x, na.rm = TRUE)
+  round(z, 2)
+  }
+```
+
+
+```{r}
+transform(df, norm_inc = standardize(inc))
+```
+
+
+## The `USArrests` dataset
+
+Now consider the `USArrests` dataset, with arrests per 100.000 residentes in the US for murder, assault and rape. 
+
+```{r}
+head(USArrests)
+```
+
+## The `USArrests` dataset
+
+```{r}
+USArrests_short <- USArrests[1:4, -3]
+                            
+USArrests_short
+```
+
+## Row and column sums
+
+```{r}
+colSums(USArrests_short) 
+rowSums(USArrests_short) 
+```
+
+## Row and column means
+
+```{r}
+colMeans(USArrests_short) 
+rowMeans(USArrests_short) 
+```
+
+## The `apply()` function
+
+To collapse data frames across rows or columns using functions other than the sum and the mean we can use apply():
+
+`apply(X, MARGIN, FUN, ...)`
+
+  - X is a data frame
+  - `MARGIN = 1` for rows, `MARGIN = 2` for columns
+  - FUN is a function
+  - ... are optional arguments to pass to FUN
+
+## The `apply()` function
+
+Apply functions over the columns of `USArrests_short`:
+
+```{r}
+apply(USArrests_short, 2, mean)
+apply(USArrests_short, 2, median)
+apply(USArrests_short, 2, sd)
+```
+
+## The `apply()` function
+
+Apply functions the rows of `USArrests_short`:
+
+```{r}
+apply(USArrests_short, 1, max)
+apply(USArrests_short, 1, min)
+apply(USArrests_short, 1, var)
+
+```
+
+## `apply()` vs `for` loop
+
+Loop over the columns of `USArrests_short`:
+
+```{r}
+res <- vector()
+
+for(i in 1:ncol(USArrests_short)){
+  
+  res[i] <- mean(USArrests_short[[i]], na.rm = TRUE)
+  names(res)[i] <- names(USArrests_short)[i]
+}
+
+res
+```
+
+## `apply()` vs `for` loop
+
+Loop over the rows of `USArrests_short`:
+
+```{r}
+res <- vector()
+
+for(j in 1:nrow(USArrests_short)){
+  
+  res[j] <- max(USArrests_short[j, ],na.rm = TRUE)
+  names(res)[j] <- rownames(USArrests_short)[j]
+}
+
+res
+```
+
+## `apply()` with `...`
+
+Now let's see an example that requires using dot-dot-dot (`...`).
+
+Try to use `apply()` to compute the means of the first four columns of the `airquality` dataset:
+
+```{r}
+
+head(airquality)
+```
+
+## `apply()` with `...`
+
+```{r}
+apply(airquality[, 1:4], 2, mean)
+```
+
+We get `NA` for the first two columns. Why?
+
+```{r}
+sum(is.na(airquality$Ozone))
+sum(is.na(airquality$Solar.R))
+```
+
+## `apply()` with `...`
+
+Problem: Some columns have `NA`s.
+
+Solution: use `...` to pass the `na.rm` argument to `mean()`:
+
+```{r}
+apply(airquality[, 1:4], 2, mean, na.rm = TRUE)
+```
+
+## The `lapply()` function
+
+Syntax: `lapply(X, FUN, ...)`
+
+`lapply()` is similar to `apply()` but:
+
+  - X is a vector (atomic or list)
+  - There is no MARGINS argument
+  - Always returns a list
+  
+`lapply()` returns a list of the same length as X, each element of which is the result of applying FUN to the corresponding element of X.
+
+## The `lapply()` function
+
+```{r}
+lapply(c(1:3), log, base = 10)
+```
+
+## The `lapply()` function
+
+```{r}
+A <- matrix(1:10, ncol = 5)
+B <- matrix(c(1, 5, 7, -1), ncol = 4)
+C <- matrix(letters[1:4], ncol = 2)
+
+my_list <- list(A, B, C)
+
+```
+
+## The `lapply()` function
+
+```{r}
+my_list
+```
+
+## The `lapply()` function
+
+Every element of `my_list`, except the last, contain a numerical matrix. Sum the elements of each of those matrices:
+
+```{r}
+lapply(my_list[-3], sum)
+```
+
+## The `lapply()` function
+
+Extract the element in position (1, 2) from each matrix:
+
+```{r}
+lapply(my_list,"[", 1, 2)
+```
+
+## The `lapply()` function
+
+Extract the first row from each matrix:
+
+```{r}
+lapply(my_list,"[", 1 , )
+```
+
+## The `lapply()` function
+
+Extract the 2nd column from each matrix:
+
+```{r}
+lapply(my_list,"[", , 2)
+```
+
+## `lapply()` vs `for` loop
+
+Extract the 2nd column from each matrix:
+
+```{r}
+
+res <- vector(mode = "list")
+
+for(i in seq_along(my_list)){
+  res[[i]] <- my_list[[i]][, 2]
+}
+res
+```
+
+## The `sapply()` function
+
+The sapply() function:
+
+  - Works like lapply(), but simplifies the output to the most elementary data structure that is possible.
+  - Returns vectors or matrices.
+
+```{r}
+sapply(my_list[-3], sum)
+sapply(my_list,"[", 1, 2)
+```
+
+## The `sapply()` function
+
+```{r}
+set.seed(123)
+
+our_list <- list(
+  w = 1:6,
+  x = sample(1:5, 4, replace = TRUE),
+  y = matrix(sample(1:100, 9), nrow = 3),
+  z = sample(1:10, 3, replace = TRUE) 
+)
+
+str(our_list)
+```
+
+## The `sapply()` function
+
+```{r}
+sapply(our_list, max)
+sapply(our_list, min)
+sapply(our_list, class)
+```
+
+## The `sapply()` function
+
+How many numbers are there inside each element of `our_list`?
+
+```{r}
+sapply(our_list, length)
+```
+
+## The `sapply()` function
+
+```{r}
+set.seed(123)
+
+our_list_2 <- list(
+  w = 1:6,
+  x = sample(1:5, 4, replace = TRUE),
+  y = airquality
+)
+```
+
+```{r}
+sapply(our_list_2, class)
+dim(airquality)
+```
+
+How many numbers are there inside each element of `our_list_2`? 
+
+## The `sapply()` function
+
+The length of a data frame is the number of columns, and hence `sapply(our_list_2, length)` won't do the trick.
+
+```{r}
+our_fun <- function(x){
+  if(class(x) == "data.frame"){
+    nrow(x) * ncol(x)
+  }else{
+      length(x)
+  }
+}
+
+sapply(our_list_2, our_fun)
+```
+
+## `sapply()` vs `for` loop
+
+The same but with a `for` loop:
+
+```{r}
+
+res <- vector()
+
+for(i in seq_along(our_list_2)){
+  
+  res[i] <- our_fun(our_list_2[[i]])
+  names(res)[i] <- names(our_list_2)[i] 
+}
+
+res
+
+```
+
+## The `mapply()` function
+
+`mapply()` is a generalization of `sapply()`.  It applies a multivariate function over multiple vectors of arguments.
+
+## The `mapply()` function
+
+Suppose we want 3 samples of diffrent sizes from a $\operatorname{Normal}(0, 1)$ distribution:
+
+```{r}
+set.seed(123)
+
+rnorm(n = 1)
+rnorm(n = 2)
+rnorm(n = 3)
+```
+
+## The `mapply()` function
+
+The same result can be obtained more compactly with `mapply()`:
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+mapply(FUN = rnorm, n = sample_size)
+```
+
+## The `mapply()` function
+
+Since we only iterated over one vector, we could have used `sapply()`:
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+sapply(FUN = rnorm, X = sample_size)
+```
+
+## The `mapply()` function
+
+But what if we want to sample from normal distributions with difrent means, while still having samples of diffrent sizes? 
+
+```{r}
+set.seed(123)
+
+rnorm(n = 1, mean = 5)
+rnorm(n = 2, mean = 10)
+rnorm(n = 3, mean = -3)
+```
+
+## The `mapply()` function
+
+In this case we need to iterate over two vectors, one for sample sizes and one for means:
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+mu <- c(5, 10, -3)
+mapply(rnorm, n = sample_size, mean = mu)
+
+```
+
+## The `mapply()` function
+
+Now suppose we also want each sample to have a different standard deviation:
+
+```{r}
+set.seed(123)
+
+rnorm(n = 1, mean = 5, sd = 1)
+rnorm(n = 2, mean = 10, sd = 3)
+rnorm(n = 3, mean = -3, sd = 5)
+```
+
+## The `mapply()` function
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+mu <- c(5, 10, -3)
+sigma <- c(1, 3, 5)
+
+mapply(rnorm, mean = mu, sd = sigma, n = sample_size)
+```
+
+## The `mapply()` function
+
+Now suppose we wanted our results with two decimal places only:
+
+```{r}
+set.seed(123)
+
+results <- mapply(rnorm, mean = mu, sd = sigma,
+                  n = sample_size)
+```
+
+```{r}
+sapply(results, FUN = round, 2)
+```
+
+## `mapply()` vs `for` loop
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+mu <- c(5, 10,-3)
+sigma <- c(1, 3, 5)
+
+res <- vector(mode = "list")
+
+for (i in 1:3) {
+  res[[i]] <- round(rnorm(mean = mu[i],
+                          sd = sigma[i],
+                          n = sample_size[i]),
+                    2)
+}
+```
+
+## `mapply()` vs `for` loop
+
+```{r}
+res
+```
+
+## Relational models
+
+- Sometimes our tables are related to other tables.
+
+- It is often necesary to complement one table with information from another table, or to cross information between tables.
+
+- We usually join tables by using one or more variables that are present in both tables as a key to match rows from one table to the other.
+
+<!-- 
+  - A column (or set of columns) that uniquely identifies each row of a table is called a primary they.
+  - The primary they of a table is a foreign key in the other tables.
+  - Foreign keys can have repeated values.
+  - Primary and foreign keys can be used to match rows between tables.
+  - We join tables by matching the primary key of a table with the foreign key of another table.
+-->
+
+## A simple relational model
+
+```{r}
+set.seed(1)
+
+Sales <-data.frame(
+  Product = sample(c("Toaster", "Radio", "TV"),
+                   size = 7, replace = TRUE),
+  CustomerID =c(rep("1_2019", 2), 
+                paste(2:3, "2019", sep = "_"), 
+                paste(1:3, "2020", sep = "_")))
+
+Sales$Price <- round(ifelse(
+  Sales$Product == "TV", rnorm(1, 400, 20),
+  ifelse(Sales$Product == "Toaster",
+         rnorm(1, 40, 2), rnorm(1, 35, 2))))
+```
+
+## A simple relational model
+
+```{r}
+set.seed(1)
+
+Clients <-data.frame(
+  CustomerID =c(paste(2:4, "2019", sep = "_"),
+                paste(1:2, "2020", sep = "_")),
+  State = sample(c("CA", "AZ", "IL", "MA"),
+                size = 5, replace = TRUE))
+```
+
+## A simple relational model
+
+\begincols
+  \begincol{.48\textwidth}
+
+```{r, echo = FALSE}
+knitr::kable(Sales, booktabs = TRUE, 
+             caption = " Sales")
+```
+
+  \endcol
+\begincol{.48\textwidth}
+
+```{r, echo = FALSE}
+knitr::kable(Clients, booktabs = TRUE,
+             caption = "Clients")
+```
+
+  \endcol
+\endcols
+
+
+<!-- All columns have repeated values: there is no primary key. -->
+
+<!-- Each Clients is uniquely identified by `CustomerID`. `CustomerID` is:
+
+  - a primary key in the `Clients` table 
+  - a foreign key in the `Sales` table
+-->
+
+## Joining tables
+
+- `CustomerID` is present in both tables and uniquely identifies each row of the `Clients` table. We can therefore use it as a key to match rows from one table to another. 
+
+- In R this can be done with the `merge()` function.
+
+## Inner join
+
+The inner join returns only rows that have matching values in both tables:
+
+```{r}
+merge(x = Sales, y = Clients,
+  by = "CustomerID") 
+```
+
+## Natural join
+
+A natural join is an inner join where the joinning attributes are defined as having equal names, so they need not be stated explicitly:
+
+```{r}
+merge(x = Sales, y = Clients) 
+```
+
+## Left join
+
+To includes all the rows of x and only those from y that match use `all.x = TRUE`:
+
+```{r}
+merge(x = Sales, y = Clients,
+  by = "CustomerID", 
+  all.x = TRUE) 
+```
+
+## Right join
+
+To include all the rows of y and only those from x that match use `all.y = TRUE`:
+
+```{r}
+merge(x = Sales, y = Clients,
+  by = "CustomerID", 
+  all.y = TRUE) 
+```
+
+## Full outer join
+
+To keep all rows from both tables use `all = TRUE`.
+
+```{r}
+merge(x = Sales, y = Clients,
+  by = "CustomerID", 
+  all = TRUE) 
+```
+
+## Cross Join 
+
+Cartesian product of the two tables. The output has `nrow(x) * nrow(y)` rows and `ncol(x) + ncol(y)` columns.
+
+```{r, eval = FALSE}
+
+merge(x = Sales, y = Clients, 
+      by = NULL)
+
+```
+
+## Joining tables
+
+![Join operations with `Merge()`](joins.jpg){width=400px}
+
+## Joining tables
+
+- If the merging key is a combination of more than one column, you can provide a vector to `by`.
+
+- If the columns used as key have different names in different tables, we need to use `by.x` and `by.y` instead of `by`. 
+
+- If no `by` argument is provided, the tables are merged on the columns with names they both have.
+
+- `all.x`, `all.y,` and `all` are set to FALSE by default. This is why the default join is the natural join.
+
+## The `sqldf` package 
+
+- You can run SQL queries in R using the `sqldf` package.
+
+- SQL queries must be provided to the `sqldf()` function as strings.
+
+```{r, message = FALSE}
+library(sqldf)
+```
+
+## Inner join with `sqldf`
+
+```{r}
+sqldf("SELECT CustomerID, Product, Price, State 
+       FROM Sales
+       JOIN Clients 
+       USING(CustomerID)
+       ORDER BY CustomerID")
+```
+
+## Left join with `sqldf`
+
+```{r}
+sqldf("SELECT CustomerID, Product, Price, State 
+       FROM Sales
+       LEFT JOIN Clients 
+       USING(CustomerID)
+       ORDER BY CustomerID")
+```
+
+## Cross join with `sqldf`
+
+```{r, eval = FALSE}
+sqldf("SELECT * 
+       FROM Sales
+       CROSS JOIN Clients 
+       ORDER BY CustomerID")
+```
+
+## Subgroup summaries with `aggregate()`
+
+The `aggregate()` function can be used to compute subgroup summary statistics.
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+my_df <- data.frame(
+  age = c(22, 36, 21, 39, 33, 45, 34, 59),
+  smoker = factor(c("no", "yes", "no", "no", "yes",
+                    "no", "yes", "yes")),
+  child = factor(c("no", "yes", "no", "no", "yes",
+                   "yes", "no", "yes")),
+  income = c(0.8, 1.8, 1.6, 1.5, 2.3, 1.4, 1.8, 1.5),
+  stringsAsFactors = FALSE)
+
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+my_df
+```
+
+## Subgroup summaries with `aggregate()`
+
+On average, do people with children earn more than people without children?
+
+```{r}
+aggregate(formula = income ~ child,
+          data = my_df, 
+          FUN = mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  x = my_df["income"],
+  by = list(child = my_df$child), 
+  FUN = mean)
+
+```
+
+## Subgroup summaries with `aggregate()`
+
+On average, do people who smoke earn more than people who don't?
+
+```{r}
+aggregate(income ~ smoker, my_df, mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["income"],
+  list(smoker = my_df$smoker), 
+  mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+Is the median income higher for smokers or non-smokers? 
+
+```{r}
+aggregate(income ~ smoker, my_df, median)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["income"],
+  list(smoker = my_df$smoker), 
+  median)
+```
+
+## Subgroup summaries with `aggregate()`
+
+What is the lowest income for someone with children? And without?
+```{r}
+aggregate(income ~ child, my_df, min)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["income"],
+  list(child = my_df$child), 
+  min)
+```
+
+## Subgroup summaries with `aggregate()`
+
+Is the average age of people with children higher than that of people without children?
+
+```{r}
+aggregate(age ~ child, my_df, mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["age"],
+  list(child = my_df$child), 
+  mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+Is the median age of smokers higher than that of non-smokers?
+
+```{r}
+aggregate(age ~ smoker, my_df, median)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["age"],
+  list(smoker = my_df$smoker), 
+  median)
+```
+
+## Subgroup summaries with `aggregate()`
+
+Compare the age of the younger person with children with the age of the younger person without chilren:
+
+```{r}
+aggregate(age ~ child, my_df, min)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["age"],
+  list(child = my_df$child), 
+  min)
+```
+
+## Subgroup summaries with `aggregate()`
+
+What is the age of the older smoker?
+
+```{r}
+subset(
+  aggregate(age ~ smoker, my_df, max),
+  smoker == "yes", 
+  select = "age"
+  )
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+subset(
+  aggregate(
+    my_df["age"],
+    list(smoker = my_df$smoker), 
+    max),
+  smoker == "yes",
+  select = "age")
+```
+
+## Subgroup summaries with `aggregate()`
+
+We can divide our subgroups further into more subgroups:
+
+```{r}
+aggregate(income ~ smoker + child, my_df, mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["income"],
+  list(smoker = my_df$smoker,
+       child = my_df$child), 
+  mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+On average, do parents who smoke earn more than parents who don’t smoke?
+
+```{r}
+subset(
+  aggregate(income ~ smoker + child, my_df, mean),
+  child == "yes",
+  select = c(smoker, income)
+  )
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+subset(
+  aggregate(
+    my_df["income"],
+    list(smoker = my_df$smoker, 
+         child = my_df$child), 
+    mean),
+  child == "yes",
+  select = c(smoker, income)
+  )
+```
+
+## Subgroup summaries with `aggregate()`
+
+Is the median age of parents who smoke higher than that of parents who don't smoke?
+
+```{r}
+subset(
+  aggregate(age ~ smoker + child, my_df, median),
+  child == "yes",
+  select = c(smoker, age)
+  )
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+subset(
+  aggregate(
+    my_df["age"],
+    list(smoker = my_df$smoker, 
+         child = my_df$child), 
+    median),
+  child == "yes",
+  select = c(smoker, age)
+  )
+```
+
+## Subgroup summaries with `sqldf()`
+
+On average, do people with children earn more than people without children?
+  
+```{r}
+sqldf(
+  "SELECT child, AVG(income) as income 
+  FROM my_df
+  GROUP BY child"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+On average, do people who smoke earn more than people who don't?
+
+```{r}
+sqldf(
+  "SELECT smoker, AVG(income) as income 
+  FROM my_df
+  GROUP BY smoker"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+What is the lowest income for someone with children? And without?
+
+```{r}
+sqldf(
+  "SELECT child, min(income) as income 
+  FROM my_df
+  GROUP BY child"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+Is the average age of people with children higher than that of people without children?
+
+```{r}
+sqldf(
+  "SELECT child, AVG(age) as age 
+  FROM my_df
+  GROUP BY child"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+Compare the age of the younger person with children with the age of the younger person without chilren:
+
+```{r}
+sqldf(
+  "SELECT child, min(age) as age 
+  FROM my_df
+  GROUP BY child"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+What is the age of the older smoker?
+
+```{r}
+sqldf(
+  "SELECT max(age) as age 
+  FROM my_df
+  GROUP BY smoker
+  HAVING smoker = 'yes'
+  "
+)
+```
+
+## Subgroup summaries with `aggregate()`
+
+We can divide our subgroups further into more subgroups:
+
+```{r}
+sqldf(
+  "SELECT smoker, AVG(income) as income
+  FROM my_df
+  GROUP BY child, smoker
+  "
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+On average, do parents who smoke earn more than parents who don't smoke?
+
+```{r}
+sqldf(
+  "SELECT smoker, AVG(income) as income
+  FROM my_df
+  GROUP BY child, smoker
+  HAVING child = 'yes'
+  "
+)
+```
