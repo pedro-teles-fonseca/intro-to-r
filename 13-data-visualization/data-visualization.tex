@@ -2884,6 +2884,237 @@ A pie chart is a stacked bar chart with polar coordinates:
 
 \end{frame}
 
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels}{}
+
+We add labels to a graph with the \texttt{labs()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Fuel efficiency generally decreases with engine size"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-1}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-145-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels-2}{}
+
+The \texttt{labs()} function also allows us to to add a subtitio and/or
+a caption:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{title =} \StringTok{"Fuel efficiency generally decreases with engine size"}\NormalTok{,}
+    \DataTypeTok{subtitle =} \StringTok{"Two seaters (sports cars) are an exception because of their light weight"}\NormalTok{,}
+    \DataTypeTok{caption =} \StringTok{"Data from fueleconomy.gov"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-3}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-147-1} \end{center}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-4}{}
+
+\begin{itemize}
+\item
+  You can also use labs() to replace the axis and legend titles.
+\item
+  It's usually a good idea to replace short variable names with more
+  detailed descriptions, and to include the units.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels-5}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{x =} \StringTok{"Engine displacement (L)"}\NormalTok{,}
+    \DataTypeTok{y =} \StringTok{"Highway fuel economy (mpg)"}\NormalTok{,}
+    \DataTypeTok{colour =} \StringTok{"Car type"}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-6}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-149-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels-7}{}
+
+It's possible to use mathematical equations instead of text strings:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
+  \DataTypeTok{x =} \KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{),}
+  \DataTypeTok{y =} \KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{))}
+
+\KeywordTok{ggplot}\NormalTok{(df, }\KeywordTok{aes}\NormalTok{(x, y)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{x =} \KeywordTok{quote}\NormalTok{(}\KeywordTok{sum}\NormalTok{(x[i] }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{, i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, n)),}
+    \DataTypeTok{y =} \KeywordTok{quote}\NormalTok{(alpha }\OperatorTok{+}\StringTok{ }\NormalTok{beta }\OperatorTok{+}\StringTok{ }\KeywordTok{frac}\NormalTok{(delta, theta))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-8}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-151-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels-9}{}
+
+To learn about the mathematical syntax available see:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?plotmath}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile]{Themes}
+\protect\hypertarget{themes}{}
+
+\begin{itemize}
+\tightlist
+\item
+  The background of teh graphs can be costumized with a theme:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Themes}
+\protect\hypertarget{themes-1}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-154-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Themes}
+\protect\hypertarget{themes-2}{}
+
+\begin{itemize}
+\tightlist
+\item
+  ggplot2 includes eight themes by default, as shown in Figure 28.3.
+\item
+  Many more are included in add-on packages like \texttt{ggthemes} \#\#
+  Themes
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{themes.png}
+\caption{The eight themes built-in to ggplot2.}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]{Saving plots}
+\protect\hypertarget{saving-plots}{}
+
+\texttt{ggsave()} will save the most recent plot to the working
+directory. The name of the output file is provided as input to
+\texttt{ggsave()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"my-plot.pdf"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile]{Saving plots}
+\protect\hypertarget{saving-plots-1}{}
+
+You can save graphs in other locations by providing the path to
+\texttt{ggsave()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"outputs/my-plot.pdf"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile]{Saving plots}
+\protect\hypertarget{saving-plots-2}{}
+
+You can use the \texttt{plot} argument to save graphs that are assigned
+to an objects:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my_plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{()}
+
+\KeywordTok{ggsave}\NormalTok{(}\StringTok{"outputs/my-plot-v2.pdf"}\NormalTok{, }\DataTypeTok{plot =}\NormalTok{ my_plot)}
+\end{Highlighting}
+\end{Shaded}
+
+The default value of the \texttt{plot} argument is \texttt{last\_plot()}
+
+\end{frame}
+
 \begin{frame}{Bibliography}
 \protect\hypertarget{bibliography}{}
 
