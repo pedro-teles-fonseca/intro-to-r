@@ -1184,7 +1184,7 @@ ggplot(data = mpg) +
 
 ## Multiple geoms
 
-- We can have multiple geoms in the same graph.
+- We can add multiple geoms to the same graph.
 
 - For example, we can overlap points and lines.
 
@@ -1201,16 +1201,14 @@ ggplot(data = mpg) +
 ## Multiple geoms
 
 ```{r, eval = FALSE}
-p1 <- ggplot(data = mpg) +
+ggplot(data = mpg) +
   geom_smooth(aes(x = displ, y = hwy), se = FALSE) +
   geom_point(aes(x = displ, y = hwy))
               
-p2 <- ggplot(data = mpg) +
+ggplot(data = mpg) +
   geom_smooth(aes(x = displ, y = hwy, group = drv), 
               se = FALSE) +
   geom_point(aes(x = displ, y = hwy))
-              
-ggarrange(p1, p2, nrow = 1)
 ```
 
 ## Multiple geoms
@@ -1444,64 +1442,62 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ## Multiple geoms
 
-- You can use the same logic to specify different data for each layer. 
+- You can use the same logic to specify a different dataset for each layer. 
 
 ## Multiple geoms
 
-In this example:
-  
+```{r, eval = FALSE}
+subcompact <- subset(mpg, class == "subcompact")
+
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(data = subcompact, se = FALSE, 
+              method = "lm")
+```
+
 - The smooth line displays just a subset of the mpg dataset, the subcompact cars. 
 
 - The local data argument in geom_smooth() overrides the global data argument in `ggplot()` for that layer only.
 
-```{r, eval = FALSE}
-ggplot(data = mpg, aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(
-    data = subset(mpg, class == "subcompact"), 
-    se = FALSE
-  )
-```
-
 ## Multiple geoms
 
 ```{r, echo = FALSE, out.height="300px"}
+subcompact <- subset(mpg, class == "subcompact")
+
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
-  geom_smooth(
-    data = subset(mpg, class == "subcompact"), 
-    se = FALSE
-  )
+  geom_smooth(data = subcompact, se = FALSE, 
+              method = "lm")
 ```
 
 ## Multiple geoms
 
 ```{r, eval = FALSE}
+
+subcompact <- subset(mpg, class == "subcompact")
+two_seater <- subset(mpg, class == "2seater")
+
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
-  geom_smooth(
-    data = subset(mpg, class == "subcompact"), 
-    se = FALSE
-  ) +
-  geom_smooth(
-    data = subset(mpg, class == "2seater"), 
-    se = FALSE
-  )
+  geom_smooth(data = subcompact, se = FALSE,
+              method = "lm") +
+  geom_smooth(data = two_seater, se = FALSE,
+              method = "lm")
 ```
 
 ## Multiple geoms
 
 ```{r, echo = FALSE, out.height="200px", warning=FALSE}
+
+subcompact <- subset(mpg, class == "subcompact")
+two_seater <- subset(mpg, class == "2seater")
+
 ggplot(data = mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
-  geom_smooth(
-    data = subset(mpg, class == "subcompact"), 
-    se = FALSE
-  ) +
-  geom_smooth(
-    data = subset(mpg, class == "2seater"), 
-    se = FALSE
-  )
+  geom_smooth(data = subcompact, se = FALSE,
+              method = "lm") +
+  geom_smooth(data = two_seater, se = FALSE,
+              method = "lm")
 ```
 
 ## Multiple geoms
@@ -1511,7 +1507,6 @@ ggplot(data = subset(mpg, class != "2seater"),
        aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE)
-
 ```
 
 ## Multiple geoms
@@ -1521,31 +1516,30 @@ ggplot(data = subset(mpg, class != "2seater"),
        aes(x = displ, y = hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE)
+
 ```
 
 ## Multiple geoms
 
 ```{r, eval = FALSE}
-ggplot(data = subset(mpg, class != "2seater"), 
-       aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(
-    data = subset(mpg,
-                  class %in% c("suv", "subcompact")),
-    aes(linetype = class), se = FALSE)
+corvette <- subset(mpg, model == "corvette")
+not_corvette <- subset(mpg, model != "corvette")
+
+ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point(data = not_corvette) + 
+  geom_point(data = corvette,  color = "Red")
 
 ```
 
 ## Multiple geoms
 
 ```{r, echo = FALSE, out.height="300px", warning=FALSE}
-ggplot(data = subset(mpg, class != "2seater"), 
-       aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(
-    data = subset(mpg,
-                  class %in% c("suv", "subcompact")),
-    aes(linetype = class), se = FALSE)
+corvette <- subset(mpg, model == "corvette")
+not_corvette <- subset(mpg, model != "corvette")
+
+ggplot(mapping = aes(x = displ, y = hwy)) + 
+  geom_point(data = not_corvette) + 
+  geom_point(data = corvette,  color = "Red")
 ```
 
 ## The `diamonds` dataset
@@ -1557,8 +1551,6 @@ ggplot(data = subset(mpg, class != "2seater"),
 - The variables include price, carat, quality of the cut, color and clarity
 
 ## Bar charts
-
-Let's use a bar chart to display the number of diamonds for each quality of cut:
 
 ```{r}
 ggplot(data = diamonds) + 
@@ -1603,9 +1595,9 @@ ggplot(data = diamonds) +
 
 - You can generally use geoms and stats interchangeably. 
 
+- For example, you can recreate the previous plot using `stat_count()` instead of `geom_bar()`.
+ 
 ## Statistical transformations
-
-For example, you can recreate the previous plot using `stat_count()` instead of `geom_bar()`:
 
 ```{r}
 ggplot(data = diamonds) + 
@@ -1626,8 +1618,8 @@ This works because:
 
 What if we want a bar chart that plot data as is?
 
-  - We may have a table with column heights.
-  - In that case, we need to change the default statistical transformation
+  - We may have a column with column heights.
+  - In that case, we need to change the default statistical transformation.
   
 ```{r}
 tib <- tribble(
@@ -1751,7 +1743,7 @@ plt_3$data[[1]][, 1:5]
 
 ## Aesthetic of bar charts
 
-You can map the color aesthetic to the grouping variable:
+You can map the color aesthetic to a grouping variable:
 
 ```{r}
 ggplot(data = diamonds) + 
@@ -1790,7 +1782,7 @@ ggplot(data = diamonds) +
 
 - Each colored rectangle represents a combination of cut and clarity.
 
-- The stacking is performed automatically by the position adjustment specified in the `position` argumen of the geom function.
+- The stacking is performed automatically by the position adjustment specified in the `position` argument of the geom function.
 
 - The default value is `stack`.
 
@@ -1842,9 +1834,9 @@ Did you notice that the plot displays only 126 points, even though there are 234
 
 ## Position adjustments
 
-- Setting position = "jitter" adds a small amount of random noise to each point, spreading the points. 
+- Setting `position = "jitter"` adds a small amount of random noise to each point, spreading the points. 
 
-- While it makes your graph less accurate at small scales, it makes your graph more revealing at large scales.
+- While it makes your graph less accurate at small scales, it makes it more revealing at large scales.
 
 - ggplot2 comes with a shorthand for `geom_point(position = "jitter")`:
   - `geom_jitter()`.
@@ -1852,26 +1844,23 @@ Did you notice that the plot displays only 126 points, even though there are 234
 ## Position adjustments
 
 ```{r, eval = FALSE}
-p1 <- ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy),
-             position = "jitter")
-
-p2 <- ggplot(data = mpg) + 
+ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy))
 
-ggarrange(p1, p2, nrow = 1)
-
+ggplot(data = mpg) + 
+  geom_point(aes(x = displ, y = hwy),
+             position = "jitter")
 ```
 
 ## Position adjustments
 
 ```{r, echo = FALSE, fig.width=15}
 p1 <- ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy),
-             position = "jitter")
+  geom_point(aes(x = displ, y = hwy))
 
 p2 <- ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy))
+  geom_point(aes(x = displ, y = hwy),
+             position = "jitter")
 
 ggarrange(p1, p2, nrow = 1)
 
@@ -1880,15 +1869,13 @@ ggarrange(p1, p2, nrow = 1)
 ## Position adjustments
 
 ```{r, eval = FALSE}
-p1 <- ggplot(data = mpg, aes(x = displ, y = hwy)) + 
-  geom_point(position = "jitter") +
-  geom_smooth()
-
-p2 <- ggplot(data = mpg,  aes(x = displ, y = hwy)) + 
+ggplot(data = mpg,  aes(x = displ, y = hwy)) + 
   geom_point() +
   geom_smooth()
 
-ggarrange(p1, p2, nrow = 1)
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point(position = "jitter") +
+  geom_smooth()
 
 ```
 
@@ -1897,12 +1884,12 @@ ggarrange(p1, p2, nrow = 1)
 The confidence interval of the smoothed lines can also help:
 
 ```{r, echo = FALSE, fig.width=15}
-p1 <- ggplot(data = mpg, aes(x = displ, y = hwy)) + 
-  geom_point(position = "jitter") +
+p1 <- ggplot(data = mpg,  aes(x = displ, y = hwy)) + 
+  geom_point() +
   geom_smooth()
 
-p2 <- ggplot(data = mpg,  aes(x = displ, y = hwy)) + 
-  geom_point() +
+p2 <- ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point(position = "jitter") +
   geom_smooth()
 
 ggarrange(p1, p2, nrow = 1)
@@ -1919,16 +1906,15 @@ There are two optional arguments to jitter:
 ## Position adjustments
 
 ```{r, eval=FALSE}
-p1 <- ggplot(data = mpg, aes(x = cty, y = hwy)) +
+ggplot(data = mpg, aes(x = cty, y = hwy)) +
         geom_point()
 
-p2 <- ggplot(data = mpg, aes(x = cty, y = hwy)) +
+gplot(data = mpg, aes(x = cty, y = hwy)) +
         geom_jitter()
 
-p3 <- ggplot(data = mpg, aes(x = cty, y = hwy)) +
+ggplot(data = mpg, aes(x = cty, y = hwy)) +
   geom_jitter(height = 2, width = 2)
 
-ggarrange(p1, p2, p3, nrow = 1)
 ```
 
 ## Position adjustments
@@ -1949,9 +1935,15 @@ ggarrange(p1, p2, p3, nrow = 1)
 ## Boxplots
 
 ```{r}
+ggplot(data = mpg, aes(y = hwy)) + 
+  geom_boxplot()
+```
+
+## Boxplots
+
+```{r}
 ggplot(data = mpg, aes(x = class, y = hwy)) + 
   geom_boxplot()
-
 ```
 
 ## Coordinate systems 

@@ -1689,7 +1689,7 @@ instead of a variable name for example:
 
 \begin{itemize}
 \item
-  We can have multiple geoms in the same graph.
+  We can add multiple geoms to the same graph.
 \item
   For example, we can overlap points and lines.
 \item
@@ -1719,16 +1719,14 @@ instead of a variable name for example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
               
-\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{group =}\NormalTok{ drv), }
               \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
-              
-\KeywordTok{ggarrange}\NormalTok{(p1, p2, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1998,7 +1996,8 @@ We can also overlap geoms in grids:
 \begin{itemize}
 \tightlist
 \item
-  You can use the same logic to specify different data for each layer.
+  You can use the same logic to specify a different dataset for each
+  layer.
 \end{itemize}
 
 \end{frame}
@@ -2006,7 +2005,16 @@ We can also overlap geoms in grids:
 \begin{frame}[fragile]{Multiple geoms}
 \protect\hypertarget{multiple-geoms-27}{}
 
-In this example:
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{subcompact <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{==}\StringTok{ "subcompact"}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ subcompact, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }
+              \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \begin{itemize}
 \item
@@ -2016,17 +2024,6 @@ In this example:
   The local data argument in geom\_smooth() overrides the global data
   argument in \texttt{ggplot()} for that layer only.
 \end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}
-    \DataTypeTok{data =} \KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{==}\StringTok{ "subcompact"}\NormalTok{), }
-    \DataTypeTok{se =} \OtherTok{FALSE}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
 
 \end{frame}
 
@@ -2042,16 +2039,15 @@ In this example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{subcompact <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{==}\StringTok{ "subcompact"}\NormalTok{)}
+\NormalTok{two_seater <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{==}\StringTok{ "2seater"}\NormalTok{)}
+
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}
-    \DataTypeTok{data =} \KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{==}\StringTok{ "subcompact"}\NormalTok{), }
-    \DataTypeTok{se =} \OtherTok{FALSE}
-\NormalTok{  ) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}
-    \DataTypeTok{data =} \KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{==}\StringTok{ "2seater"}\NormalTok{), }
-    \DataTypeTok{se =} \OtherTok{FALSE}
-\NormalTok{  )}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ subcompact, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,}
+              \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ two_seater, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,}
+              \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2090,13 +2086,12 @@ In this example:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =} \KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{!=}\StringTok{ "2seater"}\NormalTok{), }
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}
-    \DataTypeTok{data =} \KeywordTok{subset}\NormalTok{(mpg,}
-\NormalTok{                  class }\OperatorTok{%in%}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"suv"}\NormalTok{, }\StringTok{"subcompact"}\NormalTok{)),}
-    \KeywordTok{aes}\NormalTok{(}\DataTypeTok{linetype =}\NormalTok{ class), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{corvette <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(mpg, model }\OperatorTok{==}\StringTok{ "corvette"}\NormalTok{)}
+\NormalTok{not_corvette <-}\StringTok{ }\KeywordTok{subset}\NormalTok{(mpg, model }\OperatorTok{!=}\StringTok{ "corvette"}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ not_corvette) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ corvette,  }\DataTypeTok{color =} \StringTok{"Red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2126,9 +2121,6 @@ In this example:
 
 \begin{frame}[fragile]{Bar charts}
 \protect\hypertarget{bar-charts}{}
-
-Let's use a bar chart to display the number of diamonds for each quality
-of cut:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2206,15 +2198,15 @@ of cut:
   the default statistical transformation.
 \item
   You can generally use geoms and stats interchangeably.
+\item
+  For example, you can recreate the previous plot using
+  \texttt{stat\_count()} instead of \texttt{geom\_bar()}.
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}[fragile]{Statistical transformations}
 \protect\hypertarget{statistical-transformations-5}{}
-
-For example, you can recreate the previous plot using
-\texttt{stat\_count()} instead of \texttt{geom\_bar()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2251,9 +2243,10 @@ What if we want a bar chart that plot data as is?
 \begin{itemize}
 \tightlist
 \item
-  We may have a table with column heights.
+  We may have a column with column heights.
 \item
-  In that case, we need to change the default statistical transformation
+  In that case, we need to change the default statistical
+  transformation.
 \end{itemize}
 
 \begin{Shaded}
@@ -2500,7 +2493,7 @@ Lets see the computed values:
 \begin{frame}[fragile]{Aesthetic of bar charts}
 \protect\hypertarget{aesthetic-of-bar-charts}{}
 
-You can map the color aesthetic to the grouping variable:
+You can map the color aesthetic to a grouping variable:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2572,7 +2565,7 @@ dimension to the plot:
   Each colored rectangle represents a combination of cut and clarity.
 \item
   The stacking is performed automatically by the position adjustment
-  specified in the \texttt{position} argumen of the geom function.
+  specified in the \texttt{position} argument of the geom function.
 \item
   The default value is \texttt{stack}.
 \end{itemize}
@@ -2660,11 +2653,11 @@ are 234 observations in the dataset?
 
 \begin{itemize}
 \item
-  Setting position = ``jitter'' adds a small amount of random noise to
-  each point, spreading the points.
+  Setting \texttt{position\ =\ "jitter"} adds a small amount of random
+  noise to each point, spreading the points.
 \item
-  While it makes your graph less accurate at small scales, it makes your
-  graph more revealing at large scales.
+  While it makes your graph less accurate at small scales, it makes it
+  more revealing at large scales.
 \item
   ggplot2 comes with a shorthand for
   \texttt{geom\_point(position\ =\ "jitter")}:
@@ -2683,14 +2676,12 @@ are 234 observations in the dataset?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
-             \DataTypeTok{position =} \StringTok{"jitter"}\NormalTok{)}
-
-\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 
-\KeywordTok{ggarrange}\NormalTok{(p1, p2, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
+             \DataTypeTok{position =} \StringTok{"jitter"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2708,15 +2699,13 @@ are 234 observations in the dataset?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{position =} \StringTok{"jitter"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
-
-\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg,  }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg,  }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
 
-\KeywordTok{ggarrange}\NormalTok{(p1, p2, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{position =} \StringTok{"jitter"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2751,16 +2740,14 @@ There are two optional arguments to jitter:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
 \StringTok{        }\KeywordTok{geom_point}\NormalTok{()}
 
-\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
+\KeywordTok{gplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
 \StringTok{        }\KeywordTok{geom_jitter}\NormalTok{()}
 
-\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{height =} \DecValTok{2}\NormalTok{, }\DataTypeTok{width =} \DecValTok{2}\NormalTok{)}
-
-\KeywordTok{ggarrange}\NormalTok{(p1, p2, p3, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2778,12 +2765,26 @@ There are two optional arguments to jitter:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ class, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-136-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Boxplots}
+\protect\hypertarget{boxplots-1}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ class, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-137-1} \end{center}
 
 \end{frame}
 
@@ -2800,7 +2801,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-137-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
 
 \end{frame}
 
@@ -2816,7 +2817,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
 
 \end{frame}
 
@@ -2831,7 +2832,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
 
 \end{frame}
 
@@ -2846,7 +2847,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
 
 \end{frame}
 
@@ -2861,7 +2862,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-142-1} \end{center}
 
 \end{frame}
 
