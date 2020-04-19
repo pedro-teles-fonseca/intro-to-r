@@ -342,12 +342,10 @@ Compare the next two plots. How are they similar?
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{left <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 
 \NormalTok{right <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
-
-\KeywordTok{ggarrange}\NormalTok{(left, right, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -719,6 +717,9 @@ Let's choose the first 7 shapes:
 \item
   Now let´s map continuous variables to these aesthetics and see how
   they behaves differently for categorial versus continuous variables.
+\item
+  The variable \texttt{cty} (city miles per gallon) is a continuous
+  variable.
 \end{itemize}
 
 \end{frame}
@@ -726,8 +727,7 @@ Let's choose the first 7 shapes:
 \begin{frame}[fragile]{Mapping continuous variables to aesthetics}
 \protect\hypertarget{mapping-continuous-variables-to-aesthetics-1}{}
 
-The variable \texttt{cty} (city miles per gallon) is a continuous
-variable. Let's map it to the \texttt{color} aesthetic:
+Let's map \texttt{cty} to the \texttt{color} aesthetic:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -790,7 +790,7 @@ Now let's map \texttt{cty} to the \texttt{alpha} aesthetic:
 \begin{frame}[fragile]{Mapping continuous variables to aesthetics}
 \protect\hypertarget{mapping-continuous-variables-to-aesthetics-7}{}
 
-And finally let's map \texttt{cty} to the \texttt{size} aesthetic:
+And finally let's map \texttt{cty} to the \texttt{shape} aesthetic:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -814,8 +814,8 @@ And finally let's map \texttt{cty} to the \texttt{size} aesthetic:
   Each level of a categorival variable is assgined to a different
   (discrete) color.
 \item
-  The values of continuous variables are mapped to a continuous color
-  scale, varying from light to dark.
+  The color of the points vary continuously from light to dark as a
+  function of the values of a continuous variables.
 \end{itemize}
 
 \textbf{Size} aestietic:
@@ -840,7 +840,7 @@ And finally let's map \texttt{cty} to the \texttt{size} aesthetic:
 \item
   A different shape is assigned to each level of a categorical value.
 \item
-  The shape aesthetic can not be mapped to continuous variables .
+  The shape aesthetic can not be mapped to continuous variables.
 \end{itemize}
 
 \end{frame}
@@ -867,17 +867,29 @@ the variable that is mapped to the \texttt{linetype} aesthetic:
 
 \end{frame}
 
+\begin{frame}{The \texttt{linetype} aesthetic}
+\protect\hypertarget{the-linetype-aesthetic-2}{}
+
+\begin{itemize}
+\tightlist
+\item
+  The linetype aesthetic automatically adds a legend.
+\item
+  The linetype aesthetic can not be mapped to continuous variables.
+\end{itemize}
+
+\end{frame}
+
 \begin{frame}[fragile]{The \texttt{group} aesthetic}
 \protect\hypertarget{the-group-aesthetic}{}
 
 \begin{itemize}
 \item
-  Many geoms, \texttt{like\ geom\_smooth()}, use a single geometric
-  object to display multiple rows of data.
+  The \texttt{group} aesthetic also draws a separate object for each
+  level of a discrete variable.
 \item
-  For these geoms, you can map the \texttt{group} aesthetic to a
-  categorical variable to draw multiple objects. ggplot2 will draw a
-  separate object for each level of the grouping variable.
+  The \texttt{group} aesthetic does not add a legend or any other
+  distinguishing features to the geoms.
 \end{itemize}
 
 \end{frame}
@@ -892,8 +904,6 @@ the variable that is mapped to the \texttt{linetype} aesthetic:
 
 \NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{group =}\NormalTok{ drv))}
-
-\KeywordTok{ggarrange}\NormalTok{(p1, p2, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -906,65 +916,47 @@ the variable that is mapped to the \texttt{linetype} aesthetic:
 
 \end{frame}
 
-\begin{frame}[fragile]{The \texttt{group} aesthetic}
-\protect\hypertarget{the-group-aesthetic-3}{}
-
-\begin{itemize}
-\item
-  In practice, ggplot2 will automatically group the data for these geoms
-  whenever you map an aesthetic to a discrete variable.
-\item
-  It is convenient to rely on this feature because the \texttt{group}
-  aesthetic by itself does not add a legend or distinguishing features
-  to the geoms.
-\item
-  Compare the three examples below:
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}[fragile]{\texttt{geom\_smooth()} with the \texttt{group}
-aesthetic}
-\protect\hypertarget{geom_smooth-with-the-group-aesthetic}{}
+\begin{frame}[fragile]{\texttt{group} vs \texttt{linetype}}
+\protect\hypertarget{group-vs-linetype}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{group =}\NormalTok{ drv))}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-32-1} \end{center}
-
-\end{frame}
-
-\begin{frame}[fragile]{\texttt{geom\_smooth()} with the
-\texttt{linetype} aesthetic}
-\protect\hypertarget{geom_smooth-with-the-linetype-aesthetic}{}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{linetype =}\NormalTok{ drv))}
 \end{Highlighting}
 \end{Shaded}
 
+\end{frame}
+
+\begin{frame}{\texttt{group} vs \texttt{linetype}}
+\protect\hypertarget{group-vs-linetype-1}{}
+
 \begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-33-1} \end{center}
 
 \end{frame}
 
-\begin{frame}[fragile]{\texttt{geom\_smooth()} with the \texttt{color}
-aesthetic}
-\protect\hypertarget{geom_smooth-with-the-color-aesthetic}{}
+\begin{frame}[fragile]{\texttt{group} vs \texttt{color}}
+\protect\hypertarget{group-vs-color}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{group =}\NormalTok{ drv))}
+
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-34-1} \end{center}
+\end{frame}
+
+\begin{frame}{\texttt{group} vs \texttt{color}}
+\protect\hypertarget{group-vs-color-1}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-35-1} \end{center}
 
 \end{frame}
 
@@ -997,7 +989,7 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-36-1} \end{center}
 
 \end{frame}
 
@@ -1012,7 +1004,7 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-36-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-37-1} \end{center}
 
 \end{frame}
 
@@ -1021,14 +1013,17 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
 
 \begin{itemize}
 \item
-  We can change the default aesthetic properties of the geom functions.
-\item
   To change a default aesthetic property, set the aesthetic by name as
   an argument of the geom function.
-\item
-  Names of colors should be indicated as character strings.
-\item
-  Size of points should be indicated in mm.
+
+  \begin{itemize}
+  \item
+    Names of colors should be indicated as character strings.
+  \item
+    Size of points should be indicated in mm.
+  \item
+    Shapes are identified by the numbers in figure 3.
+  \end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -1036,11 +1031,9 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-1}{}
 
-Shapes are identified by the numbers in figure 3.
-
 \begin{itemize}
 \item
-  There are some seeming duplicates (e.g.~0, 15, and 22 are all
+  There are some seeming duplicate shapes (e.g.~0, 15, and 22 are all
   squares).
 \item
   The difference comes from the interaction of the \texttt{colour} and
@@ -1052,10 +1045,10 @@ Shapes are identified by the numbers in figure 3.
     \texttt{colour} aesthetic
   \item
     The solid shapes (15--18) are filled with the colour
-    \texttt{aesthetic};
+    \texttt{aesthetic}
   \item
     The filled shapes (21--24) have a border set by the \texttt{colour}
-    aesthetic and are filled with the \texttt{fill} aesthetic.
+    aesthetic and are filled with the \texttt{fill} aesthetic
   \end{itemize}
 \end{itemize}
 
@@ -1079,7 +1072,7 @@ For example, we can make all of the points blue:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-3}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-38-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-39-1} \end{center}
 
 \end{frame}
 
@@ -1102,7 +1095,7 @@ Now let's change the size of the points:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-5}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-40-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-41-1} \end{center}
 
 \end{frame}
 
@@ -1126,7 +1119,7 @@ We can also change the default shape of the points:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-7}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-42-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-43-1} \end{center}
 
 \end{frame}
 
@@ -1138,7 +1131,7 @@ We can also change the default shape of the points:
   Shape 6 is a hollow shape, it interacts only with the \texttt{color}
   aesthetic.
 \item
-  If we want triangles filled with color, we must use shape 23, which
+  If we want triangles filled with color, we must use shape 24, which
   interacts both with the color and \texttt{fill} aesthetics:
 \end{itemize}
 
@@ -1149,7 +1142,7 @@ We can also change the default shape of the points:
     \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
     \DataTypeTok{color =} \StringTok{"blue"}\NormalTok{,}
     \DataTypeTok{size =} \DecValTok{5}\NormalTok{,}
-    \DataTypeTok{shape =} \DecValTok{23}\NormalTok{,}
+    \DataTypeTok{shape =} \DecValTok{24}\NormalTok{,}
     \DataTypeTok{fill =} \StringTok{"red"}
 \NormalTok{  )}
 \end{Highlighting}
@@ -1160,7 +1153,7 @@ We can also change the default shape of the points:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-9}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-44-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-45-1} \end{center}
 
 \end{frame}
 
@@ -1168,7 +1161,7 @@ We can also change the default shape of the points:
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-10}{}
 
 The \texttt{stroke} aesthetic changes the thickness of the border of the
-shapes:
+points:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1188,7 +1181,7 @@ shapes:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-11}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-46-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-47-1} \end{center}
 
 \end{frame}
 
@@ -1215,7 +1208,7 @@ You can also use colors like dark blue and light blue:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-13}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-48-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-49-1} \end{center}
 
 \end{frame}
 
@@ -1240,7 +1233,7 @@ You can also use colors like dark blue and light blue:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-15}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-50-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-51-1} \end{center}
 
 \end{frame}
 
@@ -1261,10 +1254,10 @@ You can also use colors like dark blue and light blue:
 
 \begin{itemize}
 \item
-  Alternatively, you can use RBG codes.
+  Alternatively, you can use RGB codes.
 \item
   The RGB model reproduces a broad array of colors by mixing together
-  red, green, and blue in different combinations.
+  red, green, and blue in different proportions.
 \item
   You can specify colors like in HTML/CSS, using the hexadecimal values
   (00 to FF) for red, green, and blue, concatenated into a string,
@@ -1288,34 +1281,8 @@ See:
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-18}{}
 
-We already saw that \texttt{geom\_smooth()} adds a smoothed line:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{left <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
-
-\NormalTok{right <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
-
-\KeywordTok{ggarrange}\NormalTok{(left, right, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Changing default aesthetic properties of geoms}
-\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-19}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-52-1} \end{center}
-
-\end{frame}
-
-\begin{frame}[fragile]{Changing default aesthetic properties of geoms}
-\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-20}{}
-
 We can change the default line type of geom functions like
-\texttt{geom\_smooth()}. These are the available line types:
+\texttt{geom\_smooth()}.
 
 \begin{figure}
 \centering
@@ -1326,25 +1293,50 @@ We can change the default line type of geom functions like
 \end{frame}
 
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
-\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-21}{}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-19}{}
 
 To change the default linetype, set it as an argument of the geom
 function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lefl <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 
-\NormalTok{center <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
     \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{)}
 
-\NormalTok{right <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
     \DataTypeTok{linetype =} \StringTok{"twodash"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\KeywordTok{ggarrange}\NormalTok{(left, center, right, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\end{frame}
+
+\begin{frame}{Changing default aesthetic properties of geoms}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-20}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-53-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Changing default aesthetic properties of geoms}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-21}{}
+
+We can also change the thickness of the lines:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy), }\DataTypeTok{size =} \DecValTok{2}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy), }\DataTypeTok{size =} \DecValTok{5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1353,27 +1345,26 @@ function:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-22}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-54-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-55-1} \end{center}
 
 \end{frame}
 
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-23}{}
 
-We can also change the thickness of the lines:
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{left <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
+              \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{)}
 
-\NormalTok{center <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy), }\DataTypeTok{size =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
+              \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{)}
 
-\NormalTok{right <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy), }\DataTypeTok{size =} \DecValTok{5}\NormalTok{)}
-
-\KeywordTok{ggarrange}\NormalTok{(left, center, right, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
+              \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{5}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1382,42 +1373,12 @@ We can also change the thickness of the lines:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-24}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-56-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-57-1} \end{center}
 
 \end{frame}
 
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-25}{}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{left <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
-              \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{)}
-
-\NormalTok{center <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
-              \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{)}
-
-\NormalTok{right <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
-              \DataTypeTok{linetype =} \StringTok{"dotted"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{5}\NormalTok{)}
-
-\KeywordTok{ggarrange}\NormalTok{(left, center, right, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Changing default aesthetic properties of geoms}
-\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-26}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-58-1} \end{center}
-
-\end{frame}
-
-\begin{frame}[fragile]{Changing default aesthetic properties of geoms}
-\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-27}{}
 
 \begin{itemize}
 \tightlist
@@ -1431,14 +1392,35 @@ We can also change the thickness of the lines:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{left <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 
-\NormalTok{right <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
     \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-\KeywordTok{ggarrange}\NormalTok{(left, right, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\end{frame}
+
+\begin{frame}{Changing default aesthetic properties of geoms}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-26}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-59-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Changing default aesthetic properties of geoms}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-27}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{linetype =}\NormalTok{ drv))}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{linetype =}\NormalTok{ drv),}
+    \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1447,7 +1429,7 @@ We can also change the thickness of the lines:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-28}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-60-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-61-1} \end{center}
 
 \end{frame}
 
@@ -1456,14 +1438,12 @@ We can also change the thickness of the lines:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{left <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{linetype =}\NormalTok{ drv))}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv))}
 
-\NormalTok{right <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{linetype =}\NormalTok{ drv),}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv),}
     \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
-
-\KeywordTok{ggarrange}\NormalTok{(left, right, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1472,60 +1452,103 @@ We can also change the thickness of the lines:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-30}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-62-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-63-1} \end{center}
 
 \end{frame}
 
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-31}{}
 
+\begin{itemize}
+\item
+  The default smoothing method of \texttt{geom\_smooth} can be changed.
+\item
+  The default method (\texttt{"auto"}) depends on the size of the
+  largest group.
+\item
+  For less than 1000 obsetvations the method is \texttt{"loess"} (a
+  local polynomial regression).
+\item
+  Admissable methods are: \texttt{"auto"}, \texttt{"lm"},
+  \texttt{"glm"}, \texttt{"gam"} and \texttt{"loess"}.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Changing default aesthetic properties of geoms}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-32}{}
+
+To add a linear regression line use \texttt{method\ =\ "lm"}:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{l <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv))}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 
-\NormalTok{r <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv),}
-    \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 
-\KeywordTok{ggarrange}\NormalTok{(l, r, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy), }\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \end{frame}
 
 \begin{frame}{Changing default aesthetic properties of geoms}
-\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-32}{}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-33}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-64-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-65-1} \end{center}
 
 \end{frame}
 
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
-\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-33}{}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-34}{}
 
 Legends can also be disabled:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{l <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{linetype =}\NormalTok{ drv),}
     \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
 
-\NormalTok{r <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv),}
-    \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
-
-\KeywordTok{ggarrange}\NormalTok{(l, r, }\DataTypeTok{nrow =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{linetype =}\NormalTok{ drv),}
+    \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{show.legend =} \OtherTok{FALSE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \end{frame}
 
 \begin{frame}{Changing default aesthetic properties of geoms}
-\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-34}{}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-35}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-66-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-67-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Changing default aesthetic properties of geoms}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-36}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv),}
+    \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv),}
+    \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{show.legend =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Changing default aesthetic properties of geoms}
+\protect\hypertarget{changing-default-aesthetic-properties-of-geoms-37}{}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-69-1} \end{center}
 
 \end{frame}
 
@@ -1541,8 +1564,7 @@ Legends can also be disabled:
   split your plot into \textbf{facets}, subplots that each display one
   subset of the data.
 \item
-  To facet your plot by a single variable, use
-  \textbf{\texttt{facet\_wrap()}}.
+  To facet your plot by a single variable, use \texttt{facet\_wrap()}.
 \item
   The first argument of \texttt{facet\_wrap()} should be
   \texttt{"\textasciitilde{}}" followed the name of a variable.
@@ -1566,7 +1588,7 @@ Legends can also be disabled:
 \begin{frame}{Facets}
 \protect\hypertarget{facets-2}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-68-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-71-1} \end{center}
 
 \end{frame}
 
@@ -1576,7 +1598,7 @@ Legends can also be disabled:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ cyl)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ cyl), }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{class, }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1586,7 +1608,7 @@ Legends can also be disabled:
 \begin{frame}{Facets}
 \protect\hypertarget{facets-4}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-70-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-73-1} \end{center}
 
 \end{frame}
 
@@ -1596,7 +1618,7 @@ Legends can also be disabled:
 \begin{itemize}
 \item
   To facet your plot on the combination of two variables, use
-  \textbf{\texttt{facet\_grid()}}.
+  \texttt{facet\_grid()}.
 \item
   The first argument of \texttt{facet\_grid()} should contain the two
   variable names separated by \texttt{"\textasciitilde{}"}.
@@ -1615,7 +1637,7 @@ Legends can also be disabled:
 \begin{frame}{Facets}
 \protect\hypertarget{facets-6}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-72-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-75-1} \end{center}
 
 \end{frame}
 
@@ -1638,7 +1660,7 @@ instead of a variable name for example:
 \begin{frame}{Facets}
 \protect\hypertarget{facets-8}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-74-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-77-1} \end{center}
 
 \end{frame}
 
@@ -1658,7 +1680,7 @@ instead of a variable name for example:
 \begin{frame}{Facets}
 \protect\hypertarget{facets-10}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-76-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-79-1} \end{center}
 
 \end{frame}
 
@@ -1688,7 +1710,7 @@ instead of a variable name for example:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-77-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-80-1} \end{center}
 
 \end{frame}
 
@@ -1715,7 +1737,7 @@ instead of a variable name for example:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-3}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-79-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-82-1} \end{center}
 
 \end{frame}
 
@@ -1763,7 +1785,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-6}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-82-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-85-1} \end{center}
 
 \end{frame}
 
@@ -1800,7 +1822,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-9}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-84-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-87-1} \end{center}
 
 \end{frame}
 
@@ -1821,7 +1843,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-11}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-86-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-89-1} \end{center}
 
 \end{frame}
 
@@ -1841,7 +1863,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-13}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-88-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-91-1} \end{center}
 
 \end{frame}
 
@@ -1862,7 +1884,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-15}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-90-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-93-1} \end{center}
 
 \end{frame}
 
@@ -1882,7 +1904,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-17}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-92-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-95-1} \end{center}
 
 \end{frame}
 
@@ -1902,7 +1924,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-19}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-94-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-97-1} \end{center}
 
 \end{frame}
 
@@ -1922,12 +1944,56 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-21}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-96-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-99-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Multiple geoms}
+\protect\hypertarget{multiple-geoms-22}{}
+
+We can also overlap geoms in grids:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{class, }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \end{frame}
 
 \begin{frame}{Multiple geoms}
-\protect\hypertarget{multiple-geoms-22}{}
+\protect\hypertarget{multiple-geoms-23}{}
+
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-101-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Multiple geoms}
+\protect\hypertarget{multiple-geoms-24}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\NormalTok{class, }\DataTypeTok{nrow =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Multiple geoms}
+\protect\hypertarget{multiple-geoms-25}{}
+
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-103-1} \end{center}
+
+\end{frame}
+
+\begin{frame}{Multiple geoms}
+\protect\hypertarget{multiple-geoms-26}{}
 
 \begin{itemize}
 \tightlist
@@ -1938,7 +2004,7 @@ These two chunks of code result in the same plot:
 \end{frame}
 
 \begin{frame}[fragile]{Multiple geoms}
-\protect\hypertarget{multiple-geoms-23}{}
+\protect\hypertarget{multiple-geoms-27}{}
 
 In this example:
 
@@ -1965,14 +2031,14 @@ In this example:
 \end{frame}
 
 \begin{frame}{Multiple geoms}
-\protect\hypertarget{multiple-geoms-24}{}
+\protect\hypertarget{multiple-geoms-28}{}
 
-\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-98-1} \end{center}
+\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-105-1} \end{center}
 
 \end{frame}
 
 \begin{frame}[fragile]{Multiple geoms}
-\protect\hypertarget{multiple-geoms-25}{}
+\protect\hypertarget{multiple-geoms-29}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1992,14 +2058,14 @@ In this example:
 \end{frame}
 
 \begin{frame}{Multiple geoms}
-\protect\hypertarget{multiple-geoms-26}{}
+\protect\hypertarget{multiple-geoms-30}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-100-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-107-1} \end{center}
 
 \end{frame}
 
 \begin{frame}[fragile]{Multiple geoms}
-\protect\hypertarget{multiple-geoms-27}{}
+\protect\hypertarget{multiple-geoms-31}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2013,14 +2079,14 @@ In this example:
 \end{frame}
 
 \begin{frame}{Multiple geoms}
-\protect\hypertarget{multiple-geoms-28}{}
+\protect\hypertarget{multiple-geoms-32}{}
 
-\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-102-1} \end{center}
+\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-109-1} \end{center}
 
 \end{frame}
 
 \begin{frame}[fragile]{Multiple geoms}
-\protect\hypertarget{multiple-geoms-29}{}
+\protect\hypertarget{multiple-geoms-33}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2037,9 +2103,9 @@ In this example:
 \end{frame}
 
 \begin{frame}{Multiple geoms}
-\protect\hypertarget{multiple-geoms-30}{}
+\protect\hypertarget{multiple-geoms-34}{}
 
-\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-104-1} \end{center}
+\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-111-1} \end{center}
 
 \end{frame}
 
@@ -2071,7 +2137,7 @@ of cut:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-105-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-112-1} \end{center}
 
 \end{frame}
 
@@ -2157,7 +2223,7 @@ For example, you can recreate the previous plot using
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-106-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-113-1} \end{center}
 
 \end{frame}
 
@@ -2216,7 +2282,7 @@ What if we want a bar chart that plot data as is?
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-108-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-115-1} \end{center}
 
 \end{frame}
 
@@ -2233,7 +2299,7 @@ The default stat of \texttt{stat\_identity()} is \texttt{point}, not
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-109-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-116-1} \end{center}
 
 \end{frame}
 
@@ -2261,7 +2327,7 @@ The default stat of \texttt{stat\_identity()} is \texttt{point}, not
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-110-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-117-1} \end{center}
 
 \end{frame}
 
@@ -2335,7 +2401,7 @@ Let´s map proportions, instead of counts, to the y axis:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-112-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-119-1} \end{center}
 
 What went wrong?
 
@@ -2403,7 +2469,7 @@ Lets see the computed values:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-114-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-121-1} \end{center}
 
 \end{frame}
 
@@ -2443,7 +2509,7 @@ You can map the color aesthetic to the grouping variable:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-116-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-123-1} \end{center}
 
 \end{frame}
 
@@ -2460,7 +2526,7 @@ We can also change the default \texttt{fill} color of
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-117-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-124-1} \end{center}
 
 \end{frame}
 
@@ -2477,7 +2543,7 @@ And disable the legend:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-118-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-125-1} \end{center}
 
 \end{frame}
 
@@ -2494,7 +2560,7 @@ dimension to the plot:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-119-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-126-1} \end{center}
 
 \end{frame}
 
@@ -2537,7 +2603,7 @@ dimension to the plot:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-120-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-127-1} \end{center}
 
 \end{frame}
 
@@ -2555,7 +2621,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-121-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-128-1} \end{center}
 
 \end{frame}
 
@@ -2564,7 +2630,7 @@ directly beside one another:
 
 Recall our first scatterplot:
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-122-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-129-1} \end{center}
 
 Did you notice that the plot displays only 126 points, even though there
 are 234 observations in the dataset?
@@ -2633,7 +2699,7 @@ are 234 observations in the dataset?
 \begin{frame}{Position adjustments}
 \protect\hypertarget{position-adjustments-8}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-124-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-131-1} \end{center}
 
 \end{frame}
 
@@ -2661,7 +2727,7 @@ are 234 observations in the dataset?
 
 The confidence interval of the smoothed lines can also help:
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-126-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-133-1} \end{center}
 
 \end{frame}
 
@@ -2703,7 +2769,7 @@ There are two optional arguments to jitter:
 \begin{frame}{Position adjustments}
 \protect\hypertarget{position-adjustments-13}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-128-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-135-1} \end{center}
 
 \end{frame}
 
@@ -2717,7 +2783,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-129-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-136-1} \end{center}
 
 \end{frame}
 
@@ -2734,7 +2800,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-130-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-137-1} \end{center}
 
 \end{frame}
 
@@ -2750,7 +2816,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-131-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
 
 \end{frame}
 
@@ -2765,7 +2831,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-132-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
 
 \end{frame}
 
@@ -2780,7 +2846,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-133-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
 
 \end{frame}
 
@@ -2795,7 +2861,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-134-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
 
 \end{frame}
 
