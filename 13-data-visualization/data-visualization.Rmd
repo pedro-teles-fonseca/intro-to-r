@@ -34,13 +34,13 @@ theme_update(
 
 - ggplot2 implements the grammar of graphics [@wickham2010layered], a coherent system for describing and building graphs.
 
-## Requirements 
+## Prerequisites 
+
+To access the datasets, help pages, and functions that we will use, load the ggplot2 package.
 
 ```{r, eval = FALSE}
 library(ggplot2)
 ```
-
-- To access the datasets, help pages, and functions that we will use, load the ggplot2 package.
 
 ## The `mpg` dataset 
 
@@ -367,14 +367,14 @@ Let's map `cty` to the `color` aesthetic:
 
 ```{r, eval = FALSE}
 ggplot(mpg) +
-  geom_point(aes(x = displ,y = hwy, colour = cty))
+  geom_point(aes(x = displ,y = hwy, color = cty))
 ```
 
 ## Mapping continuous variables to aesthetics
 
 ```{r, echo = FALSE, out.height = "200px"}
 ggplot(mpg) +
-  geom_point(aes(x = displ, y = hwy, colour = cty))
+  geom_point(aes(x = displ, y = hwy, color = cty))
 ```
 
 ## Mapping continuous variables to aesthetics
@@ -538,7 +538,7 @@ ggarrange(left, right, nrow = 1)
 
 ## Aesthetics and logical conditions
 
-Aesthetics can be mapped to logical expressions. For example, if you map an aesthetic to `displ < 5`:
+Aesthetics can be mapped to logical expressions. For example, if we map an aesthetic to `displ < 5`:
   
 - `ggplot()` creates a temporary variable with values equal to the result `displ < 5`.
 
@@ -551,7 +551,7 @@ Aesthetics can be mapped to logical expressions. For example, if you map an aest
 ```{r}
 ggplot(mpg) + 
   geom_point(aes(x = displ, y = hwy, 
-                 colour = displ < 5))
+                 color = displ < 5))
 ```
 
 ## Aesthetics and logical conditions
@@ -559,7 +559,7 @@ ggplot(mpg) +
 ```{r}
 ggplot(mpg) + 
   geom_point(aes(x = displ, y = hwy, 
-                 colour = class == "2seater"))
+                 color = class == "2seater"))
 ```
 
 ## Changing default aesthetic properties of geoms
@@ -576,13 +576,13 @@ ggplot(mpg) +
 
 - There are some seeming duplicate shapes (e.g. 0, 15, and 22 are all squares).
 
-- The difference comes from the interaction of the `colour` and `fill` aesthetics:
+- The difference comes from the interaction of the `color` and `fill` aesthetics:
   
-  - The hollow shapes (0–14) have a border determined by the `colour` aesthetic
+  - The hollow shapes (0–14) have a border determined by the `color` aesthetic
 
   - The solid shapes (15–18) are filled with the color `aesthetic`
 
-  - The filled shapes (21–24) have a border set by the `colour` aesthetic and are filled with the `fill` aesthetic
+  - The filled shapes (21–24) have a border set by the `color` aesthetic and are filled with the `fill` aesthetic
   
 ## Changing default aesthetic properties of geoms
 
@@ -693,7 +693,7 @@ ggplot(data = mpg) +
 
 ## Changing default aesthetic properties of geoms
 
-You can also use colors like dark blue and light blue:
+We can also use colors like dark blue and light blue:
 
 ```{r, eval=FALSE}
 ggplot(data = mpg) +
@@ -747,15 +747,15 @@ ggplot(data = mpg) +
 
 ## Changing default aesthetic properties of geoms
 
-- For a list of available colors and their names see: [http://sape.inf.usi.ch/quick-reference/ggplot2/colour](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
+- For a list of available colors and their names see: [http://sape.inf.usi.ch/quick-reference/ggplot2/color](http://sape.inf.usi.ch/quick-reference/ggplot2/color)
 
 ## Changing default aesthetic properties of geoms
 
-- Alternatively, you can use RGB codes.
+- Alternatively, we can use RGB codes.
 
 - The RGB model reproduces a broad array of colors by mixing together red, green, and blue in different proportions.
 
-- You can specify colors like in HTML/CSS, using the hexadecimal values (00 to FF) for red, green, and blue, concatenated into a string, prefixed with a "#". 
+- We can specify colors like in HTML/CSS, using the hexadecimal values (00 to FF) for red, green, and blue, concatenated into a string, prefixed with a "#". 
 
 - A pure red color this is represented with "#FF0000".
 
@@ -1042,9 +1042,9 @@ ggarrange(l, r, nrow = 1)
 
 - One way to add additional variables to a plot is with **aesthetics**. 
 
-- Another way, particularly useful for categorical variables, is to split your plot into **facets**, subplots that each display one subset of the data.
+- Another way, particularly useful for categorical variables, is to split the plot into **facets**, subplots that each display one subset of the data.
 
-- To facet your plot by a single variable, use `facet_wrap()`.
+- To facet a plot by a single variable, use `facet_wrap()`.
 
 - The first argument of `facet_wrap()` should be `"~`" followed the name of a variable.
 
@@ -1082,7 +1082,7 @@ ggplot(data = mpg) +
 
 ## Facets
 
-- To facet your plot on the combination of two variables, use `facet_grid()`.
+- To facet a plot on the combination of two variables, use `facet_grid()`.
 
 - The first argument of `facet_grid()` should contain the two variable names separated by `"~"`.
 
@@ -1102,7 +1102,7 @@ ggplot(data = mpg) +
 
 ## Facets
 
-If you prefer to not facet in the rows (or columns), use a `"."` instead of a variable name: 
+If we prefer to not facet in the rows (or columns), we can use a `"."` instead of a variable name: 
 
 ```{r, eval = FALSE}
 ggplot(data = mpg) + 
@@ -1136,7 +1136,7 @@ ggplot(data = mpg) +
 
 <!-- ## Facets -->
 
-<!-- What happens if you facet on a continuous variable, like `cty`? The continuous variable is converted to a categorical variable, and the plot contains a facet for each distinct value. -->
+<!-- What happens if we facet on a continuous variable, like `cty`? The continuous variable is converted to a categorical variable, and the plot contains a facet for each distinct value. -->
 
 <!-- ```{r, eval = FALSE} -->
 <!-- mpg_shorter_cty <- subset(mpg, cty %in% 9:13) -->
@@ -1256,7 +1256,7 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ## Multiple geoms
 
-- If you place mappings in a geom function, ggplot2 will treat them as local mappings for that layer. 
+- If we place mappings in a geom function, ggplot2 will treat them as local mappings for that layer. 
 
 - It will use these mappings to extend or overwrite the global mappings for that layer only. 
 
@@ -1434,7 +1434,7 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 
 ## Multiple geoms
 
-- You can use the same logic to specify a different dataset for each layer. 
+- We can use the same logic to specify a different dataset for each layer. 
 
 ## Multiple geoms
 
@@ -1591,7 +1591,7 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ## Labels 
 
-- You can also use labs() to replace the axis and legend titles.
+- We can also use labs() to replace the axis and legend titles.
 
 - It’s usually a good idea to replace short variable names with more detailed descriptions, and to include the units.
 
@@ -1599,12 +1599,12 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ```{r, eval = FALSE}
 ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(colour = class)) +
+  geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
   labs(
     x = "Engine displacement (L)",
     y = "Highway fuel economy (mpg)",
-    colour = "Car type"
+    color = "Car type"
   
 ```
 
@@ -1612,12 +1612,12 @@ ggplot(mpg, aes(displ, hwy)) +
 
 ```{r, echo = FALSE, out.height="200px"}
 ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(colour = class)) +
+  geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
   labs(
     x = "Engine displacement (L)",
     y = "Highway fuel economy (mpg)",
-    colour = "Car type"
+    color = "Car type"
   )
 ```
 
@@ -1690,9 +1690,9 @@ ggplot(data = diamonds) +
 
 ## Statistical transformations
 
-- Bar charts, histograms, and frequency polygons bin your data and then plot bin counts.
+- Bar charts, histograms, and frequency polygons bin the data and then plot bin counts.
 
-- Smoothers fit a model to your data and then plot predictions from the model.
+- Smoothers fit a model to the data and then plot predictions from the model.
 
 - Boxplots compute summary statistics and then display them on specially formatted box.
 
@@ -1706,15 +1706,15 @@ ggplot(data = diamonds) +
 
 ## Statistical transformations
 
-- You can learn which stat a geom function uses by inspecting the default value of the `stat` argument. 
+- We can learn which stat a geom function uses by inspecting the default value of the `stat` argument. 
 
 - For example, with `?geom_bar` we learn that the default `stat` of `geom_bar()` is `count`.
 
 - This means that `geom_bar()` uses `stat_count()` as the default statistical transformation.
 
-- You can generally use geoms and stats interchangeably. 
+- We can generally use geoms and stats interchangeably. 
 
-- For example, you can recreate the previous plot using `stat_count()` instead of `geom_bar()`.
+- For example, we can recreate the previous plot using `stat_count()` instead of `geom_bar()`.
  
 ## Statistical transformations
 
@@ -1862,7 +1862,7 @@ plt_3$data[[1]][, 1:5]
 
 ## Aesthetics of bar charts
 
-You can map the color aesthetic to a grouping variable:
+We can map the color aesthetic to a grouping variable:
 
 ```{r}
 ggplot(data = diamonds) + 
@@ -1962,7 +1962,7 @@ ggplot(data = diamonds) +
 
 <!-- - Setting `position = "jitter"` adds a small amount of random noise to each point, spreading the points.  -->
 
-<!-- - While it makes your graph less accurate at small scales, it makes it more revealing at large scales. -->
+<!-- - While it makes The graph less accurate at small scales, it makes it more revealing at large scales. -->
 
 <!-- - ggplot2 comes with a shorthand for `geom_point(position = "jitter")`: -->
 <!--   - `geom_jitter()`. -->
@@ -2204,7 +2204,7 @@ ggsave("my-plot.pdf")
 
 ## Saving plots
 
-You can save graphs in other locations by providing the path to `ggsave()`: 
+We can save graphs in other locations by providing the path to `ggsave()`: 
 
 ```{r, eval = FALSE}
 ggplot(mpg, aes(displ, hwy)) +
@@ -2216,7 +2216,7 @@ ggsave("outputs/my-plot.pdf")
 
 ## Saving plots
 
-You can use the `plot` argument of `ggsave()` to save any graph that is assigned to an objects: 
+We can use the `plot` argument of `ggsave()` to save any graph that is assigned to an objects: 
 
 ```{r, eval=FALSE}
 my_plot <- ggplot(mpg, aes(displ, hwy)) +

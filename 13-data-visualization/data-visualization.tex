@@ -143,7 +143,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Data Visualization with ggplot2}
 \author{Pedro Fonseca}
-\date{20 Abril 2020}
+\date{21 Abril 2020}
 
 \begin{document}
 \frame{\titlepage}
@@ -171,21 +171,17 @@
 
 \end{frame}
 
-\begin{frame}[fragile]{Requirements}
-\protect\hypertarget{requirements}{}
+\begin{frame}[fragile]{Prerequisites}
+\protect\hypertarget{prerequisites}{}
+
+To access the datasets, help pages, and functions that we will use, load
+the ggplot2 package.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{library}\NormalTok{(ggplot2)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{itemize}
-\tightlist
-\item
-  To access the datasets, help pages, and functions that we will use,
-  load the ggplot2 package.
-\end{itemize}
 
 \end{frame}
 
@@ -730,7 +726,7 @@ Let's map \texttt{cty} to the \texttt{color} aesthetic:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(mpg) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ,}\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{colour =}\NormalTok{ cty))}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ,}\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ cty))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -962,7 +958,7 @@ the variable that is mapped to the \texttt{linetype} aesthetic:
 \begin{frame}[fragile]{Aesthetics and logical conditions}
 \protect\hypertarget{aesthetics-and-logical-conditions}{}
 
-Aesthetics can be mapped to logical expressions. For example, if you map
+Aesthetics can be mapped to logical expressions. For example, if we map
 an aesthetic to \texttt{displ\ \textless{}\ 5}:
 
 \begin{itemize}
@@ -984,7 +980,7 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }
-                 \DataTypeTok{colour =}\NormalTok{ displ }\OperatorTok{<}\StringTok{ }\DecValTok{5}\NormalTok{))}
+                 \DataTypeTok{color =}\NormalTok{ displ }\OperatorTok{<}\StringTok{ }\DecValTok{5}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -999,7 +995,7 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }
-                 \DataTypeTok{colour =}\NormalTok{ class }\OperatorTok{==}\StringTok{ "2seater"}\NormalTok{))}
+                 \DataTypeTok{color =}\NormalTok{ class }\OperatorTok{==}\StringTok{ "2seater"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1035,18 +1031,18 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
   There are some seeming duplicate shapes (e.g.~0, 15, and 22 are all
   squares).
 \item
-  The difference comes from the interaction of the \texttt{colour} and
+  The difference comes from the interaction of the \texttt{color} and
   \texttt{fill} aesthetics:
 
   \begin{itemize}
   \item
     The hollow shapes (0--14) have a border determined by the
-    \texttt{colour} aesthetic
+    \texttt{color} aesthetic
   \item
     The solid shapes (15--18) are filled with the color
     \texttt{aesthetic}
   \item
-    The filled shapes (21--24) have a border set by the \texttt{colour}
+    The filled shapes (21--24) have a border set by the \texttt{color}
     aesthetic and are filled with the \texttt{fill} aesthetic
   \end{itemize}
 \end{itemize}
@@ -1187,7 +1183,7 @@ points:
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-12}{}
 
-You can also use colors like dark blue and light blue:
+We can also use colors like dark blue and light blue:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1243,7 +1239,7 @@ You can also use colors like dark blue and light blue:
 \tightlist
 \item
   For a list of available colors and their names see:
-  \url{http://sape.inf.usi.ch/quick-reference/ggplot2/colour}
+  \url{http://sape.inf.usi.ch/quick-reference/ggplot2/color}
 \end{itemize}
 
 \end{frame}
@@ -1253,12 +1249,12 @@ You can also use colors like dark blue and light blue:
 
 \begin{itemize}
 \item
-  Alternatively, you can use RGB codes.
+  Alternatively, we can use RGB codes.
 \item
   The RGB model reproduces a broad array of colors by mixing together
   red, green, and blue in different proportions.
 \item
-  You can specify colors like in HTML/CSS, using the hexadecimal values
+  We can specify colors like in HTML/CSS, using the hexadecimal values
   (00 to FF) for red, green, and blue, concatenated into a string,
   prefixed with a ``\#''.
 \item
@@ -1557,10 +1553,10 @@ Legends can also be disabled:
   \textbf{aesthetics}.
 \item
   Another way, particularly useful for categorical variables, is to
-  split your plot into \textbf{facets}, subplots that each display one
+  split the plot into \textbf{facets}, subplots that each display one
   subset of the data.
 \item
-  To facet your plot by a single variable, use \texttt{facet\_wrap()}.
+  To facet a plot by a single variable, use \texttt{facet\_wrap()}.
 \item
   The first argument of \texttt{facet\_wrap()} should be
   \texttt{"\textasciitilde{}}" followed the name of a variable.
@@ -1613,7 +1609,7 @@ Legends can also be disabled:
 
 \begin{itemize}
 \item
-  To facet your plot on the combination of two variables, use
+  To facet a plot on the combination of two variables, use
   \texttt{facet\_grid()}.
 \item
   The first argument of \texttt{facet\_grid()} should contain the two
@@ -1640,8 +1636,8 @@ Legends can also be disabled:
 \begin{frame}[fragile]{Facets}
 \protect\hypertarget{facets-7}{}
 
-If you prefer to not facet in the rows (or columns), use a \texttt{"."}
-instead of a variable name:
+If we prefer to not facet in the rows (or columns), we can use a
+\texttt{"."} instead of a variable name:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1788,7 +1784,7 @@ These two chunks of code result in the same plot:
 
 \begin{itemize}
 \item
-  If you place mappings in a geom function, ggplot2 will treat them as
+  If we place mappings in a geom function, ggplot2 will treat them as
   local mappings for that layer.
 \item
   It will use these mappings to extend or overwrite the global mappings
@@ -1992,7 +1988,7 @@ We can also overlap geoms in grids:
 \begin{itemize}
 \tightlist
 \item
-  You can use the same logic to specify a different dataset for each
+  We can use the same logic to specify a different dataset for each
   layer.
 \end{itemize}
 
@@ -2159,7 +2155,7 @@ caption:
 
 \begin{itemize}
 \item
-  You can also use labs() to replace the axis and legend titles.
+  We can also use labs() to replace the axis and legend titles.
 \item
   It's usually a good idea to replace short variable names with more
   detailed descriptions, and to include the units.
@@ -2173,12 +2169,12 @@ caption:
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{labs}\NormalTok{(}
     \DataTypeTok{x =} \StringTok{"Engine displacement (L)"}\NormalTok{,}
     \DataTypeTok{y =} \StringTok{"Highway fuel economy (mpg)"}\NormalTok{,}
-    \DataTypeTok{colour =} \StringTok{"Car type"}
+    \DataTypeTok{color =} \StringTok{"Car type"}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2286,10 +2282,10 @@ To learn more about the mathematical syntax available see:
 
 \begin{itemize}
 \item
-  Bar charts, histograms, and frequency polygons bin your data and then
+  Bar charts, histograms, and frequency polygons bin the data and then
   plot bin counts.
 \item
-  Smoothers fit a model to your data and then plot predictions from the
+  Smoothers fit a model to the data and then plot predictions from the
   model.
 \item
   Boxplots compute summary statistics and then display them on specially
@@ -2317,8 +2313,8 @@ To learn more about the mathematical syntax available see:
 
 \begin{itemize}
 \item
-  You can learn which stat a geom function uses by inspecting the
-  default value of the \texttt{stat} argument.
+  We can learn which stat a geom function uses by inspecting the default
+  value of the \texttt{stat} argument.
 \item
   For example, with \texttt{?geom\_bar} we learn that the default
   \texttt{stat} of \texttt{geom\_bar()} is \texttt{count}.
@@ -2326,9 +2322,9 @@ To learn more about the mathematical syntax available see:
   This means that \texttt{geom\_bar()} uses \texttt{stat\_count()} as
   the default statistical transformation.
 \item
-  You can generally use geoms and stats interchangeably.
+  We can generally use geoms and stats interchangeably.
 \item
-  For example, you can recreate the previous plot using
+  For example, we can recreate the previous plot using
   \texttt{stat\_count()} instead of \texttt{geom\_bar()}.
 \end{itemize}
 
@@ -2622,7 +2618,7 @@ Lets see the computed values:
 \begin{frame}[fragile]{Aesthetics of bar charts}
 \protect\hypertarget{aesthetics-of-bar-charts}{}
 
-You can map the color aesthetic to a grouping variable:
+We can map the color aesthetic to a grouping variable:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2948,7 +2944,7 @@ Let's build a scatterplot and save it on the working directory:
 \begin{frame}[fragile]{Saving plots}
 \protect\hypertarget{saving-plots-1}{}
 
-You can save graphs in other locations by providing the path to
+We can save graphs in other locations by providing the path to
 \texttt{ggsave()}:
 
 \begin{Shaded}
@@ -2965,7 +2961,7 @@ You can save graphs in other locations by providing the path to
 \begin{frame}[fragile]{Saving plots}
 \protect\hypertarget{saving-plots-2}{}
 
-You can use the \texttt{plot} argument of \texttt{ggsave()} to save any
+We can use the \texttt{plot} argument of \texttt{ggsave()} to save any
 graph that is assigned to an objects:
 
 \begin{Shaded}
