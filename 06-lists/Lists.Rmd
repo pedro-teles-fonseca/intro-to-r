@@ -27,7 +27,7 @@ str(mat_char)
 
 ## Preliminars
 
-![The hierarchy of R’s vector types](vec){width=250px}
+![The hierarchy of R’s vector types](figures/vec){width=250px}
 
 ## Why do we need lists?
 

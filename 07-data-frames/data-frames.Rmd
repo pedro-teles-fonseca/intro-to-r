@@ -57,7 +57,7 @@ In a typical dataset:
 - Columns represent variables
 
   
-![A retangular dataset](dataset){width=200px}
+![A retangular dataset](figures/dataset){width=200px}
 
 ## What is a data frame?
 

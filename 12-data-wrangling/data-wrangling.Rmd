@@ -6,7 +6,7 @@ author: "Pedro Fonseca"
 output:
   beamer_presentation:
     includes:
-      in_header: mystyle.tex
+      in_header: preamble.tex
 ---
 
 ```{r setup, include=FALSE}
@@ -768,7 +768,7 @@ merge(x = Sales, y = Clients,
 
 ## Joining tables
 
-![Join operations with `Merge()`](joins.jpg){width=400px}
+![Join operations with `Merge()`](figures/joins.jpg){width=400px}
 
 ## Joining tables
 

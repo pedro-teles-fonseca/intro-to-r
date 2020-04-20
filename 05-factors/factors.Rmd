@@ -42,7 +42,7 @@ Examples:
 
 ## Categorical variables
 
-![Dataset with categorical variables](dataset.png)
+![Dataset with categorical variables](figures/dataset.png)
 
 ## Creating a factor
 

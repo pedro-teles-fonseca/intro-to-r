@@ -7,9 +7,7 @@ bibliography: references.bib
 nocite: |
   @wichkam2016r, @wickham2010layered
 urlcolor: blue
-output: 
-  beamer_presentation:
-    keep_tex: false
+output: beamer_presentation
 
 ---
 ```{r setup, include=FALSE}
