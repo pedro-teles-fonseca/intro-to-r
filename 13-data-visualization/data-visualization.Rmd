@@ -8,7 +8,6 @@ bibliography: references.bib
 nocite: |
   @wichkam2016r, @wickham2010layered
 output: beamer_presentation
-
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, out.height="150px", fig.align = 'center', message = FALSE, cache = TRUE)
@@ -18,10 +17,10 @@ library(tidyverse)
 
 theme_update(
   legend.key.size = unit(3, "line"),        # legend symbols size
-  legend.title = element_text(size = 22),   # legend labels
-  legend.text = element_text(size = 20),    # legend text
-  axis.title = element_text(size = 22),     # axis labels
-  axis.text = element_text(size = 20),      # tick labels
+  legend.title = element_text(size = 20),   # legend labels
+  legend.text = element_text(size = 18),    # legend text
+  axis.title = element_text(size = 20),     # axis labels
+  axis.text = element_text(size = 18),      # tick labels
   title = element_text(size = 22)           # title
 )
 ```
@@ -95,7 +94,7 @@ ggplot(data = <DATA>) +
 
 - The first argument of `ggplot()` is a dataset
 
-- You complete your graph by adding layers to `ggplot()`
+- We complete the graph by adding layers to `ggplot()`
 
 - `geom_point()` adds a layer of points, creating scatterplot.
 
@@ -122,22 +121,19 @@ ggplot(data = <DATA>) +
 
 - Scatterplots break the trend: they use the **point** geom. 
 
-- In ggplot2, you add geoms to a plot with **geom functions**.
-
-- Different geom functions add different geoms to the plot.
+- In ggplot2, we add geoms to a plot with **geom functions**.
 
 ## Geometrical objects 
 
 Compare the next two plots. How are they similar?
   
 ```{r, eval = FALSE}
-left <- ggplot(data = mpg) + 
+ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy))
 
-right <- ggplot(data = mpg) + 
+ggplot(data = mpg) + 
   geom_smooth(mapping = aes(x = displ, y = hwy))
 ```
-
 
 ## Geometrical objects 
 
@@ -180,14 +176,14 @@ But they are not identical:
 
 - **Aesthetics** include things like the size, shape, and color of the points in a scatterplot.
 
-- `aes()` builds **aesthetic mappings** that define how variables in the dataset are mapped to aesthetics of the geoms. 
+- `aes()` builds **aesthetic mappings** that define how the variables in the dataset are mapped to aesthetics of the geoms. 
 
 - To map an aesthetic to a variable, associate the name of the aesthetic to the name of the variable inside `aes()`.
 
 - Every geom function needs an aesthetic mapping, but not every aesthetic works with every geom, for example:
   
-  - You can set the shape of a point, but not of a line. 
-  - You can set the linetype of a line, but not of a point.
+  - We can set the shape of a point, but not of a line. 
+  - We can set the linetype of a line, but not of a point.
 
 ## My first `ggplot()` revisited
 
@@ -472,7 +468,7 @@ ggplot(data = mpg) +
 
 - The `group` aesthetic also draws a separate object for each level of a discrete variable.
 
-- The `group` aesthetic does not add a legend or any other distinguishing features to the geoms.
+- The `group` aesthetic does not add a legend or any other distinguishing feature.
 
 ## The `group` aesthetic 
 
@@ -548,7 +544,7 @@ Aesthetics can be mapped to logical expressions. For example, if you map an aest
 
 - The result of `displ < 5` is a logical variable.
 
-- `ggplot()` then maps aesthetics to the temporary variable.
+- `ggplot()` then maps the aesthetic to the temporary variable.
 
 ## Aesthetics and logical conditions
 
@@ -775,8 +771,6 @@ We can change the default line type of geom functions like `geom_smooth()`.
 ![Built in line types](figures/lty.png){width=250px}
 
 ## Changing default aesthetic properties of geoms
-
-To change the default linetype, set it as an argument of the geom function:
 
 ```{r, eval = FALSE}
 ggplot(data = mpg) + 
@@ -1108,7 +1102,7 @@ ggplot(data = mpg) +
 
 ## Facets
 
-If you prefer to not facet in the rows (or columns), use a `"."` instead of a variable name for example: 
+If you prefer to not facet in the rows (or columns), use a `"."` instead of a variable name: 
 
 ```{r, eval = FALSE}
 ggplot(data = mpg) + 
@@ -1453,7 +1447,7 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
               method = "lm")
 ```
 
-- The smooth line displays just a subset of the mpg dataset, the subcompact cars. 
+- The straight line displays just a subset of the mpg dataset, the subcompact cars. 
 
 - The local data argument in geom_smooth() overrides the global data argument in `ggplot()` for that layer only.
 
@@ -1501,20 +1495,23 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 ## Multiple geoms
 
 ```{r, eval = FALSE}
-ggplot(data = subset(mpg, class != "2seater"), 
-       aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE)
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+       geom_point(aes(color = class)) +
+       geom_smooth(
+         data = subset(mpg, class != "2seater"),
+         se = FALSE,
+         method = "lm")
 ```
 
 ## Multiple geoms
 
 ```{r, echo = FALSE, out.height="300px", warning=FALSE}
-ggplot(data = subset(mpg, class != "2seater"), 
-       aes(x = displ, y = hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE)
-
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+       geom_point(aes(color = class)) +
+       geom_smooth(
+         data = subset(mpg, class != "2seater"),
+         se = FALSE,
+         method = "lm")
 ```
 
 ## Multiple geoms
@@ -1538,6 +1535,130 @@ not_corvette <- subset(mpg, model != "corvette")
 ggplot(mapping = aes(x = displ, y = hwy)) + 
   geom_point(data = not_corvette) + 
   geom_point(data = corvette,  color = "Red")
+```
+
+## Labels 
+
+We can add labels to a graph with the `labs()` function:
+
+```{r, eval = FALSE}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Efficiency decreases with engine size")
+
+```
+
+## Labels 
+
+```{r, echo = FALSE, out.height="200px"}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Efficiency decreases with engine size"
+    )
+```
+
+## Labels 
+
+The `labs()` function can also be used to add a subtitle and/or a caption:
+
+```{r, eval = FALSE}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Efficiency decreases with engine size",
+    subtitle = "Two-seaters are an exception",
+    caption = "Data from fueleconomy.gov"
+  )
+```
+
+## Labels 
+
+```{r, echo = FALSE, out.height="200px"}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    title = "Efficiency decreases with engine size",
+    subtitle = "Two-seaters are an exception",
+    caption = "Data from fueleconomy.gov"
+  )
+```
+
+## Labels 
+
+- You can also use labs() to replace the axis and legend titles.
+
+- It’s usually a good idea to replace short variable names with more detailed descriptions, and to include the units.
+
+## Labels 
+
+```{r, eval = FALSE}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    x = "Engine displacement (L)",
+    y = "Highway fuel economy (mpg)",
+    colour = "Car type"
+  
+```
+
+## Labels 
+
+```{r, echo = FALSE, out.height="200px"}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(aes(colour = class)) +
+  geom_smooth(se = FALSE) +
+  labs(
+    x = "Engine displacement (L)",
+    y = "Highway fuel economy (mpg)",
+    colour = "Car type"
+  )
+```
+
+## Labels 
+
+It’s possible to use mathematical equations instead of text strings:
+
+```{r, eval = FALSE}
+df <- tibble(
+  x = runif(10),
+  y = runif(10))
+
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(
+    x = quote(sum(x[i] ^ 2, i == 1, n)),
+    y = quote(alpha + beta + frac(delta, theta))
+  )
+```
+
+## Labels 
+
+```{r, echo = FALSE, out.height="200px"}
+df <- tibble(
+  x = runif(10),
+  y = runif(10))
+
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(
+    x = quote(sum(x[i] ^ 2, i == 1, n)),
+    y = quote(alpha + beta + frac(delta, theta))
+  )
+```
+
+## Labels 
+
+To learn more about the mathematical syntax available see:
+
+```{r}
+?plotmath
 ```
 
 ## The `diamonds` dataset
@@ -1739,7 +1860,7 @@ plt_3 <- ggplot_build(plt_3)
 plt_3$data[[1]][, 1:5]
 ```
 
-## Aesthetic of bar charts
+## Aesthetics of bar charts
 
 You can map the color aesthetic to a grouping variable:
 
@@ -1748,16 +1869,23 @@ ggplot(data = diamonds) +
   geom_bar(aes(x = cut, color = cut))
 ```
 
-## Aesthetic of bar charts
+## Aesthetics of bar charts
 
 We can also change the default `fill` color of `geom_bar()`:
+
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(aes(x = cut), fill = "lightblue")
+```
+
+## Aesthetics of bar charts
 
 ```{r}
 ggplot(data = diamonds) + 
   geom_bar(aes(x = cut, color = cut), fill = "white")
 ```
 
-## Aesthetic of bar charts
+## Aesthetics of bar charts
 
 And disable the legend:
 
@@ -1809,126 +1937,126 @@ ggplot(data = diamonds) +
            position = "dodge")
 ```
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-Recall our first scatterplot:
+<!-- Recall our first scatterplot: -->
 
-```{r, echo = FALSE}
-ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy))
-```
+<!-- ```{r, echo = FALSE} -->
+<!-- ggplot(data = mpg) +  -->
+<!--   geom_point(aes(x = displ, y = hwy)) -->
+<!-- ``` -->
 
-Did you notice that the plot displays only 126 points, even though there are 234 observations in the dataset?
+<!-- Did you notice that the plot displays only 126 points, even though there are 234 observations in the dataset? -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-- The values of `hwy` and `displ` are rounded, and many points overlap each other.
+<!-- - The values of `hwy` and `displ` are rounded, and many points overlap each other. -->
 
-- This problem is known as overplotting.
+<!-- - This problem is known as overplotting. -->
 
-- This makes it hard to see where the mass of the data is. 
+<!-- - This makes it hard to see where the mass of the data is.  -->
 
-- Are the data points spread equally throughout the graph, or is there one special combination of hwy and displ that contains 109 values?
+<!-- - Are the data points spread equally throughout the graph, or is there one special combination of hwy and displ that contains 109 values? -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-- Setting `position = "jitter"` adds a small amount of random noise to each point, spreading the points. 
+<!-- - Setting `position = "jitter"` adds a small amount of random noise to each point, spreading the points.  -->
 
-- While it makes your graph less accurate at small scales, it makes it more revealing at large scales.
+<!-- - While it makes your graph less accurate at small scales, it makes it more revealing at large scales. -->
 
-- ggplot2 comes with a shorthand for `geom_point(position = "jitter")`:
-  - `geom_jitter()`.
+<!-- - ggplot2 comes with a shorthand for `geom_point(position = "jitter")`: -->
+<!--   - `geom_jitter()`. -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-```{r, eval = FALSE}
-ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy))
+<!-- ```{r, eval = FALSE} -->
+<!-- ggplot(data = mpg) +  -->
+<!--   geom_point(aes(x = displ, y = hwy)) -->
 
-ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy),
-             position = "jitter")
-```
+<!-- ggplot(data = mpg) +  -->
+<!--   geom_point(aes(x = displ, y = hwy), -->
+<!--              position = "jitter") -->
+<!-- ``` -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-```{r, echo = FALSE, fig.width=15}
-p1 <- ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy))
+<!-- ```{r, echo = FALSE, fig.width=15} -->
+<!-- p1 <- ggplot(data = mpg) +  -->
+<!--   geom_point(aes(x = displ, y = hwy)) -->
 
-p2 <- ggplot(data = mpg) + 
-  geom_point(aes(x = displ, y = hwy),
-             position = "jitter")
+<!-- p2 <- ggplot(data = mpg) +  -->
+<!--   geom_point(aes(x = displ, y = hwy), -->
+<!--              position = "jitter") -->
 
-ggarrange(p1, p2, nrow = 1)
+<!-- ggarrange(p1, p2, nrow = 1) -->
 
-```
+<!-- ``` -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-```{r, eval = FALSE}
-ggplot(data = mpg,  aes(x = displ, y = hwy)) + 
-  geom_point() +
-  geom_smooth()
+<!-- ```{r, eval = FALSE} -->
+<!-- ggplot(data = mpg,  aes(x = displ, y = hwy)) +  -->
+<!--   geom_point() + -->
+<!--   geom_smooth() -->
 
-ggplot(data = mpg, aes(x = displ, y = hwy)) + 
-  geom_point(position = "jitter") +
-  geom_smooth()
+<!-- ggplot(data = mpg, aes(x = displ, y = hwy)) +  -->
+<!--   geom_point(position = "jitter") + -->
+<!--   geom_smooth() -->
 
-```
+<!-- ``` -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-The confidence interval of the smoothed lines can also help:
+<!-- The confidence interval of the smoothed lines can also help: -->
 
-```{r, echo = FALSE, fig.width=15}
-p1 <- ggplot(data = mpg,  aes(x = displ, y = hwy)) + 
-  geom_point() +
-  geom_smooth()
+<!-- ```{r, echo = FALSE, fig.width=15} -->
+<!-- p1 <- ggplot(data = mpg,  aes(x = displ, y = hwy)) +  -->
+<!--   geom_point() + -->
+<!--   geom_smooth() -->
 
-p2 <- ggplot(data = mpg, aes(x = displ, y = hwy)) + 
-  geom_point(position = "jitter") +
-  geom_smooth()
+<!-- p2 <- ggplot(data = mpg, aes(x = displ, y = hwy)) +  -->
+<!--   geom_point(position = "jitter") + -->
+<!--   geom_smooth() -->
 
-ggarrange(p1, p2, nrow = 1)
+<!-- ggarrange(p1, p2, nrow = 1) -->
 
-```
+<!-- ``` -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-There are two optional arguments to jitter:
+<!-- There are two optional arguments to jitter: -->
 
-- Width controls the amount of vertical displacement.
-- Height controls the amount of horizontal displacement.
+<!-- - Width controls the amount of vertical displacement. -->
+<!-- - Height controls the amount of horizontal displacement. -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-```{r, eval=FALSE}
-ggplot(data = mpg, aes(x = cty, y = hwy)) +
-        geom_point()
+<!-- ```{r, eval=FALSE} -->
+<!-- ggplot(data = mpg, aes(x = cty, y = hwy)) + -->
+<!--         geom_point() -->
 
-gplot(data = mpg, aes(x = cty, y = hwy)) +
-        geom_jitter()
+<!-- gplot(data = mpg, aes(x = cty, y = hwy)) + -->
+<!--         geom_jitter() -->
 
-ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  geom_jitter(height = 2, width = 2)
+<!-- ggplot(data = mpg, aes(x = cty, y = hwy)) + -->
+<!--   geom_jitter(height = 2, width = 2) -->
 
-```
+<!-- ``` -->
 
-## Position adjustments
+<!-- ## Position adjustments -->
 
-```{r, echo=FALSE, fig.width=15}
-p1 <- ggplot(data = mpg, aes(x = cty, y = hwy)) +
-        geom_point()
+<!-- ```{r, echo=FALSE, fig.width=15} -->
+<!-- p1 <- ggplot(data = mpg, aes(x = cty, y = hwy)) + -->
+<!--         geom_point() -->
 
-p2 <- ggplot(data = mpg, aes(x = cty, y = hwy)) +
-        geom_jitter()
+<!-- p2 <- ggplot(data = mpg, aes(x = cty, y = hwy)) + -->
+<!--         geom_jitter() -->
 
-p3 <- ggplot(data = mpg, aes(x = cty, y = hwy)) +
-  geom_jitter(height = 2, width = 2)
+<!-- p3 <- ggplot(data = mpg, aes(x = cty, y = hwy)) + -->
+<!--   geom_jitter(height = 2, width = 2) -->
 
-ggarrange(p1, p2, p3, nrow = 1)
-```
+<!-- ggarrange(p1, p2, p3, nrow = 1) -->
+<!-- ``` -->
 
 ## Boxplots
 
@@ -1965,6 +2093,14 @@ ggplot(data = mpg,
 ```{r}
 ggplot(data = mpg, aes(x = class, y = hwy)) + 
   geom_boxplot()
+```
+
+## Boxplots
+
+```{r}
+ggplot(data = mpg, 
+       aes(x = class, y = hwy, color = class)) + 
+  geom_boxplot(show.legend = FALSE)
 ```
 
 ## Coordinate systems 
@@ -2016,166 +2152,43 @@ ggplot(data = <DATA>) +
   <FACET_FUNCTION>
 ```
 
-## Labels 
+<!-- ## Themes -->
 
-We can add labels to a graph with the `labs()` function:
+<!-- The background of the graphs can be costumized with a theme: -->
 
-```{r, eval = FALSE}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Efficiency decreases with engine size")
+<!-- ```{r, eval = FALSE} -->
+<!-- ggplot(mpg, aes(displ, hwy)) + -->
+<!--   geom_point(aes(color = class)) + -->
+<!--   geom_smooth(se = FALSE) + -->
+<!--   theme_bw() -->
+<!-- ``` -->
 
-```
+<!-- ## Themes -->
 
-## Labels 
+<!-- ```{r, echo = FALSE} -->
+<!-- ggplot(mpg, aes(displ, hwy)) + -->
+<!--   geom_point(aes(color = class)) + -->
+<!--   geom_smooth(se = FALSE) + -->
+<!--   theme_classic() -->
+<!-- ``` -->
 
-```{r, echo = FALSE}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Efficiency decreases with engine size")
-```
+<!-- ## Themes -->
 
-## Labels 
+<!-- ggplot2 includes built in eight themes, as shown below: -->
 
-The `labs()` function also allows us to to add a subtitio and/or a caption:
+<!-- ```{r, out.width = "600px", echo = FALSE} -->
+<!-- knitr::include_graphics("figures/themes.png") -->
+<!-- ``` -->
 
-```{r, eval = FALSE}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Efficiency decreases with engine size",
-    subtitle = "Two seaters are an exception",
-    caption = "Data from fueleconomy.gov"
-  )
-```
+<!-- ## Themes -->
 
-## Labels 
+<!-- - Many more are included in add-on packages like `ggthemes`. -->
 
-```{r, echo = FALSE}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    title = "Efficiency decreases with engine size",
-    subtitle = "Two seaters are an exception",
-    caption = "Data from fueleconomy.gov"
-  )
-```
+<!-- ## Saving plots -->
 
-## Labels 
+<!-- - `ggsave()` will save the most recent plot to the working directory. -->
 
-- You can also use labs() to replace the axis and legend titles.
-
--  It’s usually a good idea to replace short variable names with more detailed descriptions, and to include the units.
-
-## Labels 
-
-```{r, eval = FALSE}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(colour = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    x = "Engine displacement (L)",
-    y = "Highway fuel economy (mpg)",
-    colour = "Car type"
-  
-```
-
-## Labels 
-
-```{r, echo = FALSE}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(colour = class)) +
-  geom_smooth(se = FALSE) +
-  labs(
-    x = "Engine displacement (L)",
-    y = "Highway fuel economy (mpg)",
-    colour = "Car type"
-  )
-```
-
-## Labels 
-
-It’s possible to use mathematical equations instead of text strings:
-
-```{r, eval = FALSE}
-df <- tibble(
-  x = runif(10),
-  y = runif(10))
-
-ggplot(df, aes(x, y)) +
-  geom_point() +
-  labs(
-    x = quote(sum(x[i] ^ 2, i == 1, n)),
-    y = quote(alpha + beta + frac(delta, theta))
-  )
-```
-
-## Labels 
-
-```{r, echo = FALSE}
-df <- tibble(
-  x = runif(10),
-  y = runif(10))
-
-ggplot(df, aes(x, y)) +
-  geom_point() +
-  labs(
-    x = quote(sum(x[i] ^ 2, i == 1, n)),
-    y = quote(alpha + beta + frac(delta, theta))
-  )
-```
-
-## Labels 
-
-To learn about the mathematical syntax available see:
-
-```{r}
-?plotmath
-```
-
-## Themes
-
-The background of the graphs can be costumized with a theme:
-
-```{r, eval = FALSE}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  theme_bw()
-```
-
-## Themes
-
-```{r, echo = FALSE}
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  theme_classic()
-```
-
-## Themes
-
-ggplot2 includes built in eight themes, as shown below:
-
-```{r, out.width = "600px", echo = FALSE}
-knitr::include_graphics("figures/themes.png")
-```
-
-## Themes
-
-- Many more are included in add-on packages like `ggthemes`.
-
-## Saving plots
-
-- `ggsave()` will save the most recent plot to the working directory.
-
-- The name of the output file is provided as input to `ggsave()`.
+<!-- - The name of the output file is provided as input to `ggsave()`. -->
 
 ## Saving plots
 

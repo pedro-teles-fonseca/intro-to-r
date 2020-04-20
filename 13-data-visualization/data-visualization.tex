@@ -278,7 +278,7 @@ We start by plotting engine size (\texttt{displ}) versus fuel efficiency
 \item
   The first argument of \texttt{ggplot()} is a dataset
 \item
-  You complete your graph by adding layers to \texttt{ggplot()}
+  We complete the graph by adding layers to \texttt{ggplot()}
 \item
   \texttt{geom\_point()} adds a layer of points, creating scatterplot.
 \item
@@ -327,9 +327,7 @@ We start by plotting engine size (\texttt{displ}) versus fuel efficiency
 \item
   Scatterplots break the trend: they use the \textbf{point} geom.
 \item
-  In ggplot2, you add geoms to a plot with \textbf{geom functions}.
-\item
-  Different geom functions add different geoms to the plot.
+  In ggplot2, we add geoms to a plot with \textbf{geom functions}.
 \end{itemize}
 
 \end{frame}
@@ -341,10 +339,10 @@ Compare the next two plots. How are they similar?
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{left <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 
-\NormalTok{right <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
 \end{Highlighting}
 \end{Shaded}
@@ -411,7 +409,7 @@ But they are not identical:
   \textbf{Aesthetics} include things like the size, shape, and color of
   the points in a scatterplot.
 \item
-  \texttt{aes()} builds \textbf{aesthetic mappings} that define how
+  \texttt{aes()} builds \textbf{aesthetic mappings} that define how the
   variables in the dataset are mapped to aesthetics of the geoms.
 \item
   To map an aesthetic to a variable, associate the name of the aesthetic
@@ -423,9 +421,9 @@ But they are not identical:
   \begin{itemize}
   \tightlist
   \item
-    You can set the shape of a point, but not of a line.
+    We can set the shape of a point, but not of a line.
   \item
-    You can set the linetype of a line, but not of a point.
+    We can set the linetype of a line, but not of a point.
   \end{itemize}
 \end{itemize}
 
@@ -889,7 +887,7 @@ the variable that is mapped to the \texttt{linetype} aesthetic:
   level of a discrete variable.
 \item
   The \texttt{group} aesthetic does not add a legend or any other
-  distinguishing features to the geoms.
+  distinguishing feature.
 \end{itemize}
 
 \end{frame}
@@ -973,7 +971,7 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
 \item
   The result of \texttt{displ\ \textless{}\ 5} is a logical variable.
 \item
-  \texttt{ggplot()} then maps aesthetics to the temporary variable.
+  \texttt{ggplot()} then maps the aesthetic to the temporary variable.
 \end{itemize}
 
 \end{frame}
@@ -1294,9 +1292,6 @@ We can change the default line type of geom functions like
 
 \begin{frame}[fragile]{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-19}{}
-
-To change the default linetype, set it as an argument of the geom
-function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1645,7 +1640,7 @@ Legends can also be disabled:
 \protect\hypertarget{facets-7}{}
 
 If you prefer to not facet in the rows (or columns), use a \texttt{"."}
-instead of a variable name for example:
+instead of a variable name:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2018,7 +2013,7 @@ We can also overlap geoms in grids:
 
 \begin{itemize}
 \item
-  The smooth line displays just a subset of the mpg dataset, the
+  The straight line displays just a subset of the mpg dataset, the
   subcompact cars.
 \item
   The local data argument in geom\_smooth() overrides the global data
@@ -2065,10 +2060,12 @@ We can also overlap geoms in grids:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =} \KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{!=}\StringTok{ "2seater"}\NormalTok{), }
-       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
+\StringTok{       }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{       }\KeywordTok{geom_smooth}\NormalTok{(}
+         \DataTypeTok{data =} \KeywordTok{subset}\NormalTok{(mpg, class }\OperatorTok{!=}\StringTok{ "2seater"}\NormalTok{),}
+         \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,}
+         \DataTypeTok{method =} \StringTok{"lm"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2104,6 +2101,137 @@ We can also overlap geoms in grids:
 
 \end{frame}
 
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels}{}
+
+We can add labels to a graph with the \texttt{labs()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{title =} \StringTok{"Efficiency decreases with engine size"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-1}{}
+
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-113-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels-2}{}
+
+The \texttt{labs()} function can also be used to add a subtitle and/or a
+caption:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{title =} \StringTok{"Efficiency decreases with engine size"}\NormalTok{,}
+    \DataTypeTok{subtitle =} \StringTok{"Two-seaters are an exception"}\NormalTok{,}
+    \DataTypeTok{caption =} \StringTok{"Data from fueleconomy.gov"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-3}{}
+
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-115-1} \end{center}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-4}{}
+
+\begin{itemize}
+\item
+  You can also use labs() to replace the axis and legend titles.
+\item
+  It's usually a good idea to replace short variable names with more
+  detailed descriptions, and to include the units.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels-5}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ class)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{x =} \StringTok{"Engine displacement (L)"}\NormalTok{,}
+    \DataTypeTok{y =} \StringTok{"Highway fuel economy (mpg)"}\NormalTok{,}
+    \DataTypeTok{colour =} \StringTok{"Car type"}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-6}{}
+
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-117-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels-7}{}
+
+It's possible to use mathematical equations instead of text strings:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
+  \DataTypeTok{x =} \KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{),}
+  \DataTypeTok{y =} \KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{))}
+
+\KeywordTok{ggplot}\NormalTok{(df, }\KeywordTok{aes}\NormalTok{(x, y)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{x =} \KeywordTok{quote}\NormalTok{(}\KeywordTok{sum}\NormalTok{(x[i] }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{, i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, n)),}
+    \DataTypeTok{y =} \KeywordTok{quote}\NormalTok{(alpha }\OperatorTok{+}\StringTok{ }\NormalTok{beta }\OperatorTok{+}\StringTok{ }\KeywordTok{frac}\NormalTok{(delta, theta))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}{Labels}
+\protect\hypertarget{labels-8}{}
+
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-119-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Labels}
+\protect\hypertarget{labels-9}{}
+
+To learn more about the mathematical syntax available see:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?plotmath}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
 \begin{frame}{The \texttt{diamonds} dataset}
 \protect\hypertarget{the-diamonds-dataset}{}
 
@@ -2129,7 +2257,7 @@ We can also overlap geoms in grids:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-112-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-121-1} \end{center}
 
 \end{frame}
 
@@ -2215,7 +2343,7 @@ We can also overlap geoms in grids:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-113-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-122-1} \end{center}
 
 \end{frame}
 
@@ -2275,7 +2403,7 @@ What if we want a bar chart that plot data as is?
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-115-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-124-1} \end{center}
 
 \end{frame}
 
@@ -2292,7 +2420,7 @@ The default stat of \texttt{stat\_identity()} is \texttt{point}, not
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-116-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-125-1} \end{center}
 
 \end{frame}
 
@@ -2320,7 +2448,7 @@ The default stat of \texttt{stat\_identity()} is \texttt{point}, not
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-117-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-126-1} \end{center}
 
 \end{frame}
 
@@ -2394,7 +2522,7 @@ Let´s map proportions, instead of counts, to the y axis:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-119-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-128-1} \end{center}
 
 What went wrong?
 
@@ -2462,7 +2590,7 @@ Lets see the computed values:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-121-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-130-1} \end{center}
 
 \end{frame}
 
@@ -2490,8 +2618,8 @@ Lets see the computed values:
 
 \end{frame}
 
-\begin{frame}[fragile]{Aesthetic of bar charts}
-\protect\hypertarget{aesthetic-of-bar-charts}{}
+\begin{frame}[fragile]{Aesthetics of bar charts}
+\protect\hypertarget{aesthetics-of-bar-charts}{}
 
 You can map the color aesthetic to a grouping variable:
 
@@ -2502,15 +2630,29 @@ You can map the color aesthetic to a grouping variable:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-123-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-132-1} \end{center}
 
 \end{frame}
 
-\begin{frame}[fragile]{Aesthetic of bar charts}
-\protect\hypertarget{aesthetic-of-bar-charts-1}{}
+\begin{frame}[fragile]{Aesthetics of bar charts}
+\protect\hypertarget{aesthetics-of-bar-charts-1}{}
 
 We can also change the default \texttt{fill} color of
 \texttt{geom\_bar()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ diamonds) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_bar}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cut), }\DataTypeTok{fill =} \StringTok{"lightblue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-133-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Aesthetics of bar charts}
+\protect\hypertarget{aesthetics-of-bar-charts-2}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2519,12 +2661,12 @@ We can also change the default \texttt{fill} color of
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-124-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-134-1} \end{center}
 
 \end{frame}
 
-\begin{frame}[fragile]{Aesthetic of bar charts}
-\protect\hypertarget{aesthetic-of-bar-charts-2}{}
+\begin{frame}[fragile]{Aesthetics of bar charts}
+\protect\hypertarget{aesthetics-of-bar-charts-3}{}
 
 And disable the legend:
 
@@ -2536,7 +2678,7 @@ And disable the legend:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-125-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-135-1} \end{center}
 
 \end{frame}
 
@@ -2553,7 +2695,7 @@ dimension to the plot:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-126-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-136-1} \end{center}
 
 \end{frame}
 
@@ -2596,7 +2738,7 @@ dimension to the plot:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-127-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-137-1} \end{center}
 
 \end{frame}
 
@@ -2614,149 +2756,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-128-1} \end{center}
-
-\end{frame}
-
-\begin{frame}{Position adjustments}
-\protect\hypertarget{position-adjustments-4}{}
-
-Recall our first scatterplot:
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-129-1} \end{center}
-
-Did you notice that the plot displays only 126 points, even though there
-are 234 observations in the dataset?
-
-\end{frame}
-
-\begin{frame}[fragile]{Position adjustments}
-\protect\hypertarget{position-adjustments-5}{}
-
-\begin{itemize}
-\item
-  The values of \texttt{hwy} and \texttt{displ} are rounded, and many
-  points overlap each other.
-\item
-  This problem is known as overplotting.
-\item
-  This makes it hard to see where the mass of the data is.
-\item
-  Are the data points spread equally throughout the graph, or is there
-  one special combination of hwy and displ that contains 109 values?
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}[fragile]{Position adjustments}
-\protect\hypertarget{position-adjustments-6}{}
-
-\begin{itemize}
-\item
-  Setting \texttt{position\ =\ "jitter"} adds a small amount of random
-  noise to each point, spreading the points.
-\item
-  While it makes your graph less accurate at small scales, it makes it
-  more revealing at large scales.
-\item
-  ggplot2 comes with a shorthand for
-  \texttt{geom\_point(position\ =\ "jitter")}:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \texttt{geom\_jitter()}.
-  \end{itemize}
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}[fragile]{Position adjustments}
-\protect\hypertarget{position-adjustments-7}{}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy))}
-
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy),}
-             \DataTypeTok{position =} \StringTok{"jitter"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Position adjustments}
-\protect\hypertarget{position-adjustments-8}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-131-1} \end{center}
-
-\end{frame}
-
-\begin{frame}[fragile]{Position adjustments}
-\protect\hypertarget{position-adjustments-9}{}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg,  }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
-
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{position =} \StringTok{"jitter"}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Position adjustments}
-\protect\hypertarget{position-adjustments-10}{}
-
-The confidence interval of the smoothed lines can also help:
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-133-1} \end{center}
-
-\end{frame}
-
-\begin{frame}{Position adjustments}
-\protect\hypertarget{position-adjustments-11}{}
-
-There are two optional arguments to jitter:
-
-\begin{itemize}
-\tightlist
-\item
-  Width controls the amount of vertical displacement.
-\item
-  Height controls the amount of horizontal displacement.
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}[fragile]{Position adjustments}
-\protect\hypertarget{position-adjustments-12}{}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{geom_point}\NormalTok{()}
-
-\KeywordTok{gplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
-\StringTok{        }\KeywordTok{geom_jitter}\NormalTok{()}
-
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ cty, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{height =} \DecValTok{2}\NormalTok{, }\DataTypeTok{width =} \DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Position adjustments}
-\protect\hypertarget{position-adjustments-13}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-135-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
 
 \end{frame}
 
@@ -2770,7 +2770,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-136-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
 
 \end{frame}
 
@@ -2784,7 +2784,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-137-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
 
 \end{frame}
 
@@ -2799,7 +2799,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
 
 \end{frame}
 
@@ -2814,7 +2814,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-142-1} \end{center}
 
 \end{frame}
 
@@ -2828,7 +2828,22 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-143-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Boxplots}
+\protect\hypertarget{boxplots-5}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ class, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{show.legend =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-144-1} \end{center}
 
 \end{frame}
 
@@ -2845,7 +2860,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-145-1} \end{center}
 
 \end{frame}
 
@@ -2861,7 +2876,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-142-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-146-1} \end{center}
 
 \end{frame}
 
@@ -2876,7 +2891,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-143-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-147-1} \end{center}
 
 \end{frame}
 
@@ -2891,7 +2906,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-144-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-148-1} \end{center}
 
 \end{frame}
 
@@ -2913,195 +2928,8 @@ A pie chart is a stacked bar chart with polar coordinates:
 
 \end{frame}
 
-\begin{frame}[fragile]{Labels}
-\protect\hypertarget{labels}{}
-
-We can add labels to a graph with the \texttt{labs()} function:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}
-    \DataTypeTok{title =} \StringTok{"Efficiency decreases with engine size"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Labels}
-\protect\hypertarget{labels-1}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-147-1} \end{center}
-
-\end{frame}
-
-\begin{frame}[fragile]{Labels}
-\protect\hypertarget{labels-2}{}
-
-The \texttt{labs()} function also allows us to to add a subtitio and/or
-a caption:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}
-    \DataTypeTok{title =} \StringTok{"Efficiency decreases with engine size"}\NormalTok{,}
-    \DataTypeTok{subtitle =} \StringTok{"Two seaters are an exception"}\NormalTok{,}
-    \DataTypeTok{caption =} \StringTok{"Data from fueleconomy.gov"}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Labels}
-\protect\hypertarget{labels-3}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-149-1} \end{center}
-
-\end{frame}
-
-\begin{frame}{Labels}
-\protect\hypertarget{labels-4}{}
-
-\begin{itemize}
-\item
-  You can also use labs() to replace the axis and legend titles.
-\item
-  It's usually a good idea to replace short variable names with more
-  detailed descriptions, and to include the units.
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}[fragile]{Labels}
-\protect\hypertarget{labels-5}{}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{colour =}\NormalTok{ class)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}
-    \DataTypeTok{x =} \StringTok{"Engine displacement (L)"}\NormalTok{,}
-    \DataTypeTok{y =} \StringTok{"Highway fuel economy (mpg)"}\NormalTok{,}
-    \DataTypeTok{colour =} \StringTok{"Car type"}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Labels}
-\protect\hypertarget{labels-6}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-151-1} \end{center}
-
-\end{frame}
-
-\begin{frame}[fragile]{Labels}
-\protect\hypertarget{labels-7}{}
-
-It's possible to use mathematical equations instead of text strings:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{df <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}
-  \DataTypeTok{x =} \KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{),}
-  \DataTypeTok{y =} \KeywordTok{runif}\NormalTok{(}\DecValTok{10}\NormalTok{))}
-
-\KeywordTok{ggplot}\NormalTok{(df, }\KeywordTok{aes}\NormalTok{(x, y)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}
-    \DataTypeTok{x =} \KeywordTok{quote}\NormalTok{(}\KeywordTok{sum}\NormalTok{(x[i] }\OperatorTok{^}\StringTok{ }\DecValTok{2}\NormalTok{, i }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{, n)),}
-    \DataTypeTok{y =} \KeywordTok{quote}\NormalTok{(alpha }\OperatorTok{+}\StringTok{ }\NormalTok{beta }\OperatorTok{+}\StringTok{ }\KeywordTok{frac}\NormalTok{(delta, theta))}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Labels}
-\protect\hypertarget{labels-8}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-153-1} \end{center}
-
-\end{frame}
-
-\begin{frame}[fragile]{Labels}
-\protect\hypertarget{labels-9}{}
-
-To learn about the mathematical syntax available see:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{?plotmath}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}[fragile]{Themes}
-\protect\hypertarget{themes}{}
-
-The background of the graphs can be costumized with a theme:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{theme_bw}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\end{frame}
-
-\begin{frame}{Themes}
-\protect\hypertarget{themes-1}{}
-
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-156-1} \end{center}
-
-\end{frame}
-
-\begin{frame}{Themes}
-\protect\hypertarget{themes-2}{}
-
-ggplot2 includes built in eight themes, as shown below:
-
-\begin{center}\includegraphics[width=600px,height=150px]{figures/themes} \end{center}
-
-\end{frame}
-
-\begin{frame}[fragile]{Themes}
-\protect\hypertarget{themes-3}{}
-
-\begin{itemize}
-\tightlist
-\item
-  Many more are included in add-on packages like \texttt{ggthemes}.
-\end{itemize}
-
-\end{frame}
-
 \begin{frame}[fragile]{Saving plots}
 \protect\hypertarget{saving-plots}{}
-
-\begin{itemize}
-\item
-  \texttt{ggsave()} will save the most recent plot to the working
-  directory.
-\item
-  The name of the output file is provided as input to \texttt{ggsave()}.
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}[fragile]{Saving plots}
-\protect\hypertarget{saving-plots-1}{}
 
 Let's build a scatterplot and save it on the working directory:
 
@@ -3117,7 +2945,7 @@ Let's build a scatterplot and save it on the working directory:
 \end{frame}
 
 \begin{frame}[fragile]{Saving plots}
-\protect\hypertarget{saving-plots-2}{}
+\protect\hypertarget{saving-plots-1}{}
 
 You can save graphs in other locations by providing the path to
 \texttt{ggsave()}:
@@ -3134,7 +2962,7 @@ You can save graphs in other locations by providing the path to
 \end{frame}
 
 \begin{frame}[fragile]{Saving plots}
-\protect\hypertarget{saving-plots-3}{}
+\protect\hypertarget{saving-plots-2}{}
 
 You can use the \texttt{plot} argument of \texttt{ggsave()} to save any
 graph that is assigned to an objects:
