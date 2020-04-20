@@ -141,7 +141,7 @@
 
 \title{Introduction to R Programming}
 \providecommand{\subtitle}[1]{}
-\subtitle{Data Visualitazion with ggplot2}
+\subtitle{Data Visualization with ggplot2}
 \author{Pedro Fonseca}
 \date{20 Abril 2020}
 
@@ -159,7 +159,7 @@
 
 \begin{itemize}
 \item
-  In lecture you will learn how to visualise data with the ggplot2
+  In lecture you will learn how to visualize data with the ggplot2
   package.
 \item
   ggplot2 is one of the most elegant and versatile systems for making
@@ -171,8 +171,8 @@
 
 \end{frame}
 
-\begin{frame}[fragile]{Preliminars}
-\protect\hypertarget{preliminars}{}
+\begin{frame}[fragile]{Requirements}
+\protect\hypertarget{requirements}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -197,7 +197,7 @@ Among the variables in mpg are:
 
 \begin{itemize}
 \item
-  \texttt{displ}: engine size, in litres
+  \texttt{displ}: engine size, in liters
 \item
   \texttt{cyl}: number of cylinders
 \item
@@ -384,8 +384,8 @@ But they are not identical:
 
 \end{frame}
 
-\begin{frame}{The ggplot2 cheatsheet}
-\protect\hypertarget{the-ggplot2-cheatsheet}{}
+\begin{frame}{The ggplot2 cheat sheet}
+\protect\hypertarget{the-ggplot2-cheat-sheet}{}
 
 \begin{itemize}
 \tightlist
@@ -421,9 +421,9 @@ But they are not identical:
   \begin{itemize}
   \tightlist
   \item
-    We can set the shape of a point, but not of a line.
+    We can set the \texttt{shape} of a point, but not of a line.
   \item
-    We can set the linetype of a line, but not of a point.
+    We can set the \texttt{linetype} of a line, but not of a point.
   \end{itemize}
 \end{itemize}
 
@@ -448,8 +448,8 @@ linear trend. How can we explain these cars?
 
 \begin{itemize}
 \item
-  The highlited cars may have some common caractheristic with respect to
-  some other variable (e.g.~they might all be hybrids).
+  The highlighted cars may have some common characteristic with respect
+  to some other variable (e.g.~they might all be hybrids).
 \item
   Lets try \texttt{class}, a variable that classifies cars into groups
   such as compact, midsize, and SUV.
@@ -485,8 +485,8 @@ variable, so that the graph reveals the class of each car:
 \begin{frame}[fragile]{The color aesthetic}
 \protect\hypertarget{the-color-aesthetic-2}{}
 
-Now we know that all but one of the highlited cars are two-seater cars!
-Let's find their model and manufacturer:
+Now we know that all but one of the highlighted cars are two-seater
+cars! Let's find their model and manufacturer:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -681,7 +681,7 @@ Let's choose the first 7 shapes:
   should be avoided in most cases.
 \item
   In this case, however, since we have many categories, it can improving
-  visual discrimanation.
+  visual discrimination.
 \item
   Let´s map \texttt{class} to \texttt{color} and \texttt{shape}:
 \end{itemize}
@@ -714,7 +714,7 @@ Let's choose the first 7 shapes:
   aesthetics of \texttt{geom\_point()}.
 \item
   Now let´s map continuous variables to these aesthetics and see how
-  they behaves differently for categorial versus continuous variables.
+  they behaves differently for categorical versus continuous variables.
 \item
   The variable \texttt{cty} (city miles per gallon) is a continuous
   variable.
@@ -809,18 +809,18 @@ And finally let's map \texttt{cty} to the \texttt{shape} aesthetic:
 
 \begin{itemize}
 \item
-  Each level of a categorival variable is assgined to a different
+  Each level of a categorical variable is assigned to a different
   (discrete) color.
 \item
   The color of the points vary continuously from light to dark as a
   function of the values of a continuous variables.
 \end{itemize}
 
-\textbf{Size} aestietic:
+\textbf{Size} aesthetic:
 
 \begin{itemize}
 \item
-  Each level of a categorival variable is assigned to a different
+  Each level of a categorical variable is assigned to a different
   (discrete) size.
 \item
   The size of the points vary continuously as a function of the values
@@ -832,7 +832,7 @@ And finally let's map \texttt{cty} to the \texttt{shape} aesthetic:
 \begin{frame}{Aesthetic mappings: categorical vs continuous variables}
 \protect\hypertarget{aesthetic-mappings-categorical-vs-continuous-variables-1}{}
 
-\textbf{Shape} aestietic:
+\textbf{Shape} aesthetic:
 
 \begin{itemize}
 \item
@@ -865,15 +865,16 @@ the variable that is mapped to the \texttt{linetype} aesthetic:
 
 \end{frame}
 
-\begin{frame}{The \texttt{linetype} aesthetic}
+\begin{frame}[fragile]{The \texttt{linetype} aesthetic}
 \protect\hypertarget{the-linetype-aesthetic-2}{}
 
 \begin{itemize}
 \tightlist
 \item
-  The linetype aesthetic automatically adds a legend.
+  The \texttt{linetype} aesthetic automatically adds a legend.
 \item
-  The linetype aesthetic can not be mapped to continuous variables.
+  The \texttt{linetype} aesthetic can not be mapped to continuous
+  variables.
 \end{itemize}
 
 \end{frame}
@@ -1042,7 +1043,7 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
     The hollow shapes (0--14) have a border determined by the
     \texttt{colour} aesthetic
   \item
-    The solid shapes (15--18) are filled with the colour
+    The solid shapes (15--18) are filled with the color
     \texttt{aesthetic}
   \item
     The filled shapes (21--24) have a border set by the \texttt{colour}
@@ -1261,7 +1262,7 @@ You can also use colors like dark blue and light blue:
   (00 to FF) for red, green, and blue, concatenated into a string,
   prefixed with a ``\#''.
 \item
-  A pure red colour this is represented with ``\#FF0000''.
+  A pure red color this is represented with ``\#FF0000''.
 \end{itemize}
 
 See:
@@ -1461,10 +1462,10 @@ We can also change the thickness of the lines:
   The default method (\texttt{"auto"}) depends on the size of the
   largest group.
 \item
-  For less than 1000 obsetvations the method is \texttt{"loess"} (a
+  For less than 1000 observations the method is \texttt{"loess"} (a
   local polynomial regression).
 \item
-  Admissable methods are: \texttt{"auto"}, \texttt{"lm"},
+  Admissible methods are: \texttt{"auto"}, \texttt{"lm"},
   \texttt{"glm"}, \texttt{"gam"} and \texttt{"loess"}.
 \end{itemize}
 
@@ -1688,7 +1689,7 @@ instead of a variable name:
 \item
   For example, we can overlap points and lines.
 \item
-  This is archieved by adding multiple geom functions to
+  This is archived by adding multiple geom functions to
   \texttt{ggplot()}.
 \end{itemize}
 
@@ -2363,8 +2364,8 @@ This works because:
 
 \end{frame}
 
-\begin{frame}[fragile]{Overwrithing the default stat}
-\protect\hypertarget{overwrithing-the-default-stat}{}
+\begin{frame}[fragile]{Overwriting the default stat}
+\protect\hypertarget{overwriting-the-default-stat}{}
 
 What if we want a bar chart that plot data as is?
 
@@ -2850,7 +2851,7 @@ directly beside one another:
 \begin{frame}[fragile]{Coordinate systems}
 \protect\hypertarget{coordinate-systems}{}
 
-\texttt{coord\_flip()} flpis the coordinate system:
+\texttt{coord\_flip()} flips the coordinate system:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2985,7 +2986,7 @@ The default value of the \texttt{plot} argument is
 \protect\hypertarget{bibliography}{}
 
 \hypertarget{refs}{}
-\leavevmode\hypertarget{ref-wichkam2016r}{}%
+\leavevmode\hypertarget{ref-wickham2016r}{}%
 Wichkam, Hadley, and Garrett Grolemund. 2016. ``R for Data Science.''
 \emph{O'Reilly}.
 
