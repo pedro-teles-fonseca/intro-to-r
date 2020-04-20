@@ -11,7 +11,7 @@ output: beamer_presentation
 
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, out.height="150px", fig.align = 'center', message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, out.height="150px", fig.align = 'center', message = FALSE, cache = TRUE)
 
 library(egg)
 library(tidyverse)
