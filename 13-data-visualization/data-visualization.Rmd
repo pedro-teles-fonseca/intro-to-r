@@ -1942,6 +1942,29 @@ ggplot(data = mpg, aes(y = hwy)) +
 ## Boxplots
 
 ```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy)) + 
+  geom_boxplot()
+```
+
+## Boxplots
+
+```{r}
+ggplot(data = mpg, 
+       aes(x = drv, y = hwy, color = drv)) + 
+  geom_boxplot()
+```
+
+## Boxplots
+
+```{r}
+ggplot(data = mpg, 
+       aes(x = drv, y = hwy, fill = drv)) + 
+  geom_boxplot()
+```
+
+## Boxplots
+
+```{r}
 ggplot(data = mpg, aes(x = class, y = hwy)) + 
   geom_boxplot()
 ```
@@ -2005,13 +2028,15 @@ ggplot(data = <DATA>) +
 
 ## Labels 
 
-We add labels to a graph with the `labs()` function:
+We can add labels to a graph with the `labs()` function:
 
 ```{r, eval = FALSE}
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
-  labs(title = "Fuel efficiency generally decreases with engine size")
+  labs(
+    title = "Efficiency decreases with engine size")
+
 ```
 
 ## Labels 
@@ -2020,7 +2045,8 @@ ggplot(mpg, aes(displ, hwy)) +
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
-  labs(title = "Fuel efficiency generally decreases with engine size")
+  labs(
+    title = "Efficiency decreases with engine size")
 ```
 
 ## Labels 
@@ -2032,8 +2058,8 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
   labs(
-    title = "Fuel efficiency generally decreases with engine size",
-    subtitle = "Two seaters (sports cars) are an exception because of their light weight",
+    title = "Efficiency decreases with engine size",
+    subtitle = "Two seaters are an exception",
     caption = "Data from fueleconomy.gov"
   )
 ```
@@ -2045,8 +2071,8 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
   geom_smooth(se = FALSE) +
   labs(
-    title = "Fuel efficiency generally decreases with engine size",
-    subtitle = "Two seaters (sports cars) are an exception because of their light weight",
+    title = "Efficiency decreases with engine size",
+    subtitle = "Two seaters are an exception",
     caption = "Data from fueleconomy.gov"
   )
 ```
@@ -2125,7 +2151,7 @@ To learn about the mathematical syntax available see:
 
 ## Themes
 
-- The background of teh graphs can be costumized with a theme:
+The background of the graphs can be costumized with a theme:
 
 ```{r, eval = FALSE}
 ggplot(mpg, aes(displ, hwy)) +
@@ -2139,29 +2165,31 @@ ggplot(mpg, aes(displ, hwy)) +
 ```{r, echo = FALSE}
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(aes(color = class)) +
-  geom_smooth(se = FALSE) + 
-    theme_bw() +
-  theme_update(
-  legend.key.size = unit(3, "line"),        # legend symbols size
-  legend.title = element_text(size = 22),   # legend labels
-  legend.text = element_text(size = 20),    # legend text
-  axis.title = element_text(size = 22),     # axis labels
-  axis.text = element_text(size = 20),      # tick labels
-  title = element_text(size = 22)           # title
-)
+  geom_smooth(se = FALSE) +
+  theme_classic()
 ```
 
 ## Themes
 
-- ggplot2 includes eight themes by default, as shown in Figure 28.3. 
-- Many more are included in add-on packages like `ggthemes`
+ggplot2 includes built in eight themes, as shown below:
+
+```{r, out.width = "600px", echo = FALSE}
+knitr::include_graphics("themes.png")
+```
+
 ## Themes
 
-![The eight themes built-in to ggplot2.](themes.png)
+- Many more are included in add-on packages like `ggthemes`.
 
 ## Saving plots
 
-`ggsave()` will save the most recent plot to the working directory. The name of the output file is provided as input to `ggsave()`:
+- `ggsave()` will save the most recent plot to the working directory.
+
+- The name of the output file is provided as input to `ggsave()`.
+
+## Saving plots
+
+Let's build a scatterplot and save it on the working directory:
 
 ```{r, eval = FALSE}
 ggplot(mpg, aes(displ, hwy)) +
@@ -2185,7 +2213,7 @@ ggsave("outputs/my-plot.pdf")
 
 ## Saving plots
 
-You can use the `plot` argument to save graphs that are assigned to an objects: 
+You can use the `plot` argument of `ggsave()` to save any graph that is assigned to an objects: 
 
 ```{r}
 my_plot <- ggplot(mpg, aes(displ, hwy)) +
@@ -2195,7 +2223,7 @@ ggsave("outputs/my-plot-v2.pdf", plot = my_plot)
 
 ```
 
-The default value of the `plot` argument is `last_plot()`
+The default value of the `plot` argument is `last_plot()`.
 
 ## Bibliography
 

@@ -143,7 +143,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Data Visualitazion with ggplot2}
 \author{Pedro Fonseca}
-\date{19 Abril 2020}
+\date{20 Abril 2020}
 
 \begin{document}
 \frame{\titlepage}
@@ -2779,12 +2779,56 @@ There are two optional arguments to jitter:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ class, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ drv, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-137-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Boxplots}
+\protect\hypertarget{boxplots-2}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ drv, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{color =}\NormalTok{ drv)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Boxplots}
+\protect\hypertarget{boxplots-3}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }
+       \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ drv, }\DataTypeTok{y =}\NormalTok{ hwy, }\DataTypeTok{fill =}\NormalTok{ drv)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Boxplots}
+\protect\hypertarget{boxplots-4}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ class, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
 
 \end{frame}
 
@@ -2801,7 +2845,7 @@ There are two optional arguments to jitter:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
 
 \end{frame}
 
@@ -2817,7 +2861,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-142-1} \end{center}
 
 \end{frame}
 
@@ -2832,7 +2876,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-143-1} \end{center}
 
 \end{frame}
 
@@ -2847,7 +2891,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-144-1} \end{center}
 
 \end{frame}
 
@@ -2862,7 +2906,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-142-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-145-1} \end{center}
 
 \end{frame}
 
@@ -2887,14 +2931,15 @@ A pie chart is a stacked bar chart with polar coordinates:
 \begin{frame}[fragile]{Labels}
 \protect\hypertarget{labels}{}
 
-We add labels to a graph with the \texttt{labs()} function:
+We can add labels to a graph with the \texttt{labs()} function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(mpg, }\KeywordTok{aes}\NormalTok{(displ, hwy)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
-\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Fuel efficiency generally decreases with engine size"}\NormalTok{)}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}
+    \DataTypeTok{title =} \StringTok{"Efficiency decreases with engine size"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2903,7 +2948,7 @@ We add labels to a graph with the \texttt{labs()} function:
 \begin{frame}{Labels}
 \protect\hypertarget{labels-1}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-145-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-148-1} \end{center}
 
 \end{frame}
 
@@ -2919,8 +2964,8 @@ a caption:
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color =}\NormalTok{ class)) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{labs}\NormalTok{(}
-    \DataTypeTok{title =} \StringTok{"Fuel efficiency generally decreases with engine size"}\NormalTok{,}
-    \DataTypeTok{subtitle =} \StringTok{"Two seaters (sports cars) are an exception because of their light weight"}\NormalTok{,}
+    \DataTypeTok{title =} \StringTok{"Efficiency decreases with engine size"}\NormalTok{,}
+    \DataTypeTok{subtitle =} \StringTok{"Two seaters are an exception"}\NormalTok{,}
     \DataTypeTok{caption =} \StringTok{"Data from fueleconomy.gov"}
 \NormalTok{  )}
 \end{Highlighting}
@@ -2931,7 +2976,7 @@ a caption:
 \begin{frame}{Labels}
 \protect\hypertarget{labels-3}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-147-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-150-1} \end{center}
 
 \end{frame}
 
@@ -2968,7 +3013,7 @@ a caption:
 \begin{frame}{Labels}
 \protect\hypertarget{labels-6}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-149-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-152-1} \end{center}
 
 \end{frame}
 
@@ -2997,7 +3042,7 @@ It's possible to use mathematical equations instead of text strings:
 \begin{frame}{Labels}
 \protect\hypertarget{labels-8}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-151-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-154-1} \end{center}
 
 \end{frame}
 
@@ -3017,11 +3062,7 @@ To learn about the mathematical syntax available see:
 \begin{frame}[fragile]{Themes}
 \protect\hypertarget{themes}{}
 
-\begin{itemize}
-\tightlist
-\item
-  The background of teh graphs can be costumized with a theme:
-\end{itemize}
+The background of the graphs can be costumized with a theme:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3037,36 +3078,47 @@ To learn about the mathematical syntax available see:
 \begin{frame}{Themes}
 \protect\hypertarget{themes-1}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-154-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-157-1} \end{center}
+
+\end{frame}
+
+\begin{frame}{Themes}
+\protect\hypertarget{themes-2}{}
+
+ggplot2 includes built in eight themes, as shown below:
+
+\begin{center}\includegraphics[width=600px,height=150px]{themes} \end{center}
 
 \end{frame}
 
 \begin{frame}[fragile]{Themes}
-\protect\hypertarget{themes-2}{}
+\protect\hypertarget{themes-3}{}
 
 \begin{itemize}
 \tightlist
 \item
-  ggplot2 includes eight themes by default, as shown in Figure 28.3.
-\item
-  Many more are included in add-on packages like \texttt{ggthemes} \#\#
-  Themes
+  Many more are included in add-on packages like \texttt{ggthemes}.
 \end{itemize}
-
-\begin{figure}
-\centering
-\includegraphics{themes.png}
-\caption{The eight themes built-in to ggplot2.}
-\end{figure}
 
 \end{frame}
 
 \begin{frame}[fragile]{Saving plots}
 \protect\hypertarget{saving-plots}{}
 
-\texttt{ggsave()} will save the most recent plot to the working
-directory. The name of the output file is provided as input to
-\texttt{ggsave()}:
+\begin{itemize}
+\item
+  \texttt{ggsave()} will save the most recent plot to the working
+  directory.
+\item
+  The name of the output file is provided as input to \texttt{ggsave()}.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Saving plots}
+\protect\hypertarget{saving-plots-1}{}
+
+Let's build a scatterplot and save it on the working directory:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3080,7 +3132,7 @@ directory. The name of the output file is provided as input to
 \end{frame}
 
 \begin{frame}[fragile]{Saving plots}
-\protect\hypertarget{saving-plots-1}{}
+\protect\hypertarget{saving-plots-2}{}
 
 You can save graphs in other locations by providing the path to
 \texttt{ggsave()}:
@@ -3097,10 +3149,10 @@ You can save graphs in other locations by providing the path to
 \end{frame}
 
 \begin{frame}[fragile]{Saving plots}
-\protect\hypertarget{saving-plots-2}{}
+\protect\hypertarget{saving-plots-3}{}
 
-You can use the \texttt{plot} argument to save graphs that are assigned
-to an objects:
+You can use the \texttt{plot} argument of \texttt{ggsave()} to save any
+graph that is assigned to an objects:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3111,7 +3163,8 @@ to an objects:
 \end{Highlighting}
 \end{Shaded}
 
-The default value of the \texttt{plot} argument is \texttt{last\_plot()}
+The default value of the \texttt{plot} argument is
+\texttt{last\_plot()}.
 
 \end{frame}
 
