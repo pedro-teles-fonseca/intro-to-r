@@ -1061,7 +1061,10 @@ ggplot(data = mpg) +
 ```{r, echo = FALSE, out.height = "200px"}
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class, nrow = 2)
+  facet_wrap(~ class, nrow = 2) +
+  theme(strip.text = element_text(size=20),
+        strip.background = element_rect(size=1))
+
 ```
 
 ## Facets
@@ -1077,7 +1080,9 @@ ggplot(data = mpg) +
 ```{r, echo = FALSE, warning=FALSE, out.height = "200px"}
 ggplot(data = mpg) + 
   geom_smooth(aes(x = displ, y = cyl), se = FALSE) + 
-  facet_wrap(~class, nrow = 2)
+  facet_wrap(~class, nrow = 2) +
+  theme(strip.text = element_text(size=20),
+        strip.background = element_rect(size=1))
 ```
 
 ## Facets
@@ -1097,7 +1102,9 @@ ggplot(data = mpg) +
 ```{r, echo = FALSE, out.height = "200px"}
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl)
+  facet_grid(drv ~ cyl) +
+  theme(strip.text = element_text(size=20),
+        strip.background = element_rect(size=1))
 ```
 
 ## Facets
@@ -1115,7 +1122,9 @@ ggplot(data = mpg) +
 ```{r, echo = FALSE, out.height = "200px"}
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
-  facet_grid(. ~ cyl)
+  facet_grid(. ~ cyl) +
+  theme(strip.text = element_text(size=20),
+        strip.background = element_rect(size=1))
 ```
 
 ## Facets
@@ -1131,7 +1140,9 @@ ggplot(data = mpg) +
 ```{r, echo = FALSE, out.height = "200px"}
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) +
-  facet_grid(drv ~ .)
+  facet_grid(drv ~ .) +
+  theme(strip.text = element_text(size=20),
+        strip.background = element_rect(size=1))
 ```
 
 <!-- ## Facets -->
@@ -1411,7 +1422,9 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 ggplot(data = mpg, aes(x = displ, y = hwy)) + 
   geom_smooth(se = FALSE) + 
   geom_point() + 
-  facet_wrap(~class, nrow = 2)
+  facet_wrap(~class, nrow = 2) +
+  theme(strip.text = element_text(size=20),
+        strip.background = element_rect(size=1))
 ```
 
 ## Multiple geoms
@@ -1429,7 +1442,9 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 ggplot(data = mpg, aes(x = displ, y = hwy)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE) +  
-  facet_wrap(~class, nrow = 2)
+  facet_wrap(~class, nrow = 2) +
+  theme(strip.text = element_text(size=20),
+        strip.background = element_rect(size=1))
 ```
 
 ## Multiple geoms
