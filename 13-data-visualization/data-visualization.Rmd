@@ -1,12 +1,12 @@
 ---
 title: "Introduction to R Programming"
-subtitle: "Data Visualitazion with ggplot2"
+subtitle: "Data Visualization with ggplot2"
 author: Pedro Fonseca
 date: "`r format(Sys.time(), '%d %B %Y')`"
 urlcolor: blue
 bibliography: references.bib
 nocite: |
-  @wichkam2016r, @wickham2010layered
+  @wickham2016r, @wickham2010layered 
 output: beamer_presentation
 ---
 ```{r setup, include=FALSE}
@@ -28,13 +28,13 @@ theme_update(
 
 ## Introduction
 
-- In lecture you will learn how to visualise data with the ggplot2 package.
+- In lecture you will learn how to visualize data with the ggplot2 package.
 
 - ggplot2 is one of the most elegant and versatile systems for making graphs.
 
 - ggplot2 implements the grammar of graphics [@wickham2010layered], a coherent system for describing and building graphs.
 
-## Preliminars 
+## Requirements 
 
 ```{r, eval = FALSE}
 library(ggplot2)
@@ -46,7 +46,7 @@ library(ggplot2)
 
 The `mpg` dataset contains information about 38 models of cars. Among the variables in mpg are: 
   
-- `displ`: engine size, in litres
+- `displ`: engine size, in liters
 
 - `cyl`: number of cylinders
 
@@ -165,7 +165,7 @@ But they are not identical:
 
 - The plot on the right uses the **smooth** geom, a smooth line fitted to the data.
 
-## The ggplot2 cheatsheet
+## The ggplot2 cheat sheet
 
 - ggplot2 provides over 40 geoms
 - The best way to get a comprehensive overview is the [ggplot2 cheatsheet](https://rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf).
@@ -182,8 +182,8 @@ But they are not identical:
 
 - Every geom function needs an aesthetic mapping, but not every aesthetic works with every geom, for example:
   
-  - We can set the shape of a point, but not of a line. 
-  - We can set the linetype of a line, but not of a point.
+  - We can set the `shape` of a point, but not of a line. 
+  - We can set the `linetype` of a line, but not of a point.
 
 ## My first `ggplot()` revisited
 
@@ -193,7 +193,7 @@ One group of points (highlighted in red) seems to fall outside the linear trend.
 
 ## My first `ggplot()` revisited
 
-- The highlited cars may have some common caractheristic with respect to some other variable (e.g. they might all be hybrids).
+- The highlighted cars may have some common characteristic with respect to some other variable (e.g. they might all be hybrids).
 
 - Lets try `class`, a variable that classifies cars into groups such as compact, midsize, and SUV.
 
@@ -217,7 +217,7 @@ ggplot(data = mpg) +
 
 ## The color aesthetic
 
-Now we know that all but one of the highlited cars are two-seater cars! Let's find their model and manufacturer:
+Now we know that all but one of the highlighted cars are two-seater cars! Let's find their model and manufacturer:
 
 ```{r}
 subset(mpg, class == "2seater", 
@@ -332,7 +332,7 @@ ggplot(data = mpg) +
 
 - Mapping a single variable to multiple aesthetics is redundant, and should be avoided in most cases.
 
-- In this case, however, since we have many categories, it can improving visual discrimanation.
+- In this case, however, since we have many categories, it can improving visual discrimination.
 
 - Let´s map `class` to `color` and `shape`:
   
@@ -357,7 +357,7 @@ ggplot(data = mpg) +
 
 - So far we mapped `class`, a categorical variable, to the `color`, `size`, `shape` and `alpha` aesthetics of `geom_point()`.
 
-- Now let´s map continuous variables to these aesthetics and see how they behaves differently for categorial versus continuous variables.
+- Now let´s map continuous variables to these aesthetics and see how they behaves differently for categorical versus continuous variables.
 
 - The variable `cty` (city miles per gallon) is a continuous variable. 
 
@@ -425,19 +425,19 @@ ggplot(mpg) +
 
 **Color** and **alpha** aesthetics:
   
-  - Each level of a categorival variable is assgined to a different (discrete) color.
+  - Each level of a categorical variable is assigned to a different (discrete) color.
 
   - The color of the points vary continuously from light to dark as a function of the values of a continuous variables.
 
-**Size** aestietic:
+**Size** aesthetic:
   
-  - Each level of a categorival variable is assigned to a different (discrete) size.
+  - Each level of a categorical variable is assigned to a different (discrete) size.
 
   - The size of the points vary continuously as a function of the values of a continuous variables.
 
 ## Aesthetic mappings: categorical vs continuous variables
 
-**Shape** aestietic:
+**Shape** aesthetic:
   
   - A different shape is assigned to each level of a categorical value.
 
@@ -461,8 +461,8 @@ ggplot(data = mpg) +
 
 ## The `linetype` aesthetic 
 
-- The linetype aesthetic automatically adds a legend.
-- The linetype aesthetic can not be mapped to continuous variables.
+- The `linetype` aesthetic automatically adds a legend.
+- The `linetype` aesthetic can not be mapped to continuous variables.
 
 ## The `group` aesthetic 
 
@@ -580,7 +580,7 @@ ggplot(mpg) +
   
   - The hollow shapes (0–14) have a border determined by the `colour` aesthetic
 
-  - The solid shapes (15–18) are filled with the colour `aesthetic`
+  - The solid shapes (15–18) are filled with the color `aesthetic`
 
   - The filled shapes (21–24) have a border set by the `colour` aesthetic and are filled with the `fill` aesthetic
   
@@ -757,7 +757,7 @@ ggplot(data = mpg) +
 
 - You can specify colors like in HTML/CSS, using the hexadecimal values (00 to FF) for red, green, and blue, concatenated into a string, prefixed with a "#". 
 
-- A pure red colour this is represented with "#FF0000".
+- A pure red color this is represented with "#FF0000".
 
 See:
 
@@ -949,9 +949,9 @@ ggarrange(l, r, nrow = 1)
 
 - The default method (`"auto"`) depends on the size of the largest group.
 
-- For less than 1000 obsetvations the method is `"loess"` (a local polynomial regression).
+- For less than 1000 observations the method is `"loess"` (a local polynomial regression).
 
-- Admissable methods are: `"auto"`, `"lm"`, `"glm"`, `"gam"` and `"loess"`. 
+- Admissible methods are: `"auto"`, `"lm"`, `"glm"`, `"gam"` and `"loess"`. 
 
 ## Changing default aesthetic properties of geoms 
 
@@ -1180,7 +1180,7 @@ ggplot(data = mpg) +
 
 - For example, we can overlap points and lines.
 
-- This is archieved by adding multiple geom functions to `ggplot()`.
+- This is archived by adding multiple geom functions to `ggplot()`.
 
 ## Multiple geoms
 
@@ -1733,7 +1733,7 @@ This works because:
 
 - The default `geom` of `stat_count()` is `bar`.
 
-## Overwrithing the default stat
+## Overwriting the default stat
 
 What if we want a bar chart that plot data as is?
 
@@ -2035,7 +2035,7 @@ ggplot(data = diamonds) +
 <!-- ggplot(data = mpg, aes(x = cty, y = hwy)) + -->
 <!--         geom_point() -->
 
-<!-- gplot(data = mpg, aes(x = cty, y = hwy)) + -->
+<!-- ggplot(data = mpg, aes(x = cty, y = hwy)) + -->
 <!--         geom_jitter() -->
 
 <!-- ggplot(data = mpg, aes(x = cty, y = hwy)) + -->
@@ -2105,7 +2105,7 @@ ggplot(data = mpg,
 
 ## Coordinate systems 
 
-`coord_flip()` flpis the coordinate system:
+`coord_flip()` flips the coordinate system:
 
 ```{r}
 ggplot(data = mpg, aes(x = class, y = hwy)) + 
@@ -2154,7 +2154,7 @@ ggplot(data = <DATA>) +
 
 <!-- ## Themes -->
 
-<!-- The background of the graphs can be costumized with a theme: -->
+<!-- The background of the graphs can be customized with a theme: -->
 
 <!-- ```{r, eval = FALSE} -->
 <!-- ggplot(mpg, aes(displ, hwy)) + -->
@@ -2218,7 +2218,7 @@ ggsave("outputs/my-plot.pdf")
 
 You can use the `plot` argument of `ggsave()` to save any graph that is assigned to an objects: 
 
-```{r}
+```{r, eval=FALSE}
 my_plot <- ggplot(mpg, aes(displ, hwy)) +
   geom_point()
 
