@@ -1,9 +1,11 @@
 ---
 title: "Introduction to R Programming"
+subtitle: Factors
 author: "Pedro Fonseca"
 date: "`r format(Sys.time(), '%d %B %Y')`"
+urlcolor: blue
 output: beamer_presentation
-subtitle: Factors
+
 ---
 
 ```{r setup, include=FALSE}

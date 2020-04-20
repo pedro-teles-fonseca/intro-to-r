@@ -1,8 +1,9 @@
 ---
 title: "Introduction to R Programming"
 subtitle: "Data Wrangling"
-date: "`r format(Sys.time(), '%d %B %Y')`"
 author: "Pedro Fonseca"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+urlcolor: blue
 output:
   beamer_presentation:
     includes:

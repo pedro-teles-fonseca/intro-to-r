@@ -1,5 +1,6 @@
 \PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
 \documentclass[ignorenonframetext,]{beamer}
 \usepackage{pgfpages}
@@ -65,11 +66,16 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 }
+\usepackage{xcolor}
 \usepackage{hyperref}
 \hypersetup{
             pdftitle={Introduction to R Programming},
             pdfauthor={Pedro Fonseca},
-            pdfborder={0 0 0},
+            colorlinks=true,
+            linkcolor=Maroon,
+            filecolor=Maroon,
+            citecolor=Blue,
+            urlcolor=blue,
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
 \newif\ifbibliography
@@ -128,7 +134,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Reading and Writing Tables}
 \author{Pedro Fonseca}
-\date{11 Abril 2020}
+\date{20 Abril 2020}
 
 \begin{document}
 \frame{\titlepage}
