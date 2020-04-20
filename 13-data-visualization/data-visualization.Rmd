@@ -27,7 +27,7 @@ theme_update(
   title = element_text(size = 22)           # title
 )
 ```
-![](pic.png)
+![](figures/pic.png)
 
 ## Introduction
 
@@ -195,7 +195,7 @@ But they are not identical:
 
 One group of points (highlighted in red) seems to fall outside the linear trend. How can we explain these cars?
   
-  ![Some cars have a higher mileage than we might expect](outl.png){width=300px}
+  ![Some cars have a higher mileage than we might expect](figures/outl.png){width=300px}
 
 ## My first `ggplot()` revisited
 
@@ -236,7 +236,7 @@ subset(mpg, class == "2seater",
 
 - Sports cars have large engines like SUVs and pickup trucks, but small bodies like midsize and compact cars, which improves their gas mileage. 
 
-![2008 Chevrolet Corvette](cc.jpg){width=250px}
+![2008 Chevrolet Corvette](figures/cc.jpg){width=250px}
 
 ## The size aesthetic
 
@@ -314,7 +314,7 @@ ggplot(data = mpg) +
 
 We can choose the following shapes of points by their number:
 
-![R Built in shapes](shapes-1){width=200px}
+![R Built in shapes](figures/shapes-1){width=200px}
 
 ## The shape aesthetic
 
@@ -774,7 +774,7 @@ See:
 
 We can change the default line type of geom functions like `geom_smooth()`. 
 
-![Built in line types](lty.png){width=250px}
+![Built in line types](figures/lty.png){width=250px}
 
 ## Changing default aesthetic properties of geoms
 
@@ -1579,11 +1579,11 @@ ggplot(data = diamonds) +
 
 ## Statistical transformations
 
-![](st1.png){width=300px}
+![](figures/st1.png){width=300px}
 
 ## Statistical transformations
 
-![](st2.png){width=400px}
+![](figures/st2.png){width=400px}
 
 ## Statistical transformations
 
@@ -2005,14 +2005,6 @@ ggplot(mpg, aes(x = "", fill = class)) +
   coord_polar("y")
 ```
 
-## Coordinate systems 
-
-```{r}
-ggplot(mpg, aes(x = "", fill = drv)) +
-  geom_bar() +
-  coord_polar("y")
-```
-
 ## The ggplot template
 
 ```{r, eval = FALSE}
@@ -2174,7 +2166,7 @@ ggplot(mpg, aes(displ, hwy)) +
 ggplot2 includes built in eight themes, as shown below:
 
 ```{r, out.width = "600px", echo = FALSE}
-knitr::include_graphics("themes.png")
+knitr::include_graphics("figures/themes.png")
 ```
 
 ## Themes
