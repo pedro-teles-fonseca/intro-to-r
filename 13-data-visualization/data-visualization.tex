@@ -197,10 +197,9 @@ Among the variables in mpg are:
 \item
   \texttt{cyl}: number of cylinders
 \item
-  \texttt{cty}: city miles per gallon
+  \texttt{cty}: fuel efficiency on the city, in miles per gallon (mpg)
 \item
-  \texttt{hwy}: fuel efficiency on the highway, in miles per gallon
-  (mpg).
+  \texttt{hwy}: fuel efficiency on the highway, in mpg.
 \item
   \texttt{class}: type of car
 \end{itemize}
@@ -1003,6 +1002,36 @@ an aesthetic to \texttt{displ\ \textless{}\ 5}:
 
 \end{frame}
 
+\begin{frame}[fragile]{Aesthetics and logical conditions}
+\protect\hypertarget{aesthetics-and-logical-conditions-3}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }
+                 \DataTypeTok{color =}\NormalTok{ class }\OperatorTok{==}\StringTok{ "2seater"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-38-1} \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]{Aesthetics and logical conditions}
+\protect\hypertarget{aesthetics-and-logical-conditions-4}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mpg) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy, }
+                 \DataTypeTok{linetype =}\NormalTok{ class }\OperatorTok{==}\StringTok{ "suv"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-39-1} \end{center}
+
+\end{frame}
+
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms}{}
 
@@ -1067,7 +1096,7 @@ For example, we can make all of the points blue:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-3}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-39-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-41-1} \end{center}
 
 \end{frame}
 
@@ -1090,7 +1119,7 @@ Now let's change the size of the points:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-5}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-41-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-43-1} \end{center}
 
 \end{frame}
 
@@ -1114,7 +1143,7 @@ We can also change the default shape of the points:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-7}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-45-1} \end{center}
 
 \end{frame}
 
@@ -1148,7 +1177,7 @@ We can also change the default shape of the points:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-9}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-45-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-47-1} \end{center}
 
 \end{frame}
 
@@ -1176,7 +1205,7 @@ points:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-11}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-47-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-49-1} \end{center}
 
 \end{frame}
 
@@ -1203,7 +1232,7 @@ We can also use colors like dark blue and light blue:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-13}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-49-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-51-1} \end{center}
 
 \end{frame}
 
@@ -1228,7 +1257,7 @@ We can also use colors like dark blue and light blue:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-15}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-51-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-53-1} \end{center}
 
 \end{frame}
 
@@ -1310,7 +1339,7 @@ We can change the default line type of geom functions like
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-20}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-53-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-55-1} \end{center}
 
 \end{frame}
 
@@ -1337,7 +1366,7 @@ We can also change the thickness of the lines:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-22}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-55-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-57-1} \end{center}
 
 \end{frame}
 
@@ -1365,7 +1394,7 @@ We can also change the thickness of the lines:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-24}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-57-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-59-1} \end{center}
 
 \end{frame}
 
@@ -1398,7 +1427,7 @@ We can also change the thickness of the lines:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-26}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-59-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-61-1} \end{center}
 
 \end{frame}
 
@@ -1421,7 +1450,7 @@ We can also change the thickness of the lines:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-28}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-61-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-63-1} \end{center}
 
 \end{frame}
 
@@ -1444,7 +1473,7 @@ We can also change the thickness of the lines:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-30}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-63-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-65-1} \end{center}
 
 \end{frame}
 
@@ -1490,7 +1519,7 @@ To add a linear regression line use \texttt{method\ =\ "lm"}:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-33}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-65-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-67-1} \end{center}
 
 \end{frame}
 
@@ -1516,7 +1545,7 @@ Legends can also be disabled:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-35}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-67-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-69-1} \end{center}
 
 \end{frame}
 
@@ -1540,7 +1569,7 @@ Legends can also be disabled:
 \begin{frame}{Changing default aesthetic properties of geoms}
 \protect\hypertarget{changing-default-aesthetic-properties-of-geoms-37}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-69-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-71-1} \end{center}
 
 \end{frame}
 
@@ -1580,7 +1609,7 @@ Legends can also be disabled:
 \begin{frame}{Facets}
 \protect\hypertarget{facets-2}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-71-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-73-1} \end{center}
 
 \end{frame}
 
@@ -1600,7 +1629,7 @@ Legends can also be disabled:
 \begin{frame}{Facets}
 \protect\hypertarget{facets-4}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-73-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-75-1} \end{center}
 
 \end{frame}
 
@@ -1620,7 +1649,7 @@ Legends can also be disabled:
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(drv }\OperatorTok{~}\StringTok{ }\NormalTok{cyl)}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(drv }\OperatorTok{~}\StringTok{ }\NormalTok{year)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1629,7 +1658,7 @@ Legends can also be disabled:
 \begin{frame}{Facets}
 \protect\hypertarget{facets-6}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-75-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-77-1} \end{center}
 
 \end{frame}
 
@@ -1643,7 +1672,7 @@ If we prefer to not facet in the rows (or columns), we can use a
 \begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ mpg) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ displ, }\DataTypeTok{y =}\NormalTok{ hwy)) }\OperatorTok{+}\StringTok{ }
-\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(. }\OperatorTok{~}\StringTok{ }\NormalTok{cyl)}
+\StringTok{  }\KeywordTok{facet_grid}\NormalTok{(. }\OperatorTok{~}\StringTok{ }\NormalTok{year)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1652,7 +1681,7 @@ If we prefer to not facet in the rows (or columns), we can use a
 \begin{frame}{Facets}
 \protect\hypertarget{facets-8}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-77-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-79-1} \end{center}
 
 \end{frame}
 
@@ -1672,7 +1701,7 @@ If we prefer to not facet in the rows (or columns), we can use a
 \begin{frame}{Facets}
 \protect\hypertarget{facets-10}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-79-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-81-1} \end{center}
 
 \end{frame}
 
@@ -1702,7 +1731,7 @@ If we prefer to not facet in the rows (or columns), we can use a
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-80-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-82-1} \end{center}
 
 \end{frame}
 
@@ -1727,7 +1756,7 @@ If we prefer to not facet in the rows (or columns), we can use a
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-3}{}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-82-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-84-1} \end{center}
 
 \end{frame}
 
@@ -1775,7 +1804,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-6}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-85-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-87-1} \end{center}
 
 \end{frame}
 
@@ -1812,7 +1841,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-9}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-87-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-89-1} \end{center}
 
 \end{frame}
 
@@ -1833,7 +1862,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-11}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-89-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-91-1} \end{center}
 
 \end{frame}
 
@@ -1853,7 +1882,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-13}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-91-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-93-1} \end{center}
 
 \end{frame}
 
@@ -1874,7 +1903,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-15}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-93-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-95-1} \end{center}
 
 \end{frame}
 
@@ -1894,7 +1923,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-17}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-95-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-97-1} \end{center}
 
 \end{frame}
 
@@ -1914,7 +1943,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-19}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-97-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-99-1} \end{center}
 
 \end{frame}
 
@@ -1934,7 +1963,7 @@ These two chunks of code result in the same plot:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-21}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-99-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-101-1} \end{center}
 
 \end{frame}
 
@@ -1957,7 +1986,7 @@ We can also overlap geoms in grids:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-23}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-101-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-103-1} \end{center}
 
 \end{frame}
 
@@ -1978,7 +2007,7 @@ We can also overlap geoms in grids:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-25}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-103-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-105-1} \end{center}
 
 \end{frame}
 
@@ -2022,7 +2051,7 @@ We can also overlap geoms in grids:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-28}{}
 
-\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-105-1} \end{center}
+\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-107-1} \end{center}
 
 \end{frame}
 
@@ -2048,7 +2077,7 @@ We can also overlap geoms in grids:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-30}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-107-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-109-1} \end{center}
 
 \end{frame}
 
@@ -2071,7 +2100,7 @@ We can also overlap geoms in grids:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-32}{}
 
-\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-109-1} \end{center}
+\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-111-1} \end{center}
 
 \end{frame}
 
@@ -2094,7 +2123,7 @@ We can also overlap geoms in grids:
 \begin{frame}{Multiple geoms}
 \protect\hypertarget{multiple-geoms-34}{}
 
-\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-111-1} \end{center}
+\begin{center}\includegraphics[height=300px]{data-visualization_files/figure-beamer/unnamed-chunk-113-1} \end{center}
 
 \end{frame}
 
@@ -2118,7 +2147,7 @@ We can add labels to a graph with the \texttt{labs()} function:
 \begin{frame}{Labels}
 \protect\hypertarget{labels-1}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-113-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-115-1} \end{center}
 
 \end{frame}
 
@@ -2146,7 +2175,7 @@ caption:
 \begin{frame}{Labels}
 \protect\hypertarget{labels-3}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-115-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-117-1} \end{center}
 
 \end{frame}
 
@@ -2183,7 +2212,7 @@ caption:
 \begin{frame}{Labels}
 \protect\hypertarget{labels-6}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-117-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-119-1} \end{center}
 
 \end{frame}
 
@@ -2212,7 +2241,7 @@ It's possible to use mathematical equations instead of text strings:
 \begin{frame}{Labels}
 \protect\hypertarget{labels-8}{}
 
-\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-119-1} \end{center}
+\begin{center}\includegraphics[height=200px]{data-visualization_files/figure-beamer/unnamed-chunk-121-1} \end{center}
 
 \end{frame}
 
@@ -2254,7 +2283,7 @@ To learn more about the mathematical syntax available see:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-121-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-123-1} \end{center}
 
 \end{frame}
 
@@ -2340,7 +2369,7 @@ To learn more about the mathematical syntax available see:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-122-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-124-1} \end{center}
 
 \end{frame}
 
@@ -2400,7 +2429,7 @@ What if we want a bar chart that plot data as is?
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-124-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-126-1} \end{center}
 
 \end{frame}
 
@@ -2417,7 +2446,7 @@ The default stat of \texttt{stat\_identity()} is \texttt{point}, not
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-125-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-127-1} \end{center}
 
 \end{frame}
 
@@ -2445,7 +2474,7 @@ The default stat of \texttt{stat\_identity()} is \texttt{point}, not
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-126-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-128-1} \end{center}
 
 \end{frame}
 
@@ -2519,7 +2548,7 @@ Let´s map proportions, instead of counts, to the y axis:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-128-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-130-1} \end{center}
 
 What went wrong?
 
@@ -2587,7 +2616,7 @@ Lets see the computed values:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-130-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-132-1} \end{center}
 
 \end{frame}
 
@@ -2627,7 +2656,7 @@ We can map the color aesthetic to a grouping variable:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-132-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-134-1} \end{center}
 
 \end{frame}
 
@@ -2644,7 +2673,7 @@ We can also change the default \texttt{fill} color of
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-133-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-135-1} \end{center}
 
 \end{frame}
 
@@ -2658,7 +2687,7 @@ We can also change the default \texttt{fill} color of
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-134-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-136-1} \end{center}
 
 \end{frame}
 
@@ -2675,7 +2704,7 @@ And disable the legend:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-135-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-137-1} \end{center}
 
 \end{frame}
 
@@ -2692,7 +2721,7 @@ dimension to the plot:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-136-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
 
 \end{frame}
 
@@ -2735,7 +2764,7 @@ dimension to the plot:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-137-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
 
 \end{frame}
 
@@ -2753,7 +2782,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-138-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
 
 \end{frame}
 
@@ -2767,7 +2796,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
 
 \end{frame}
 
@@ -2781,7 +2810,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-142-1} \end{center}
 
 \end{frame}
 
@@ -2796,7 +2825,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-141-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-143-1} \end{center}
 
 \end{frame}
 
@@ -2811,7 +2840,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-142-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-144-1} \end{center}
 
 \end{frame}
 
@@ -2825,7 +2854,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-143-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-145-1} \end{center}
 
 \end{frame}
 
@@ -2840,7 +2869,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-144-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-146-1} \end{center}
 
 \end{frame}
 
@@ -2857,7 +2886,7 @@ directly beside one another:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-145-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-147-1} \end{center}
 
 \end{frame}
 
@@ -2873,7 +2902,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-146-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-148-1} \end{center}
 
 \end{frame}
 
@@ -2888,7 +2917,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-147-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-149-1} \end{center}
 
 \end{frame}
 
@@ -2903,7 +2932,7 @@ A pie chart is a stacked bar chart with polar coordinates:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-148-1} \end{center}
+\begin{center}\includegraphics[height=150px]{data-visualization_files/figure-beamer/unnamed-chunk-150-1} \end{center}
 
 \end{frame}
 

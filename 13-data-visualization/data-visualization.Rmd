@@ -50,9 +50,9 @@ The `mpg` dataset contains information about 38 models of cars. Among the variab
 
 - `cyl`: number of cylinders
 
-- `cty`: city miles per gallon
+- `cty`: fuel efficiency on the city, in miles per gallon (mpg)
 
-- `hwy`: fuel efficiency on the highway, in miles per gallon (mpg).
+- `hwy`: fuel efficiency on the highway, in mpg.
 
 - `class`: type of car
 
@@ -562,6 +562,21 @@ ggplot(mpg) +
                  color = class == "2seater"))
 ```
 
+## Aesthetics and logical conditions
+
+```{r, warning=FALSE}
+ggplot(mpg) + 
+  geom_smooth(aes(x = displ, y = hwy, 
+                 color = class == "2seater"))
+```
+
+## Aesthetics and logical conditions
+
+```{r, warning=FALSE}
+ggplot(mpg) + 
+  geom_smooth(aes(x = displ, y = hwy, 
+                 linetype = class == "suv"))
+```
 ## Changing default aesthetic properties of geoms
 
 - To change a default aesthetic property, set the aesthetic by name as an argument of the geom function.
@@ -1094,7 +1109,7 @@ ggplot(data = mpg) +
 ```{r, eval = FALSE}
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl)
+  facet_grid(drv ~ year)
 ```
 
 ## Facets
@@ -1102,7 +1117,7 @@ ggplot(data = mpg) +
 ```{r, echo = FALSE, out.height = "200px"}
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl) +
+  facet_grid(drv ~ year) +
   theme(strip.text = element_text(size=20),
         strip.background = element_rect(size=1))
 ```
@@ -1114,7 +1129,7 @@ If we prefer to not facet in the rows (or columns), we can use a `"."` instead o
 ```{r, eval = FALSE}
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
-  facet_grid(. ~ cyl)
+  facet_grid(. ~ year)
 ```
 
 ## Facets
@@ -1122,7 +1137,7 @@ ggplot(data = mpg) +
 ```{r, echo = FALSE, out.height = "200px"}
 ggplot(data = mpg) + 
   geom_point(aes(x = displ, y = hwy)) + 
-  facet_grid(. ~ cyl) +
+  facet_grid(. ~ year) +
   theme(strip.text = element_text(size=20),
         strip.background = element_rect(size=1))
 ```
