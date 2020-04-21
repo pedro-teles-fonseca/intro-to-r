@@ -10,7 +10,7 @@ nocite: |
 output: beamer_presentation
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, out.height="150px", fig.align = 'center', message = FALSE, cache = TRUE)
+knitr::opts_chunk$set(echo = TRUE, out.height="150px", fig.align = 'center', message = FALSE)
 
 library(egg)
 library(tidyverse)
@@ -691,7 +691,7 @@ ggplot(data = mpg) +
   geom_point(aes(x = displ, y = hwy),
     color = "blue",
     size = 5,
-    shape = 23,
+    shape = 24,
     fill = "red",
     stroke = 2
   )
@@ -702,7 +702,7 @@ ggplot(data = mpg) +
 ```{r, echo = FALSE, out.height = "200px"}
 ggplot(data = mpg) +
   geom_point(aes(x = displ, y = hwy), 
-             color = "blue", size = 5, shape = 23, fill = "red", stroke = 2
+             color = "blue", size = 5, shape = 24, fill = "red", stroke = 2
   )
 ```
 
@@ -762,7 +762,7 @@ ggplot(data = mpg) +
 
 ## Changing default aesthetic properties of geoms
 
-- For a list of available colors and their names see: [http://sape.inf.usi.ch/quick-reference/ggplot2/color](http://sape.inf.usi.ch/quick-reference/ggplot2/color)
+- For a list of available colors and their names see: [http://sape.inf.usi.ch/quick-reference/ggplot2/colour](http://sape.inf.usi.ch/quick-reference/ggplot2/colour)
 
 ## Changing default aesthetic properties of geoms
 
