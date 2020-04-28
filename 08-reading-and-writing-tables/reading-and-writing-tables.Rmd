@@ -63,7 +63,7 @@ write.table(datasets::iris, sep = ";", dec = ",", file = "datasets/iris.csv", ro
 
 - Typically we import tables stored in text files or CSV files (comma separated values).
 
-- There are packages that allow import xls and xlsx tables into R, but if you want to read data from excel I reccomend saving your excel worksheet as a CSV or text (tab delimited) file instead.
+- There are packages that allow import xls and xlsx tables into R, but if you want to read data from excel I recommend saving your excel worksheet as a CSV or text (tab delimited) file instead.
 
 - It is important to open the file were the table is stored with a text editor and pay attention to the structure of the data.
 
@@ -176,7 +176,7 @@ View(mt)
 
 ## Using `read.csv()`
 
-Read the mtcars0.csv file from the datasets folder and assign it to an objet:
+Read the mtcars0.csv file from the datasets folder and assign it to an object:
 
 ```{r}
 mtcars0 <- read.csv(file = "datasets/mtcars0.csv")
@@ -371,7 +371,7 @@ write.table(x, file = "", quote = TRUE, sep = " ",
 
 - The `sep` argument stipulates how the values of the table should be separated in the output file.
 
-- The `na` arguments indictes how the `NA` values should be displayed in the output file
+- The `na` arguments indicates how the `NA` values should be displayed in the output file
 
 - `row.names` and `col.names` indicate whether or not row names and column names should be printed to the output file.
 

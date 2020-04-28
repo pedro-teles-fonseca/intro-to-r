@@ -68,7 +68,7 @@ For a complete list of built in constants see `?Constants`
 
 ## The `subset()` function
 
-`subset()` is a generic function that can be used to subset data frames using logical condictions. 
+`subset()` is a generic function that can be used to subset data frames using logical conditions. 
 
 ## The `subset()` function
 
@@ -118,7 +118,7 @@ subset(df, inc == 5, select = -c(state, name, gender))
 
 ## The `subset()` function
 
-You can use `subset()` to filter out mising data with respect to specific variables:
+You can use `subset()` to filter out missing data with respect to specific variables:
 
 ```{r}
 subset(df, !is.na(state), select = c(name, inc))
@@ -197,7 +197,7 @@ transform(df, norm_inc = standardize(inc))
 
 ## The `USArrests` dataset
 
-Now consider the `USArrests` dataset, with arrests per 100.000 residentes in the US for murder, assault and rape. 
+Now consider the `USArrests` dataset, with arrests per 100.000 residents in the US for murder, assault and rape. 
 
 ```{r}
 head(USArrests)
@@ -506,7 +506,7 @@ res
 
 ## The `mapply()` function
 
-Suppose we want 3 samples of diffrent sizes from a $\operatorname{Normal}(0, 1)$ distribution:
+Suppose we want 3 samples of different sizes from a $\operatorname{Normal}(0, 1)$ distribution:
 
 ```{r}
 set.seed(123)
@@ -540,7 +540,7 @@ sapply(FUN = rnorm, X = sample_size)
 
 ## The `mapply()` function
 
-But what if we want to sample from normal distributions with difrent means, while still having samples of diffrent sizes? 
+But what if we want to sample from normal distributions with different means, while still having samples of different sizes? 
 
 ```{r}
 set.seed(123)
@@ -631,7 +631,7 @@ res
 
 - Sometimes our tables are related to other tables.
 
-- It is often necesary to complement one table with information from another table, or to cross information between tables.
+- It is often necessary to complement one table with information from another table, or to cross information between tables.
 
 - We usually join tables by using one or more variables that are present in both tables as a key to match rows from one table to the other.
 
@@ -720,7 +720,7 @@ merge(x = Sales, y = Clients,
 
 ## Natural join
 
-A natural join is an inner join where the joinning attributes are defined as having equal names, so they need not be stated explicitly:
+A natural join is an inner join where the joining attributes are defined as having equal names, so they need not be stated explicitly:
 
 ```{r}
 merge(x = Sales, y = Clients) 
@@ -950,7 +950,7 @@ aggregate(
 
 ## Subgroup summaries with `aggregate()`
 
-Compare the age of the younger person with children with the age of the younger person without chilren:
+Compare the age of the younger person with children with the age of the younger person without children:
 
 ```{r}
 aggregate(age ~ child, my_df, min)
@@ -1109,7 +1109,7 @@ sqldf(
 
 ## Subgroup summaries with `sqldf()`
 
-Compare the age of the younger person with children with the age of the younger person without chilren:
+Compare the age of the younger person with children with the age of the younger person without children:
 
 ```{r}
 sqldf(

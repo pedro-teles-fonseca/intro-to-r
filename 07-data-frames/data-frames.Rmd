@@ -11,9 +11,9 @@ output: beamer_presentation
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Preliminars
+## Before we start
 
-The `ifelse()` function performs vectorized if-then-else statments.
+The `ifelse()` function performs vectorized if-then-else statements.
 
 ```{r, eval = FALSE}
 ifelse(test, x, y)
@@ -23,7 +23,7 @@ ifelse(test, x, y)
 
 - `ifelse()`returns `x` in the positions where the corresponding element of `test` is `TRUE` and `y` in the positions where the corresponding element of `test` is `FALSE`
 
-## Preliminars
+## Before we start
 
 ```{r}
 vec <- 1:5
@@ -34,7 +34,7 @@ ifelse(vec > 2, 2, 1)
 ifelse(vec > 2, "large", "small")
 ifelse(vec > 2, vec - 1, vec + 1)
 ```
-## Preliminars
+## Before we start
 
 You can chain multiple `ifelse()` calls:
 
@@ -62,9 +62,9 @@ In a typical dataset:
 
 ## What is a data frame?
 
-Data frames are designed specifically for retangular datasets.
+Data frames are designed specifically for rectangular datasets.
 
-- Why not matrices? We may need different data types for differen columns.
+- Why not matrices? We may need different data types for different columns.
 
 - Why not lists? Not very practical nor visually appealing.
 
@@ -116,7 +116,7 @@ class(df)
 
 ## What is a data frame?
 
-Due to their rectangular scructure, data frames share the properties of both matrices and lists:
+Due to their rectangular structure, data frames share the properties of both matrices and lists:
 
 - A data frame has `rownames()` and `colnames()`. The `names()` of a data frame are the column names.
 
@@ -137,7 +137,7 @@ Unlike `list()`, `data.frame()` keeps the names of the vectors.
 
 ## Assign `names()` to a data frame
 
-Data frame columns always have names. If you dont provide them,
+Data frame columns always have names. If you don´t provide them,
 default names will be assigned:
 
 ```{r}
@@ -176,10 +176,10 @@ rownames(df4)
 
 ## Row names
 
-You can also set (or ovewright) row names after the data frame is created:
+You can also set (or overwrite) row names after the data frame is created:
 
 ```{r}
-rownames(df4) <- c("Bob M.", "Susab B.", "Sam L.") 
+rownames(df4) <- c("Bob M.", "Susan B.", "Sam L.") 
 df4
 ```
 
@@ -270,7 +270,7 @@ people[c(3, 5), c("age", "child")] # data frame
 
 See the pattern?
 
-- When you subset a dataframe like a 2D object with `[` you get a vector if only one column is extracted. You get a data frame otherwise.
+- When you subset a data frame like a 2D object with `[` you get a vector if only one column is extracted. You get a data frame otherwise.
 
 - This is a frequent source of bugs when using `[` in a function, unless you always remember to use `drop = FALSE`.
 
@@ -303,7 +303,7 @@ people[!is.na(people[, "age"]) & people[, "age"] > 21,
 
 ## Subsetting with matrix syntax
 
-If available, row names can be used for subseting:
+If available, row names can be used for subsetting:
 
 ```{r}
 df4
@@ -354,9 +354,9 @@ people[[2]][c(1, 4)]
 
 ## Subsetting with list syntax
 
-Since data frames are lists of vectors, when you subset a dataframe like a 1D object:
+Since data frames are lists of vectors, when you subset a data frame like a 1D object:
 
-  - with `[` you get a dataframe.
+  - with `[` you get a data frame.
   - with `[[` or `$` you get a vector.
 
 ## Partial matching with `$`
@@ -382,7 +382,7 @@ str(people)
 
 ## Add columns with `$`
 
-Let’s add a column with the people’s heigth:
+Let’s add a column with the people’s height:
 
 ```{r}
 height <- c(175, 170, 166, 182, 172) 
@@ -407,7 +407,7 @@ Now let’s add a column with the people’s weight:
 
 We can overwrite existing columns.
 
-Lets convert `height` from centimenters to meters:
+Lets convert `height` from centimeters to meters:
 
 ```{r}
 people$height <- people$height/100
@@ -417,7 +417,7 @@ people
 
 ## Calculations with existing columns
 
-We can create new colums using the values of existing columns.
+We can create new columns using the values of existing columns.
 
 Let’s use `weight` and `height` to calculate the body mass index:
 
@@ -430,7 +430,7 @@ people
 
 ## Calculations with existing columns
 
-Now let’s the the body mass index to calculate the weigth status:
+Now let’s the the body mass index to calculate the weight status:
 
 ```{r}
 people$weight_status <- ifelse(
@@ -478,7 +478,7 @@ rbind(people, tom)
 
 ## Add a row 
 
-The default names do not match the names of the `people` dataframe:
+The default names do not match the names of the `people` data frame:
 
 ```{r}
 names(tom)

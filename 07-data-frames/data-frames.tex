@@ -143,16 +143,16 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Data Frames}
 \author{Pedro Fonseca}
-\date{20 Abril 2020}
+\date{28 Abril 2020}
 
 \begin{document}
 \frame{\titlepage}
 
-\begin{frame}[fragile]{Preliminars}
-\protect\hypertarget{preliminars}{}
+\begin{frame}[fragile]{Before we start}
+\protect\hypertarget{before-we-start}{}
 
 The \texttt{ifelse()} function performs vectorized if-then-else
-statments.
+statements.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -172,8 +172,8 @@ statments.
 
 \end{frame}
 
-\begin{frame}[fragile]{Preliminars}
-\protect\hypertarget{preliminars-1}{}
+\begin{frame}[fragile]{Before we start}
+\protect\hypertarget{before-we-start-1}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -213,8 +213,8 @@ statments.
 
 \end{frame}
 
-\begin{frame}[fragile]{Preliminars}
-\protect\hypertarget{preliminars-2}{}
+\begin{frame}[fragile]{Before we start}
+\protect\hypertarget{before-we-start-2}{}
 
 You can chain multiple \texttt{ifelse()} calls:
 
@@ -262,11 +262,11 @@ In a typical dataset:
 \begin{frame}{What is a data frame?}
 \protect\hypertarget{what-is-a-data-frame}{}
 
-Data frames are designed specifically for retangular datasets.
+Data frames are designed specifically for rectangular datasets.
 
 \begin{itemize}
 \item
-  Why not matrices? We may need different data types for differen
+  Why not matrices? We may need different data types for different
   columns.
 \item
   Why not lists? Not very practical nor visually appealing.
@@ -391,7 +391,7 @@ A data frame is a named list of vectors with attributes for column
 \begin{frame}[fragile]{What is a data frame?}
 \protect\hypertarget{what-is-a-data-frame-3}{}
 
-Due to their rectangular scructure, data frames share the properties of
+Due to their rectangular structure, data frames share the properties of
 both matrices and lists:
 
 \begin{itemize}
@@ -436,7 +436,7 @@ vectors.
 \begin{frame}[fragile]{Assign \texttt{names()} to a data frame}
 \protect\hypertarget{assign-names-to-a-data-frame}{}
 
-Data frame columns always have names. If you dont provide them, default
+Data frame columns always have names. If you don´t provide them, default
 names will be assigned:
 
 \begin{Shaded}
@@ -518,12 +518,12 @@ vector of unique values to the \texttt{row.names} argument:
 \begin{frame}[fragile]{Row names}
 \protect\hypertarget{row-names-1}{}
 
-You can also set (or ovewright) row names after the data frame is
+You can also set (or overwrite) row names after the data frame is
 created:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{rownames}\NormalTok{(df4) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Bob M."}\NormalTok{, }\StringTok{"Susab B."}\NormalTok{, }\StringTok{"Sam L."}\NormalTok{) }
+\KeywordTok{rownames}\NormalTok{(df4) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Bob M."}\NormalTok{, }\StringTok{"Susan B."}\NormalTok{, }\StringTok{"Sam L."}\NormalTok{) }
 \NormalTok{df4}
 \end{Highlighting}
 \end{Shaded}
@@ -531,7 +531,7 @@ created:
 \begin{verbatim}
 ##          age  hair
 ## Bob M.    35 blond
-## Susab B.  27 brown
+## Susan B.  27 brown
 ## Sam L.    18 black
 \end{verbatim}
 
@@ -761,8 +761,8 @@ See the pattern?
 
 \begin{itemize}
 \item
-  When you subset a dataframe like a 2D object with \texttt{{[}} you get
-  a vector if only one column is extracted. You get a data frame
+  When you subset a data frame like a 2D object with \texttt{{[}} you
+  get a vector if only one column is extracted. You get a data frame
   otherwise.
 \item
   This is a frequent source of bugs when using \texttt{{[}} in a
@@ -843,7 +843,7 @@ Show \texttt{name} and \texttt{child} for the people who are older than
 \begin{frame}[fragile]{Subsetting with matrix syntax}
 \protect\hypertarget{subsetting-with-matrix-syntax-6}{}
 
-If available, row names can be used for subseting:
+If available, row names can be used for subsetting:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -854,7 +854,7 @@ If available, row names can be used for subseting:
 \begin{verbatim}
 ##          age  hair
 ## Bob M.    35 blond
-## Susab B.  27 brown
+## Susan B.  27 brown
 ## Sam L.    18 black
 \end{verbatim}
 
@@ -1075,13 +1075,13 @@ If available, row names can be used for subseting:
 \begin{frame}[fragile]{Subsetting with list syntax}
 \protect\hypertarget{subsetting-with-list-syntax-5}{}
 
-Since data frames are lists of vectors, when you subset a dataframe like
-a 1D object:
+Since data frames are lists of vectors, when you subset a data frame
+like a 1D object:
 
 \begin{itemize}
 \tightlist
 \item
-  with \texttt{{[}} you get a dataframe.
+  with \texttt{{[}} you get a data frame.
 \item
   with \texttt{{[}{[}} or \texttt{\$} you get a vector.
 \end{itemize}
@@ -1149,7 +1149,7 @@ So far our data frame \texttt{people} has 5 rows and 3 columns.
 \begin{frame}[fragile]{Add columns with \texttt{\$}}
 \protect\hypertarget{add-columns-with-1}{}
 
-Let's add a column with the people's heigth:
+Let's add a column with the people's height:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1200,7 +1200,7 @@ Now let's add a column with the people's weight:
 
 We can overwrite existing columns.
 
-Lets convert \texttt{height} from centimenters to meters:
+Lets convert \texttt{height} from centimeters to meters:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1224,7 +1224,7 @@ Lets convert \texttt{height} from centimenters to meters:
 \begin{frame}[fragile]{Calculations with existing columns}
 \protect\hypertarget{calculations-with-existing-columns}{}
 
-We can create new colums using the values of existing columns.
+We can create new columns using the values of existing columns.
 
 Let's use \texttt{weight} and \texttt{height} to calculate the body mass
 index:
@@ -1252,7 +1252,7 @@ index:
 \begin{frame}[fragile]{Calculations with existing columns}
 \protect\hypertarget{calculations-with-existing-columns-1}{}
 
-Now let's the the body mass index to calculate the weigth status:
+Now let's the the body mass index to calculate the weight status:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1342,8 +1342,8 @@ Lets drop the \texttt{weight} column. By position:
 \begin{frame}[fragile]{Add a row}
 \protect\hypertarget{add-a-row-1}{}
 
-The default names do not match the names of the \texttt{people}
-dataframe:
+The default names do not match the names of the \texttt{people} data
+frame:
 
 \begin{Shaded}
 \begin{Highlighting}[]

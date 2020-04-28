@@ -11,9 +11,9 @@ output: beamer_presentation
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Preliminars
+## Before we start
 
-The `str()` function displays the internal strucure of an object:
+The `str()` function displays the internal structure of an object:
 
 ```{r}
 vec <- c(1, 5, 0.1)
@@ -26,7 +26,7 @@ mat_char <- matrix(c("a", "u", "mk", "q!"), ncol = 2)
 str(mat_char)
 ```
 
-## Preliminars
+## Before we start
 
 ![The hierarchy of R’s vector types](figures/vec){width=250px}
 
@@ -232,7 +232,7 @@ We can subset lists with:
 
 - The `[` operator. Always returns a list. 
 - The `[[` operator. Returns the object that is inside the subsetted element of the list. Can return objects of any type.
-- The `$` operator. Simillar to `[[` but works only with named list elements. 
+- The `$` operator. Similar to `[[` but works only with named list elements. 
 
 ## Subsetting
 

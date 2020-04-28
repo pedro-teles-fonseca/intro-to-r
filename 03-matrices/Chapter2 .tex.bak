@@ -850,6 +850,7 @@ x1 x2
                 10, 8, -4), 
               ncol = 3, 
               byrow = TRUE)
+              
 > det(A)
 [1] -76
 \end{verbatim}

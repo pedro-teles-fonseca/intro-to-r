@@ -5,7 +5,6 @@ author: "Pedro Fonseca"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 urlcolor: blue
 output: beamer_presentation
-
 ---
 
 ```{r setup, include=FALSE}
@@ -302,7 +301,7 @@ levels(cut(y, breaks = c(0, 2, 4, 6),
              include.lowest = TRUE)) 
 ```
 
-Intervals open on the right and closed on the left but including the higuest value:
+Intervals open on the right and closed on the left but including the highest value:
 
 ```{r}
 levels(cut(y, breaks = c(0, 2, 4, 6), right = FALSE, 
