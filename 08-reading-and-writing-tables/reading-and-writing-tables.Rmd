@@ -63,7 +63,7 @@ write.table(datasets::iris, sep = ";", dec = ",", file = "datasets/iris.csv", ro
 
 - Typically we import tables stored in text files or CSV files (comma separated values).
 
-- There are packages that allow import xls and xlsx tables into R, but if you want to read data from excel I recommend saving your excel worksheet as a CSV or text (tab delimited) file instead.
+- There are packages that allow importing xls and xlsx tables into R, but if you want to read data from excel I recommend saving your excel worksheet as a CSV or text (tab delimited) file instead.
 
 - It is important to open the file were the table is stored with a text editor and pay attention to the structure of the data.
 
