@@ -1,0 +1,30 @@
+---
+title: "Introduction to R Programming"
+subtitle: Data Types and Data Structures
+author: "Pedro Fonseca"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+urlcolor: blue
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
+```
+
+<!-- https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/ -->
+
+## Basic data types
+
+R has 5 basic data types: 
+
+- logical
+- integer
+- numeric 
+- character
+
+## Basic data types
+
+Elements of these data types may be combined to form data structures, such as atomic vectors. When we call a vector atomic, we mean that the vector only holds data of a single data type.
+
+
+
