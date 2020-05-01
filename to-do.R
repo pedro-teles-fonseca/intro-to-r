@@ -3,7 +3,7 @@
 # na aula dos data frames, no dataframe people, transformar a variavel child num fator (para evitar fazer child == FALSE, NAs podem ser problema)
 # meter os vetores letters e afins na aula dos vetores e quando estiver retirar dos slides de data Wrangling
 
-#### cartesian product -> R and SQL with the same order of rows
+library(sqldf)
 
 set.seed(1)
 
@@ -33,7 +33,7 @@ Clients <- data.frame(CustomerID = c(paste(2:4, "2019", sep = "_"),
                                      size = 5, replace = TRUE))
 
 
-(x = merge(x = Sales, y = Clients, by = NULL) )
+(x = merge(x = Sales, y = Clients, by = NULL))
       
 (y = sqldf("SELECT Product, Sales.CustomerID, Price, Clients.CustomerID, State
        FROM Sales
@@ -42,7 +42,7 @@ Clients <- data.frame(CustomerID = c(paste(2:4, "2019", sep = "_"),
 
 x == y
 
-library(sqldf)
+
 
 sqldf(
   "select CustomerID FROM Clients ORDER BY CustomerID"
