@@ -1,4 +1,4 @@
-# Materials from my introductory course on R programming.
+# Materials from my introductory course on R programming
 
 - Work in progress
 
