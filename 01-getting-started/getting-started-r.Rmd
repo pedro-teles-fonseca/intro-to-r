@@ -145,7 +145,7 @@ Most functions have more than one argument:
 
 ## Functions
 
-`log` has two arguments: 
+The `log` function has two arguments: 
 
   - `x` is mandatory 
   
@@ -159,7 +159,7 @@ log(x = 243, base = 6)
 
 ## Functions
 
-`round` rounds numbers to a specified number of decimal places. It has two arguments: 
+The `round` function rounds numbers to a specified number of decimal places. It has two arguments: 
 
   - `x` is mandatory 
   
@@ -183,7 +183,7 @@ exp(x = 5)
 
 ## Functions
 
-Arguments names are not mandatory:
+Argument names are not mandatory:
 
 ```{r}
 log(x = 5, base = 10)
@@ -194,7 +194,7 @@ log(5, 10)
 
 ## Functions
 
-Dropping argument names is safe in functions of one argument:
+Dropping the names of the arguments is safe in functions with only one argument:
 
 ```{r}
 sqrt(x = 25)
@@ -203,7 +203,7 @@ sqrt(25)
 
 ## Functions
 
-R does positional matching for unnamed arguments. Therefore, in functions with more than one argument if you don't provide the names of the arguments you must input them in the correct order:
+R does positional matching for unnamed arguments. Therefore, in functions with more than one argument we must pay attention to the ordering of the arguments:
 
 ```{r}
 log(243, 2)
@@ -212,7 +212,7 @@ log(2, 243)
 
 ## Functions
 
-If you provide argument names, the order is irrelevant:
+If we provide the names of the arguments, the ordering is irrelevant:
 
 ```{r}
 log(x = 243, base = 2)
@@ -257,7 +257,7 @@ round(sqrt(2), digits = 4)
 
 - Using scripts is a better option
 
-- A script is just a text file we can use to write code
+- A script is just a text file that we can use to write code
 
 ## Your first R script
 
@@ -294,7 +294,7 @@ round(sqrt(2), digits = 4)
   
 ## The assignment operator
 
-To store values in R's memory you need to assign them to objects. You can use the equal sign (`=`) or the assign operator (`<-`)
+To store values in R's memory you need to assign them to objects. You can use the equal sign (`=`) or the assignment operator (`<-`):
 
 ```{r}
 x <- 5
@@ -303,11 +303,11 @@ x
 
 ## The assignment operator
 
-- The assignment operator is recommended
+- The assignment operator is a better option
 
 - The equal sign should be reserved to provide arguments to functions
 
-- Rstudio's shortcut to the assignment operator: "Alt/Option" + "$-$"
+- Rstudio's shortcut to the assignment operator is "Alt/Option" + "$-$"
 
 ## The assignment operator
 
@@ -319,8 +319,6 @@ Values stored in objects can be used in calculations:
 
 ```{r}
 y <- log(x) + exp(2) 
-y
-
 x + 2 * y
 ```
 
@@ -329,7 +327,7 @@ x + 2 * y
 Stored objects are visible in the upper-right pane, under the "Environment" tab:
 
 \begin{figure}
-\includegraphics[scale=.38]{figures/objects}
+\includegraphics[scale=.45]{figures/objects}
 \caption{Our session's global envoronment}
 \end{figure}
 
@@ -469,15 +467,13 @@ x
 
 ## Working directory
 
-An active R session always has an associated working directory. R will use the working directory by default to:
+An R session always has an associated working directory. R will use the working directory by default to:
 
 - Search for files
 
 - Save files
 
 - Save outputs (tables, plots, etc)
-
-## Getting the working directory
 
 To check your workig directory:
 

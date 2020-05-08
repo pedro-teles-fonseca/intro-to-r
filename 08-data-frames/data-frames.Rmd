@@ -734,41 +734,41 @@ Sort the rows by `name`:
 people[order(people$name), ]
 ```
 
-## The `head()` and `tails()` functions
+<!-- ## The `head()` and `tails()` functions -->
 
-- `head()` shows the first rows of a dataframe. 
+<!-- - `head()` shows the first rows of a dataframe.  -->
 
-- `tail()` shows the last rows. 
+<!-- - `tail()` shows the last rows.  -->
 
-- Both `head()` and `tails()` print six rows by default. 
+<!-- - Both `head()` and `tails()` print six rows by default.  -->
 
-## The `head()` and `tails()` functions
+<!-- ## The `head()` and `tails()` functions -->
 
-```{r}
-nrow(airquality)
-head(airquality)
-```
+<!-- ```{r} -->
+<!-- nrow(airquality) -->
+<!-- head(airquality) -->
+<!-- ``` -->
 
-## The `head()` and `tails()` functions
+<!-- ## The `head()` and `tails()` functions -->
 
-```{r}
-head(airquality, n = 2)
-tail(airquality, n = 3) 
-```
+<!-- ```{r} -->
+<!-- head(airquality, n = 2) -->
+<!-- tail(airquality, n = 3)  -->
+<!-- ``` -->
 
-## The `head()` and `tails()` functions
+<!-- ## The `head()` and `tails()` functions -->
 
-`head()` and `tails()` also work with vectors and matrices:
+<!-- `head()` and `tails()` also work with vectors and matrices: -->
 
-```{r}
-vec <- 1:100
-mat <- matrix(1:100, ncol = 5, byrow = TRUE)
-```
+<!-- ```{r} -->
+<!-- vec <- 1:100 -->
+<!-- mat <- matrix(1:100, ncol = 5, byrow = TRUE) -->
+<!-- ``` -->
 
-```{r}
-head(vec)
-tail(mat, n = 2)
-```
+<!-- ```{r} -->
+<!-- head(vec) -->
+<!-- tail(mat, n = 2) -->
+<!-- ``` -->
 
 
 

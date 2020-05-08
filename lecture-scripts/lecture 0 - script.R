@@ -14,7 +14,6 @@ x
 # Values assigned to objects can be used in calculations
 
 y <- log(x) + exp(2) 
-y
 
 # Now we have two stored objects that we can use 
 
