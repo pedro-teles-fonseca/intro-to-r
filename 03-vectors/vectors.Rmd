@@ -1,0 +1,497 @@
+---
+title: "Introduction to R Programming"
+subtitle: "Data Frames"
+author: Pedro Fonseca
+date: "`r format(Sys.time(), '%d %B %Y')`"
+urlcolor: blue
+output: beamer_presentation
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The `c()` Operator
+
+- Vectors are essential building blocks for handling multiple items in R.  
+
+- To create vectors use the *combine* operator:
+
+```{r}
+
+x <-  -1
+
+y <-  10
+
+z <-  c(1, 6, 3)
+
+(myvec <- c(1, 3, 1, 42))
+
+(myvec2 <- c(myvec, x, y ,z))
+
+(myvec3 <-  c(myvec, 1, 2))
+```
+
+## Subsetting
+
+Get the first element:
+
+```{r}
+myvec[1]
+```
+
+Get the second element:
+
+```{r}
+myvec[2]
+```
+
+
+## Subsetting
+
+Get the first three elements:
+
+```{r}
+myvec[1:3]
+```
+
+Omit the first element:
+
+```{r}
+myvec[-1]
+```
+
+Omit more than one element:
+
+```{r}
+myvec[-c(1,2)]
+```
+
+## Overwriting
+
+Substitute an element:
+
+```{r}
+myvec[3] <- 6
+myvec
+```
+
+Substitute more than one element:
+
+```{r}
+myvec[c(2,3,4)] <- c(2,3,4)
+
+```
+
+## Functions to Generate Vectors
+
+```{r}
+1:10
+5:1
+seq(1, 10)
+seq(from = 18, to = 27, by = 3)
+```
+
+
+## Functions to Generate Vectors
+
+```{r}
+rep(x = 1, times = 4)
+rep(c(3, 6), times = 3)
+rep(c(3, 62, 8.3), each = 2)
+rep(c(3, 6), times = 3, each = 2)
+```
+
+## Sorting the Elements of a Vector
+
+
+Sorting a vector in increasing or decreasing order: 
+
+```{r}
+myvec2 <- c(1, 3, 1, 42, -5, 10, -50)
+myvec2
+sort(myvec2)
+sort(myvec2, decreasing = TRUE)
+```
+
+
+## Sorting the Elements of a Vector
+
+```{r}
+sort(c(2.5, -1, -10, 3.44))
+sort(c(2.5,-1,-10,3.44), decreasing = TRUE)
+sort(c(2.5,-1,-10,3.44), TRUE)
+```
+
+## Some Statistical Functions
+
+`rnorm(n)` generates `n` pseudo-random numbers from a normal distribution (default: $\mu = 0$, $\sigma = 1$)
+
+```{r}
+rnorm(3)
+rnorm(4, mean =  5, sd = 2)
+```
+
+Other functions related do the normal distribution:
+
+  - `dnorm` (density), `pnorm` (distribution function), `qnorm` (quantile function).
+  
+  - Equivalent functions are available for the most commonly used probability distributions: F, t-student, Uniform, Poisson...
+
+## The `set.seed` Function
+
+- Functions like `rnorm`, `rpois` and `runif` generate pseudo-random numbers. 
+
+- This means that you and I will get different results when using these functions. 
+
+- Solution: use the `set.seed` function.
+
+## The `set.seed` Function
+
+Try this command many times: 
+
+```{r}
+rnorm(2) 
+```
+
+Each time you will get a different output. Now try this:
+
+```{r}
+set.seed(123)
+rnorm(2)
+```
+
+You will get the  same output every time. The argument of \textit{set.seed} is irrelevant as long as we all use the same value.
+
+## Vectorized Operations
+
+One of the main advantages of R is vectorized calculation. This means that:
+
+- Most R functions accept vectors as inputs;
+
+- Vector arithmetic is performed element-wise by default.
+
+## Vectorized Operations
+
+- Vectorization calculation is a huge advantage efficiency and parsimony.
+
+-  Vectorization also makes code easier to write and read.
+
+## Vectorized Operations
+
+```{r}
+x <- c(1, 2, 3)
+y <- c(0.5, 0.5, 0.5)
+1/x
+3+y
+x+y
+
+```
+
+## Vectorized Operations
+
+```{r}
+x <- c(1, 2, 3)
+y <- c(0.5, 0.5, 0.5)
+
+x^y
+sqrt(x)
+1/1:3
+seq(from = 2, to = 6, by = 2)/2
+
+```
+
+## Vectorized Operations
+
+```{r}
+x1 <- c(1, 5, 7)
+x2 <- rep(1, times = 3)
+
+log(x1)
+log(x1) - x2
+
+x <- x1 + x2
+x
+```
+
+## Rounding 
+
+`round()` rounds the values in its first argument to the specified number of decimal places (default 0):
+
+```{r}
+set.seed(123)
+
+z <- rnorm(3)
+z
+
+round(z, digits = 3)
+round(z)
+```
+
+## Rounding 
+
+```{r}
+y <- c(3.271109, 3.374961, 2.313307, 4.837787)
+round(y, 2)
+```
+ 
+## Statistical Functions
+
+```{r}
+z
+abs(z) # Absolut value
+max(z)
+min(z)
+```
+
+## Statistical Functions
+
+```{r}
+z
+
+mean(z)
+median(z)
+sd(z)
+```
+
+## Statistical Functions
+
+```{r}
+z
+var(z)
+sum(z)
+quantile(z, 0.5)
+```
+
+## The `which()` Function
+
+The `which()` function is useful to find which elements of a vector that verify a given condition:
+
+```{r}
+set.seed(123)
+vec <- rnorm(n = 10, mean = 2, sd = 1)
+round(vec, 2)
+(indexes <- which(vec >  2))
+round(vec[indexes], 3)
+```
+
+## The `which()` Function
+
+```{r}
+set.seed(123)
+
+vec2 <- rpois(n = 10, lambda = 2)
+which(vec2 == 2)
+(vec2 <- rpois(n = 10, lambda = 2)) 
+which(vec2 == 2)
+```
+
+## The `which()` Function
+
+```{r}
+set.seed(123)
+
+vec2 <- rpois(n = 10, lambda = 2)
+vec2
+max(vec2)
+which(vec2 == max(vec2))
+
+```
+
+## The `which()` Function
+
+The `which` function gives the positions of the elements of the vectors that verify the condition, not their values!
+
+```{r}
+set.seed(123)
+
+vec2 <- rpois(n = 10, lambda = 2)
+vec2
+```
+
+What are the actual values of \textit{vec2} (not their positions) that verify the condition?
+
+```{r}
+vec2[which(vec > 1)]
+```
+
+## The `length()` Function
+
+```{r}
+round(vec[which(vec > 2)], 3)
+```
+
+Use `length()` to obtain the number of elements in a vector:
+
+```{r}
+length(vec)
+```
+
+How many elements of `vec` are greater than 2?
+
+```{r}
+length(which(vec > 2))
+```
+
+## Trigonometric Functions
+
+R trigonometric take radians as argument, not degrees:
+
+- $\operatorname{sin}(\frac{\pi}{2})$:
+
+```{r}
+sin(pi/2)
+```
+
+- $\operatorname{cos}(\pi)$:
+
+```{r}
+cos(pi)
+```
+
+- $\operatorname{tan}(\frac{\pi}{3})$:
+
+```{r}
+tan(pi/3)
+```
+
+- $\operatorname{cotangent}(\frac{\pi}{3})$:
+
+```{r}
+1/tan(pi/3)
+```
+
+## Trigonometric Functions
+
+Which value has a cosine = -1?
+
+```{r}
+acos(-1)
+cos(pi)
+```
+
+Which value has a tangent = 0.5? 
+
+```{r}
+atan(0.5)
+tan(0.4636476)
+```
+
+## Trigonometric Functions
+
+Trigonometric functions are also vectorized:
+
+```{r}
+(x <- seq(from = 0.25, to = 1, by = 0.25))
+cos(x)
+1/tan(x) # cotangent of x
+cos(x)/sin(x) # cotangent of x
+```
+
+## Trigonometric Functions
+
+R has many more trigonometric functions. Try:
+
+```{r}
+?Trig
+```
+
+## Recycling
+
+What happens when we conduct calculations with two vectors of different length?
+
+```{r}
+myvec <- c(1, 2, 3, 4) 
+myvec2 <- rep(0.5, times = 8)
+
+myvec + myvec2
+```
+
+## Recycling
+
+```{r, warning = TRUE}
+myvec3 <- rep(0.5, times = 7)
+
+myvec + myvec3
+```
+
+## Recycling
+
+- When conducting operations that require input vectors to be of the same length, R automatically recycles, or repeats, the shorter one, until it is long enough to match the longer one.
+
+- It will only throw an error message if the length of the shorter vector is not a multiple of the vector of the larger vector.
+
+## Named Vectors
+
+We can also name the elements of a vector:
+
+```{r}
+x <- c(x1 = 1, x2 =  4, x3 = 7)
+x
+```
+
+Get the names of a vector:
+
+```{r}
+names(x)
+```
+
+## Named Vectors
+
+The `names()` function can also be used to provide names to a vector:
+
+```{r}
+y <- 1:3
+names(y) <- c("y1", "y2", "y3")
+```
+
+## Subsetting Named Vectors
+
+Vectors can also be subseted by name:
+
+```{r}
+y
+y["y1"]
+y[c("y1", "y3")]
+```
+
+
+## The `paste()` and `paste0()` functions
+
+`paste()` and `paste0()` can be useful to generate vector names:
+
+```{r}
+paste("y", 1:length(y), sep = "")
+paste("name", 1:length(y), sep = "_")
+paste("year", 1990:1993, sep = "-")
+paste0("X", 1:5)
+```
+
+## Built in constants
+
+R provides some built in constants and vectors. We already used one:
+
+```{r}
+pi
+```
+
+## Built in constants
+
+In this lecture we will also use `letters`:
+
+```{r}
+head(letters)
+tail(letters)
+```
+
+## Built in constants
+
+There is also an upper-case version:
+
+```{r}
+head(LETTERS)
+tail(LETTERS)
+```
+
+For a complete list of built in constants see `?Constants`
+

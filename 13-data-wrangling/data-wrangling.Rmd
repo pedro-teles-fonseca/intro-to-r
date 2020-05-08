@@ -1,0 +1,681 @@
+---
+title: "Introduction to R Programming"
+subtitle: "Data Wrangling"
+author: "Pedro Fonseca"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+urlcolor: blue
+output:
+  beamer_presentation:
+    includes:
+      in_header: preamble.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The `subset()` function
+
+- `subset()` is a generic function that returns subsets of vectors, matrices or data frames which meet logical conditions
+
+- It is useful shortcut for subsetting data frames
+
+- `subset()` is meant for interactive data exploration
+
+## The `subset()` function
+
+```{r}
+df <-  data.frame(
+  name = c("Yu","Matt","Jane","Tim", "Dave", "Marie"),
+  inc = c(6, 1, 2, NA, 5, 9),
+  gender = factor(c("F", "M","F","M", "M", "F")),
+  state = factor(c("AZ","KS", NA, "CA","FL", "MA")))
+
+df
+```
+
+## The `subset()` function
+
+```{r}
+subset(df, inc > 4)
+subset(df, name == "Marie")
+subset(df, inc > 4 & name != "Marie")
+```
+
+## The `subset()` function
+
+```{r}
+subset(df, inc > 4 & name != "Marie" & gender == "F")
+subset(df, inc >= 2 & state %in% c("MA", "FL", "CA"))
+```
+
+## The `subset()` function
+
+You can use the `select` argument to choose columns:
+
+```{r}
+subset(df, inc == 5, select = c(state, name))
+subset(df, inc == 5, select = c(1, 4))
+subset(df, inc == 5, select = inc:state)
+```
+
+## The `subset()` function
+
+And also to drop columns:
+
+```{r}
+subset(df, inc == 5, select = -c(state, name))
+subset(df, inc == 5, select = -c(state, name, gender))
+```
+
+## The `subset()` function
+
+You can use `subset()` to filter out missing data with respect to specific variables:
+
+```{r}
+subset(df, !is.na(state), select = c(name, inc))
+```
+
+## The `subset()` function
+
+```{r}
+subset(df, !is.na(inc) & !is.na(state), 
+       select = c(name, inc, state))
+```
+
+## The `subset()` function
+
+`subset()`:
+
+  - Also works with vectors, matrices and lists.
+  - Doesn’t drop dimensions (by default).
+
+In the logical expressions that indicate which rows to keep, missing values are taken as `FALSE`.
+
+## Modifying columns with `transform()`
+
+`transform()` can be used to modify the columns of a data frame: 
+
+```{r}
+transform(df, state = paste0(state, "-US"))
+```
+
+## Modifying columns with `transform()`
+
+Let's change how the levels of the `gender` factor are displayed:
+
+```{r}
+transform(df, gender = factor(
+  gender, labels = c("Female", "Male")))
+```
+
+## Modifying columns with `transform()`
+
+Now let's express `inc` in euros:
+
+```{r}
+transform(df, inc = ifelse(is.na(inc), NA, 
+                           paste0(inc * 1000, "€")
+                           )
+          )
+```
+
+## Create columns with `transform()`
+
+`Transform()` can also be used to create new variables.
+
+Let's create a variable with income in the logarithmic scale:
+
+```{r}
+transform(df, logInc = log(inc))
+```
+
+## Create columns with `transform()`
+
+Now lets standardize the income column:
+
+```{r}
+standardize <- function(x){
+  z <- (x-mean(x, na.rm = TRUE))/sd(x, na.rm = TRUE)
+  round(z, 2)
+  }
+```
+
+
+```{r}
+transform(df, norm_inc = standardize(inc))
+```
+
+
+## Relational models
+
+- Sometimes our tables are related to other tables.
+
+- It is often necessary to complement one table with information from another table, or to cross information between tables.
+
+- We usually join tables by using one or more variables that are present in both tables as a key to match rows from one table to the other.
+
+<!-- 
+  - A column (or set of columns) that uniquely identifies each row of a table is called a primary they.
+  - The primary they of a table is a foreign key in the other tables.
+  - Foreign keys can have repeated values.
+  - Primary and foreign keys can be used to match rows between tables.
+  - We join tables by matching the primary key of a table with the foreign key of another table.
+-->
+
+## A simple relational model
+
+```{r}
+set.seed(1)
+
+Sales <-data.frame(
+  Product = sample(c("Toaster", "Radio", "TV"),
+                   size = 7, replace = TRUE),
+  CustomerID =c(rep("1_2019", 2), 
+                paste(2:3, "2019", sep = "_"), 
+                paste(1:3, "2020", sep = "_")))
+
+Sales$Price <- round(ifelse(
+  Sales$Product == "TV", rnorm(1, 400, 20),
+  ifelse(Sales$Product == "Toaster",
+         rnorm(1, 40, 2), rnorm(1, 35, 2))))
+```
+
+## A simple relational model
+
+```{r}
+set.seed(1)
+
+Clients <-data.frame(
+  CustomerID =c(paste(2:4, "2019", sep = "_"),
+                paste(1:2, "2020", sep = "_")),
+  State = sample(c("CA", "AZ", "IL", "MA"),
+                size = 5, replace = TRUE))
+```
+
+## A simple relational model
+
+\begincols
+  \begincol{.48\textwidth}
+
+```{r, echo = FALSE}
+knitr::kable(Sales, booktabs = TRUE, 
+             caption = " Sales")
+```
+
+  \endcol
+\begincol{.48\textwidth}
+
+```{r, echo = FALSE}
+knitr::kable(Clients, booktabs = TRUE,
+             caption = "Clients")
+```
+
+  \endcol
+\endcols
+
+
+<!-- All columns have repeated values: there is no primary key. -->
+
+<!-- Each Clients is uniquely identified by `CustomerID`. `CustomerID` is:
+
+  - a primary key in the `Clients` table 
+  - a foreign key in the `Sales` table
+-->
+
+## Joining tables
+
+- `CustomerID` is present in both tables and uniquely identifies each row of the `Clients` table. We can therefore use it as a key to match rows from one table to another. 
+
+- In R this can be done with the `merge()` function.
+
+## Inner join
+
+The inner join returns only rows that have matching values in both tables:
+
+```{r}
+merge(x = Sales, y = Clients,
+  by = "CustomerID") 
+```
+
+## Natural join
+
+A natural join is an inner join where the joining attributes are defined as having equal names, so they need not be stated explicitly:
+
+```{r}
+merge(x = Sales, y = Clients) 
+```
+
+## Left join
+
+To includes all the rows of x and only those from y that match use `all.x = TRUE`:
+
+```{r}
+merge(x = Sales, y = Clients,
+  by = "CustomerID", 
+  all.x = TRUE) 
+```
+
+## Right join
+
+To include all the rows of y and only those from x that match use `all.y = TRUE`:
+
+```{r}
+merge(x = Sales, y = Clients,
+  by = "CustomerID", 
+  all.y = TRUE) 
+```
+
+## Full outer join
+
+To keep all rows from both tables use `all = TRUE`.
+
+```{r}
+merge(x = Sales, y = Clients,
+  by = "CustomerID", 
+  all = TRUE) 
+```
+
+## Cross Join 
+
+Cartesian product of the two tables. The output has `nrow(x) * nrow(y)` rows and `ncol(x) + ncol(y)` columns.
+
+```{r, eval = FALSE}
+
+merge(x = Sales, y = Clients, 
+      by = NULL)
+
+```
+
+## Joining tables
+
+![Join operations with `Merge()`](figures/joins.jpg){width=400px}
+
+## Joining tables
+
+- If the merging key is a combination of more than one column, you can provide a vector to `by`.
+
+- If the columns used as key have different names in different tables, we need to use `by.x` and `by.y` instead of `by`. 
+
+- If no `by` argument is provided, the tables are merged on the columns with names they both have.
+
+- `all.x`, `all.y,` and `all` are set to FALSE by default. This is why the default join is the natural join.
+
+## The `sqldf` package 
+
+- You can run SQL queries in R using the `sqldf` package.
+
+- SQL queries must be provided to the `sqldf()` function as strings.
+
+```{r, message = FALSE}
+library(sqldf)
+```
+
+## Inner join with `sqldf`
+
+```{r}
+sqldf("SELECT CustomerID, Product, Price, State 
+       FROM Sales
+       JOIN Clients 
+       USING(CustomerID)
+       ORDER BY CustomerID")
+```
+
+## Left join with `sqldf`
+
+```{r}
+sqldf("SELECT CustomerID, Product, Price, State 
+       FROM Sales
+       LEFT JOIN Clients 
+       USING(CustomerID)
+       ORDER BY CustomerID")
+```
+
+## Cross join with `sqldf`
+
+```{r, eval = FALSE}
+sqldf("SELECT * 
+       FROM Sales
+       CROSS JOIN Clients 
+       ORDER BY CustomerID")
+```
+
+## Subgroup summaries with `aggregate()`
+
+The `aggregate()` function can be used to compute subgroup summary statistics.
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+my_df <- data.frame(
+  age = c(22, 36, 21, 39, 33, 45, 34, 59),
+  smoker = factor(c("no", "yes", "no", "no", "yes",
+                    "no", "yes", "yes")),
+  child = factor(c("no", "yes", "no", "no", "yes",
+                   "yes", "no", "yes")),
+  income = c(0.8, 1.8, 1.6, 1.5, 2.3, 1.4, 1.8, 1.5),
+  stringsAsFactors = FALSE)
+
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+my_df
+```
+
+## Subgroup summaries with `aggregate()`
+
+On average, do people with children earn more than people without children?
+
+```{r}
+aggregate(formula = income ~ child,
+          data = my_df, 
+          FUN = mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  x = my_df["income"],
+  by = list(child = my_df$child), 
+  FUN = mean)
+
+```
+
+## Subgroup summaries with `aggregate()`
+
+On average, do people who smoke earn more than people who don't?
+
+```{r}
+aggregate(income ~ smoker, my_df, mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["income"],
+  list(smoker = my_df$smoker), 
+  mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+Is the median income higher for smokers or non-smokers? 
+
+```{r}
+aggregate(income ~ smoker, my_df, median)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["income"],
+  list(smoker = my_df$smoker), 
+  median)
+```
+
+## Subgroup summaries with `aggregate()`
+
+What is the lowest income for someone with children? And without?
+```{r}
+aggregate(income ~ child, my_df, min)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["income"],
+  list(child = my_df$child), 
+  min)
+```
+
+## Subgroup summaries with `aggregate()`
+
+Is the average age of people with children higher than that of people without children?
+
+```{r}
+aggregate(age ~ child, my_df, mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["age"],
+  list(child = my_df$child), 
+  mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+Is the median age of smokers higher than that of non-smokers?
+
+```{r}
+aggregate(age ~ smoker, my_df, median)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["age"],
+  list(smoker = my_df$smoker), 
+  median)
+```
+
+## Subgroup summaries with `aggregate()`
+
+Compare the age of the younger person with children with the age of the younger person without children:
+
+```{r}
+aggregate(age ~ child, my_df, min)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["age"],
+  list(child = my_df$child), 
+  min)
+```
+
+## Subgroup summaries with `aggregate()`
+
+What is the age of the older smoker?
+
+```{r}
+subset(
+  aggregate(age ~ smoker, my_df, max),
+  smoker == "yes", 
+  select = "age"
+  )
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+subset(
+  aggregate(
+    my_df["age"],
+    list(smoker = my_df$smoker), 
+    max),
+  smoker == "yes",
+  select = "age")
+```
+
+## Subgroup summaries with `aggregate()`
+
+We can divide our subgroups further into more subgroups:
+
+```{r}
+aggregate(income ~ smoker + child, my_df, mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+aggregate(
+  my_df["income"],
+  list(smoker = my_df$smoker,
+       child = my_df$child), 
+  mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+On average, do parents who smoke earn more than parents who don’t smoke?
+
+```{r}
+subset(
+  aggregate(income ~ smoker + child, my_df, mean),
+  child == "yes",
+  select = c(smoker, income)
+  )
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+subset(
+  aggregate(
+    my_df["income"],
+    list(smoker = my_df$smoker, 
+         child = my_df$child), 
+    mean),
+  child == "yes",
+  select = c(smoker, income)
+  )
+```
+
+## Subgroup summaries with `aggregate()`
+
+Is the median age of parents who smoke higher than that of parents who don't smoke?
+
+```{r}
+subset(
+  aggregate(age ~ smoker + child, my_df, median),
+  child == "yes",
+  select = c(smoker, age)
+  )
+```
+
+## Subgroup summaries with `aggregate()`
+
+```{r}
+subset(
+  aggregate(
+    my_df["age"],
+    list(smoker = my_df$smoker, 
+         child = my_df$child), 
+    median),
+  child == "yes",
+  select = c(smoker, age)
+  )
+```
+
+## Subgroup summaries with `sqldf()`
+
+On average, do people with children earn more than people without children?
+  
+```{r}
+sqldf(
+  "SELECT child, AVG(income) as income 
+  FROM my_df
+  GROUP BY child"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+On average, do people who smoke earn more than people who don't?
+
+```{r}
+sqldf(
+  "SELECT smoker, AVG(income) as income 
+  FROM my_df
+  GROUP BY smoker"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+What is the lowest income for someone with children? And without?
+
+```{r}
+sqldf(
+  "SELECT child, min(income) as income 
+  FROM my_df
+  GROUP BY child"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+Is the average age of people with children higher than that of people without children?
+
+```{r}
+sqldf(
+  "SELECT child, AVG(age) as age 
+  FROM my_df
+  GROUP BY child"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+Compare the age of the younger person with children with the age of the younger person without children:
+
+```{r}
+sqldf(
+  "SELECT child, min(age) as age 
+  FROM my_df
+  GROUP BY child"
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+What is the age of the older smoker?
+
+```{r}
+sqldf(
+  "SELECT max(age) as age 
+  FROM my_df
+  GROUP BY smoker
+  HAVING smoker = 'yes'
+  "
+)
+```
+
+## Subgroup summaries with `aggregate()`
+
+We can divide our subgroups further into more subgroups:
+
+```{r}
+sqldf(
+  "SELECT smoker, AVG(income) as income
+  FROM my_df
+  GROUP BY child, smoker
+  "
+)
+```
+
+## Subgroup summaries with `sqldf()`
+
+On average, do parents who smoke earn more than parents who don't smoke?
+
+```{r}
+sqldf(
+  "SELECT smoker, AVG(income) as income
+  FROM my_df
+  GROUP BY child, smoker
+  HAVING child = 'yes'
+  "
+)
+```

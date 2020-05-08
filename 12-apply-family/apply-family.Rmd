@@ -1,0 +1,488 @@
+---
+title: "Introduction to R Programming"
+subtitle: "The Apply Family"
+author: "Pedro Fonseca"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+urlcolor: blue
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Built in datasets
+
+R provides many built in datasets. For a complete list see:
+
+```{r, eval = FALSE}
+library(help = "datasets")
+```
+
+In this lecture we will use some of these datasets, namely:
+
+  - USArrests
+  - airquality
+
+For information about a specific dataset see, for example:
+
+```{r, eval = FALSE}
+?USArrests
+```
+
+## The `USArrests` dataset
+
+- This data set contains the arrests per 100.000 residents for assault, murder, and rape in each of the 50 USA states in 1973.
+
+- There is also one column with the percentage of population living in urban areas.
+
+## The `USArrests` dataset
+
+```{r}
+head(USArrests)
+```
+
+## The `USArrests` dataset
+
+Let's do some calculations with the arrests of four states:
+
+```{r}
+USArrests_short <- USArrests[1:4, -3]
+                            
+USArrests_short
+```
+
+## Row and column sums
+
+```{r}
+colSums(USArrests_short) 
+rowSums(USArrests_short) 
+```
+
+## Row and column means
+
+```{r}
+colMeans(USArrests_short) 
+rowMeans(USArrests_short) 
+```
+
+## The `apply()` function
+
+To collapse data frames across rows or columns using functions other than the sum and the mean we can use `apply()`:
+
+`apply(X, MARGIN, FUN, ...)`
+
+  - X is a data frame
+  - `MARGIN = 1` for rows, `MARGIN = 2` for columns
+  - FUN is a function
+  - ... are optional arguments to pass to FUN
+
+## The `apply()` function
+
+Apply functions over the columns of `USArrests_short`:
+
+```{r}
+apply(USArrests_short, 2, mean)
+apply(USArrests_short, 2, median)
+apply(USArrests_short, 2, sd)
+```
+
+## The `apply()` function
+
+Apply functions the rows of `USArrests_short`:
+
+```{r}
+apply(USArrests_short, 1, max)
+apply(USArrests_short, 1, min)
+apply(USArrests_short, 1, var)
+
+```
+
+## `apply()` vs `for` loop
+
+Loop over the columns of `USArrests_short`:
+
+```{r}
+res <- vector()
+
+for(i in 1:ncol(USArrests_short)){
+  
+  res[i] <- mean(USArrests_short[[i]], na.rm = TRUE)
+  names(res)[i] <- names(USArrests_short)[i]
+}
+
+res
+```
+
+## `apply()` vs `for` loop
+
+Loop over the rows of `USArrests_short`:
+
+```{r}
+res <- vector()
+
+for(j in 1:nrow(USArrests_short)){
+  
+  res[j] <- max(USArrests_short[j, ],na.rm = TRUE)
+  names(res)[j] <- rownames(USArrests_short)[j]
+}
+
+res
+```
+
+## `apply()` with `...`
+
+Now let's see an example that requires using dot-dot-dot (`...`). Suppose you're working with the `airquality` the data frame:
+
+```{r}
+head(airquality)
+```
+
+## `apply()` with `...`
+
+Try to use `apply()` to compute the means of the first four columns:
+
+```{r}
+apply(airquality[, 1:4], 2, mean)
+```
+
+We get `NA` for the first two columns. Why?
+
+## `apply()` with `...`
+
+Problem: Some columns have `NA`s.
+
+```{r}
+sum(is.na(airquality$Ozone))
+sum(is.na(airquality$Solar.R))
+```
+
+## `apply()` with `...`
+
+Solution: use `...` to pass the `na.rm` argument to `mean()`:
+
+```{r}
+apply(airquality[, 1:4], 2, mean, na.rm = TRUE)
+```
+
+## `apply()` user-defined functions
+
+Checking for `NAs` one column at a time is not be feasible when we have many columns. How can we check how many `NA`s there there in each column?
+
+```{r}
+count_nas <- function(x){sum(is.na(x))}
+
+apply(airquality, 2, count_nas)
+```
+
+## The `lapply()` function
+
+Syntax: `lapply(X, FUN, ...)`
+
+`lapply()` is similar to `apply()` but:
+
+  - X is a vector (atomic or list)
+  - There is no MARGINS argument
+  - Always returns a list
+  
+`lapply()` returns a list of the same length as X, each element of which is the result of applying FUN to the corresponding element of X.
+
+## The `lapply()` function
+
+```{r}
+lapply(c(1:3), log, base = 10)
+```
+
+## The `lapply()` function
+
+```{r}
+A <- matrix(1:10, ncol = 5)
+B <- matrix(c(1, 5, 7, -1), ncol = 4)
+C <- matrix(letters[1:4], ncol = 2)
+
+my_list <- list(A, B, C)
+
+```
+
+## The `lapply()` function
+
+```{r}
+my_list
+```
+
+## The `lapply()` function
+
+Every element of `my_list`, except the last, contain a numerical matrix. Sum the elements of each of those matrices:
+
+```{r}
+lapply(my_list[-3], sum)
+```
+
+## The `lapply()` function
+
+Extract the element in position (1, 2) from each matrix:
+
+```{r}
+lapply(my_list,"[", 1, 2)
+```
+
+## The `lapply()` function
+
+Extract the first row from each matrix:
+
+```{r}
+lapply(my_list,"[", 1 , )
+```
+
+## The `lapply()` function
+
+Extract the 2nd column from each matrix:
+
+```{r}
+lapply(my_list,"[", , 2)
+```
+
+## `lapply()` vs `for` loop
+
+Extract the 2nd column from each matrix:
+
+```{r}
+
+res <- vector(mode = "list")
+
+for(i in seq_along(my_list)){
+  res[[i]] <- my_list[[i]][, 2]
+}
+res
+```
+
+## The `sapply()` function
+
+The sapply() function:
+
+  - Works like lapply(), but simplifies the output to the most elementary data structure that is possible.
+  - Returns vectors or matrices.
+
+## The `sapply()` function
+
+```{r}
+sapply(my_list[-3], sum)
+sapply(my_list,"[", 1, 2)
+```
+
+## The `sapply()` function
+
+```{r}
+sapply(airquality, function(x) sum(is.na(x)))
+```
+
+## The `sapply()` function
+
+```{r}
+set.seed(123)
+
+our_list <- list(
+  w = 1:6,
+  x = sample(1:5, 4, replace = TRUE),
+  y = matrix(sample(1:100, 9), nrow = 3),
+  z = sample(1:10, 3, replace = TRUE) 
+)
+
+str(our_list)
+```
+
+## The `sapply()` function
+
+```{r}
+sapply(our_list, max)
+sapply(our_list, min)
+sapply(our_list, class)
+```
+
+## The `sapply()` function
+
+How many numbers are there inside each element of `our_list`?
+
+```{r}
+sapply(our_list, length)
+```
+
+## The `sapply()` function
+
+```{r}
+set.seed(123)
+
+our_list_2 <- list(
+  w = 1:6,
+  x = sample(1:5, 4, replace = TRUE),
+  y = airquality
+)
+```
+
+```{r}
+sapply(our_list_2, class)
+dim(airquality)
+```
+
+How many numbers are there inside each element of `our_list_2`? 
+
+## The `sapply()` function
+
+The length of a data frame is the number of columns, and hence `sapply(our_list_2, length)` won't do the trick.
+
+```{r}
+our_fun <- function(x){
+  if(class(x) == "data.frame"){
+    nrow(x) * ncol(x)
+  }else{
+      length(x)
+  }
+}
+
+sapply(our_list_2, our_fun)
+```
+
+## `sapply()` vs `for` loop
+
+The same but with a `for` loop:
+
+```{r}
+
+res <- vector()
+
+for(i in seq_along(our_list_2)){
+  
+  res[i] <- our_fun(our_list_2[[i]])
+  names(res)[i] <- names(our_list_2)[i] 
+}
+
+res
+
+```
+
+## The `mapply()` function
+
+`mapply()` is a generalization of `sapply()`.  It applies a multivariate function over multiple vectors of arguments.
+
+## The `mapply()` function
+
+Suppose we want 3 samples of different sizes from a $\operatorname{Normal}(0, 1)$ distribution:
+
+```{r}
+set.seed(123)
+
+rnorm(n = 1)
+rnorm(n = 2)
+rnorm(n = 3)
+```
+
+## The `mapply()` function
+
+The same result can be obtained more compactly with `mapply()`:
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+mapply(FUN = rnorm, n = sample_size)
+```
+
+## The `mapply()` function
+
+Since we only iterated over one vector, we could have used `sapply()`:
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+sapply(FUN = rnorm, X = sample_size)
+```
+
+## The `mapply()` function
+
+But what if we want to sample from normal distributions with different means, while still having samples of different sizes? 
+
+```{r}
+set.seed(123)
+
+rnorm(n = 1, mean = 5)
+rnorm(n = 2, mean = 10)
+rnorm(n = 3, mean = -3)
+```
+
+## The `mapply()` function
+
+In this case we need to iterate over two vectors, one for sample sizes and one for means:
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+mu <- c(5, 10, -3)
+mapply(rnorm, n = sample_size, mean = mu)
+
+```
+
+## The `mapply()` function
+
+Now suppose we also want each sample to have a different standard deviation:
+
+```{r}
+set.seed(123)
+
+rnorm(n = 1, mean = 5, sd = 1)
+rnorm(n = 2, mean = 10, sd = 3)
+rnorm(n = 3, mean = -3, sd = 5)
+```
+
+## The `mapply()` function
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+mu <- c(5, 10, -3)
+sigma <- c(1, 3, 5)
+
+mapply(rnorm, mean = mu, sd = sigma, n = sample_size)
+```
+
+## The `mapply()` function
+
+Now suppose we wanted our results with two decimal places only:
+
+```{r}
+set.seed(123)
+
+results <- mapply(rnorm, mean = mu, sd = sigma,
+                  n = sample_size)
+```
+
+```{r}
+sapply(results, FUN = round, 2)
+```
+
+## `mapply()` vs `for` loop
+
+```{r}
+set.seed(123)
+
+sample_size <- 1:3
+mu <- c(5, 10,-3)
+sigma <- c(1, 3, 5)
+
+res <- vector(mode = "list")
+
+for (i in 1:3) {
+  res[[i]] <- round(rnorm(mean = mu[i],
+                          sd = sigma[i],
+                          n = sample_size[i]),
+                    2)
+}
+```
+
+## `mapply()` vs `for` loop
+
+```{r}
+res
+```

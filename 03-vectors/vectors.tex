@@ -1,0 +1,1445 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[ignorenonframetext,]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+\centering
+\begin{beamercolorbox}[sep=16pt,center]{part title}
+  \usebeamerfont{part title}\insertpart\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+\centering
+\begin{beamercolorbox}[sep=12pt,center]{part title}
+  \usebeamerfont{section title}\insertsection\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{part title}
+  \usebeamerfont{subsection title}\insertsubsection\par
+\end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={Introduction to R Programming},
+            pdfauthor={Pedro Fonseca},
+            colorlinks=true,
+            linkcolor=Maroon,
+            filecolor=Maroon,
+            citecolor=Blue,
+            urlcolor=blue,
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{Introduction to R Programming}
+\providecommand{\subtitle}[1]{}
+\subtitle{Data Frames}
+\author{Pedro Fonseca}
+\date{07 Maio 2020}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}[fragile]{The \texttt{c()} Operator}
+\protect\hypertarget{the-c-operator}{}
+
+\begin{itemize}
+\item
+  Vectors are essential building blocks for handling multiple items in
+  R.
+\item
+  To create vectors use the \emph{combine} operator:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{  }\DecValTok{-1}
+
+\NormalTok{y <-}\StringTok{  }\DecValTok{10}
+
+\NormalTok{z <-}\StringTok{  }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+
+\NormalTok{(myvec <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{42}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1  3  1 42
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(myvec2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(myvec, x, y ,z))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1  3  1 42 -1 10  1  6  3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(myvec3 <-}\StringTok{  }\KeywordTok{c}\NormalTok{(myvec, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1  3  1 42  1  2
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Subsetting}
+\protect\hypertarget{subsetting}{}
+
+Get the first element:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec[}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+Get the second element:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec[}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Subsetting}
+\protect\hypertarget{subsetting-1}{}
+
+Get the first three elements:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 3 1
+\end{verbatim}
+
+Omit the first element:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec[}\OperatorTok{-}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  3  1 42
+\end{verbatim}
+
+Omit more than one element:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec[}\OperatorTok{-}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1 42
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Overwriting}
+\protect\hypertarget{overwriting}{}
+
+Substitute an element:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec[}\DecValTok{3}\NormalTok{] <-}\StringTok{ }\DecValTok{6}
+\NormalTok{myvec}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1  3  6 42
+\end{verbatim}
+
+Substitute more than one element:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec[}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)] <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functions to Generate Vectors}
+\protect\hypertarget{functions-to-generate-vectors}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{:}\DecValTok{10}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{5}\OperatorTok{:}\DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5 4 3 2 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  3  4  5  6  7  8  9 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{18}\NormalTok{, }\DataTypeTok{to =} \DecValTok{27}\NormalTok{, }\DataTypeTok{by =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 18 21 24 27
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functions to Generate Vectors}
+\protect\hypertarget{functions-to-generate-vectors-1}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rep}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{, }\DataTypeTok{times =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 1 1 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{), }\DataTypeTok{times =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3 6 3 6 3 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{62}\NormalTok{, }\FloatTok{8.3}\NormalTok{), }\DataTypeTok{each =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  3.0  3.0 62.0 62.0  8.3  8.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rep}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{6}\NormalTok{), }\DataTypeTok{times =} \DecValTok{3}\NormalTok{, }\DataTypeTok{each =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 3 3 6 6 3 3 6 6 3 3 6 6
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Sorting the Elements of a Vector}
+\protect\hypertarget{sorting-the-elements-of-a-vector}{}
+
+Sorting a vector in increasing or decreasing order:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec2 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{42}\NormalTok{, }\DecValTok{-5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{-50}\NormalTok{)}
+\NormalTok{myvec2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   1   3   1  42  -5  10 -50
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sort}\NormalTok{(myvec2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -50  -5   1   1   3  10  42
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sort}\NormalTok{(myvec2, }\DataTypeTok{decreasing =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  42  10   3   1   1  -5 -50
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Sorting the Elements of a Vector}
+\protect\hypertarget{sorting-the-elements-of-a-vector-1}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sort}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\FloatTok{2.5}\NormalTok{, }\DecValTok{-1}\NormalTok{, }\DecValTok{-10}\NormalTok{, }\FloatTok{3.44}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -10.00  -1.00   2.50   3.44
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sort}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\FloatTok{2.5}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\OperatorTok{-}\DecValTok{10}\NormalTok{,}\FloatTok{3.44}\NormalTok{), }\DataTypeTok{decreasing =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   3.44   2.50  -1.00 -10.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sort}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\FloatTok{2.5}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\OperatorTok{-}\DecValTok{10}\NormalTok{,}\FloatTok{3.44}\NormalTok{), }\OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   3.44   2.50  -1.00 -10.00
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Some Statistical Functions}
+\protect\hypertarget{some-statistical-functions}{}
+
+\texttt{rnorm(n)} generates \texttt{n} pseudo-random numbers from a
+normal distribution (default: \(\mu = 0\), \(\sigma = 1\))
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.2067290 -0.6803377 -0.2182001
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rnorm}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DataTypeTok{mean =}  \DecValTok{5}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4.841469 5.639049 7.480188 6.494767
+\end{verbatim}
+
+Other functions related do the normal distribution:
+
+\begin{itemize}
+\item
+  \texttt{dnorm} (density), \texttt{pnorm} (distribution function),
+  \texttt{qnorm} (quantile function).
+\item
+  Equivalent functions are available for the most commonly used
+  probability distributions: F, t-student, Uniform, Poisson\ldots{}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{set.seed} Function}
+\protect\hypertarget{the-set.seed-function}{}
+
+\begin{itemize}
+\item
+  Functions like \texttt{rnorm}, \texttt{rpois} and \texttt{runif}
+  generate pseudo-random numbers.
+\item
+  This means that you and I will get different results when using these
+  functions.
+\item
+  Solution: use the \texttt{set.seed} function.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{set.seed} Function}
+\protect\hypertarget{the-set.seed-function-1}{}
+
+Try this command many times:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rnorm}\NormalTok{(}\DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1.0358944 -0.7403707
+\end{verbatim}
+
+Each time you will get a different output. Now try this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\KeywordTok{rnorm}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.5604756 -0.2301775
+\end{verbatim}
+
+You will get the same output every time. The argument of
+\textit{set.seed} is irrelevant as long as we all use the same value.
+
+\end{frame}
+
+\begin{frame}{Vectorized Operations}
+\protect\hypertarget{vectorized-operations}{}
+
+One of the main advantages of R is vectorized calculation. This means
+that:
+
+\begin{itemize}
+\item
+  Most R functions accept vectors as inputs;
+\item
+  Vector arithmetic is performed element-wise by default.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Vectorized Operations}
+\protect\hypertarget{vectorized-operations-1}{}
+
+\begin{itemize}
+\item
+  Vectorization calculation is a huge advantage efficiency and
+  parsimony.
+\item
+  Vectorization also makes code easier to write and read.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Vectorized Operations}
+\protect\hypertarget{vectorized-operations-2}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\DecValTok{1}\OperatorTok{/}\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.0000000 0.5000000 0.3333333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{3}\OperatorTok{+}\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.5 3.5 3.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{+}\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.5 2.5 3.5
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Vectorized Operations}
+\protect\hypertarget{vectorized-operations-3}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+
+\NormalTok{x}\OperatorTok{^}\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.000000 1.414214 1.732051
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sqrt}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.000000 1.414214 1.732051
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{/}\DecValTok{1}\OperatorTok{:}\DecValTok{3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.0000000 0.5000000 0.3333333
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{2}\NormalTok{, }\DataTypeTok{to =} \DecValTok{6}\NormalTok{, }\DataTypeTok{by =} \DecValTok{2}\NormalTok{)}\OperatorTok{/}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 2 3
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Vectorized Operations}
+\protect\hypertarget{vectorized-operations-4}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x1 <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{)}
+\NormalTok{x2 <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DataTypeTok{times =} \DecValTok{3}\NormalTok{)}
+
+\KeywordTok{log}\NormalTok{(x1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.000000 1.609438 1.945910
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{log}\NormalTok{(x1) }\OperatorTok{-}\StringTok{ }\NormalTok{x2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.0000000  0.6094379  0.9459101
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\NormalTok{x1 }\OperatorTok{+}\StringTok{ }\NormalTok{x2}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2 6 8
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Rounding}
+\protect\hypertarget{rounding}{}
+
+\texttt{round()} rounds the values in its first argument to the
+specified number of decimal places (default 0):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{z <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.5604756 -0.2301775  1.5587083
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{round}\NormalTok{(z, }\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.560 -0.230  1.559
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{round}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1  0  2
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Rounding}
+\protect\hypertarget{rounding-1}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\FloatTok{3.271109}\NormalTok{, }\FloatTok{3.374961}\NormalTok{, }\FloatTok{2.313307}\NormalTok{, }\FloatTok{4.837787}\NormalTok{)}
+\KeywordTok{round}\NormalTok{(y, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.27 3.37 2.31 4.84
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Statistical Functions}
+\protect\hypertarget{statistical-functions}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.5604756 -0.2301775  1.5587083
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{abs}\NormalTok{(z) }\CommentTok{# Absolut value}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5604756 0.2301775 1.5587083
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{max}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.558708
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{min}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.5604756
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Statistical Functions}
+\protect\hypertarget{statistical-functions-1}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.5604756 -0.2301775  1.5587083
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2560184
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{median}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.2301775
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sd}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.140186
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Statistical Functions}
+\protect\hypertarget{statistical-functions-2}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{z}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.5604756 -0.2301775  1.5587083
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.300025
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7680552
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{quantile}\NormalTok{(z, }\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        50% 
+## -0.2301775
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{which()} Function}
+\protect\hypertarget{the-which-function}{}
+
+The \texttt{which()} function is useful to find which elements of a
+vector that verify a given condition:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{vec <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{10}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{2}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{round}\NormalTok{(vec, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1.44 1.77 3.56 2.07 2.13 3.72 2.46 0.73 1.31 1.55
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(indexes <-}\StringTok{ }\KeywordTok{which}\NormalTok{(vec }\OperatorTok{>}\StringTok{  }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3 4 5 6 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{round}\NormalTok{(vec[indexes], }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.559 2.071 2.129 3.715 2.461
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{which()} Function}
+\protect\hypertarget{the-which-function-1}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{vec2 <-}\StringTok{ }\KeywordTok{rpois}\NormalTok{(}\DataTypeTok{n =} \DecValTok{10}\NormalTok{, }\DataTypeTok{lambda =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{which}\NormalTok{(vec2 }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  3  7  9 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(vec2 <-}\StringTok{ }\KeywordTok{rpois}\NormalTok{(}\DataTypeTok{n =} \DecValTok{10}\NormalTok{, }\DataTypeTok{lambda =} \DecValTok{2}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 5 2 3 2 0 4 1 0 1 5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{which}\NormalTok{(vec2 }\OperatorTok{==}\StringTok{ }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2 4
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{which()} Function}
+\protect\hypertarget{the-which-function-2}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{vec2 <-}\StringTok{ }\KeywordTok{rpois}\NormalTok{(}\DataTypeTok{n =} \DecValTok{10}\NormalTok{, }\DataTypeTok{lambda =} \DecValTok{2}\NormalTok{)}
+\NormalTok{vec2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 3 2 4 4 0 2 4 2 2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{max}\NormalTok{(vec2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{which}\NormalTok{(vec2 }\OperatorTok{==}\StringTok{ }\KeywordTok{max}\NormalTok{(vec2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4 5 8
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{which()} Function}
+\protect\hypertarget{the-which-function-3}{}
+
+The \texttt{which} function gives the positions of the elements of the
+vectors that verify the condition, not their values!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+
+\NormalTok{vec2 <-}\StringTok{ }\KeywordTok{rpois}\NormalTok{(}\DataTypeTok{n =} \DecValTok{10}\NormalTok{, }\DataTypeTok{lambda =} \DecValTok{2}\NormalTok{)}
+\NormalTok{vec2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 1 3 2 4 4 0 2 4 2 2
+\end{verbatim}
+
+What are the actual values of \textit{vec2} (not their positions) that
+verify the condition?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec2[}\KeywordTok{which}\NormalTok{(vec }\OperatorTok{>}\StringTok{ }\DecValTok{1}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 3 2 4 4 0 2 2 2
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{length()} Function}
+\protect\hypertarget{the-length-function}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{round}\NormalTok{(vec[}\KeywordTok{which}\NormalTok{(vec }\OperatorTok{>}\StringTok{ }\DecValTok{2}\NormalTok{)], }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.559 2.071 2.129 3.715 2.461
+\end{verbatim}
+
+Use \texttt{length()} to obtain the number of elements in a vector:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{length}\NormalTok{(vec)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10
+\end{verbatim}
+
+How many elements of \texttt{vec} are greater than 2?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{length}\NormalTok{(}\KeywordTok{which}\NormalTok{(vec }\OperatorTok{>}\StringTok{ }\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Trigonometric Functions}
+\protect\hypertarget{trigonometric-functions}{}
+
+R trigonometric take radians as argument, not degrees:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\operatorname{sin}(\frac{\pi}{2})\):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sin}\NormalTok{(pi}\OperatorTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\operatorname{cos}(\pi)\):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cos}\NormalTok{(pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\operatorname{tan}(\frac{\pi}{3})\):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tan}\NormalTok{(pi}\OperatorTok{/}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.732051
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \(\operatorname{cotangent}(\frac{\pi}{3})\):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{/}\KeywordTok{tan}\NormalTok{(pi}\OperatorTok{/}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5773503
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Trigonometric Functions}
+\protect\hypertarget{trigonometric-functions-1}{}
+
+Which value has a cosine = -1?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{acos}\NormalTok{(}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.141593
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cos}\NormalTok{(pi)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1
+\end{verbatim}
+
+Which value has a tangent = 0.5?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{atan}\NormalTok{(}\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.4636476
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tan}\NormalTok{(}\FloatTok{0.4636476}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Trigonometric Functions}
+\protect\hypertarget{trigonometric-functions-2}{}
+
+Trigonometric functions are also vectorized:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(x <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \FloatTok{0.25}\NormalTok{, }\DataTypeTok{to =} \DecValTok{1}\NormalTok{, }\DataTypeTok{by =} \FloatTok{0.25}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.25 0.50 0.75 1.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cos}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9689124 0.8775826 0.7316889 0.5403023
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{/}\KeywordTok{tan}\NormalTok{(x) }\CommentTok{# cotangent of x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.9163174 1.8304877 1.0734261 0.6420926
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cos}\NormalTok{(x)}\OperatorTok{/}\KeywordTok{sin}\NormalTok{(x) }\CommentTok{# cotangent of x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.9163174 1.8304877 1.0734261 0.6420926
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Trigonometric Functions}
+\protect\hypertarget{trigonometric-functions-3}{}
+
+R has many more trigonometric functions. Try:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{?Trig}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile]{Recycling}
+\protect\hypertarget{recycling}{}
+
+What happens when we conduct calculations with two vectors of different
+length?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{) }
+\NormalTok{myvec2 <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DataTypeTok{times =} \DecValTok{8}\NormalTok{)}
+
+\NormalTok{myvec }\OperatorTok{+}\StringTok{ }\NormalTok{myvec2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.5 2.5 3.5 4.5 1.5 2.5 3.5 4.5
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Recycling}
+\protect\hypertarget{recycling-1}{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myvec3 <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\DataTypeTok{times =} \DecValTok{7}\NormalTok{)}
+
+\NormalTok{myvec }\OperatorTok{+}\StringTok{ }\NormalTok{myvec3}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in myvec + myvec3: longer object length is not a multiple of shorter
+## object length
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 1.5 2.5 3.5 4.5 1.5 2.5 3.5
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}{Recycling}
+\protect\hypertarget{recycling-2}{}
+
+\begin{itemize}
+\item
+  When conducting operations that require input vectors to be of the
+  same length, R automatically recycles, or repeats, the shorter one,
+  until it is long enough to match the longer one.
+\item
+  It will only throw an error message if the length of the shorter
+  vector is not a multiple of the vector of the larger vector.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]{Named Vectors}
+\protect\hypertarget{named-vectors}{}
+
+We can also name the elements of a vector:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DataTypeTok{x1 =} \DecValTok{1}\NormalTok{, }\DataTypeTok{x2 =}  \DecValTok{4}\NormalTok{, }\DataTypeTok{x3 =} \DecValTok{7}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## x1 x2 x3 
+##  1  4  7
+\end{verbatim}
+
+Get the names of a vector:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "x1" "x2" "x3"
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Named Vectors}
+\protect\hypertarget{named-vectors-1}{}
+
+The \texttt{names()} function can also be used to provide names to a
+vector:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y <-}\StringTok{ }\DecValTok{1}\OperatorTok{:}\DecValTok{3}
+\KeywordTok{names}\NormalTok{(y) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"y1"}\NormalTok{, }\StringTok{"y2"}\NormalTok{, }\StringTok{"y3"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\end{frame}
+
+\begin{frame}[fragile]{Subsetting Named Vectors}
+\protect\hypertarget{subsetting-named-vectors}{}
+
+Vectors can also be subseted by name:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y1 y2 y3 
+##  1  2  3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y[}\StringTok{"y1"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y1 
+##  1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y[}\KeywordTok{c}\NormalTok{(}\StringTok{"y1"}\NormalTok{, }\StringTok{"y3"}\NormalTok{)]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y1 y3 
+##  1  3
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{paste()} and \texttt{paste0()}
+functions}
+\protect\hypertarget{the-paste-and-paste0-functions}{}
+
+\texttt{paste()} and \texttt{paste0()} can be useful to generate vector
+names:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(}\StringTok{"y"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(y), }\DataTypeTok{sep =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "y1" "y2" "y3"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(}\StringTok{"name"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(y), }\DataTypeTok{sep =} \StringTok{"_"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "name_1" "name_2" "name_3"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste}\NormalTok{(}\StringTok{"year"}\NormalTok{, }\DecValTok{1990}\OperatorTok{:}\DecValTok{1993}\NormalTok{, }\DataTypeTok{sep =} \StringTok{"-"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "year-1990" "year-1991" "year-1992" "year-1993"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{paste0}\NormalTok{(}\StringTok{"X"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "X1" "X2" "X3" "X4" "X5"
+\end{verbatim}
+
+\end{frame}
+
+\end{document}

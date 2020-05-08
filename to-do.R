@@ -1,55 +1,49 @@
 
 # meter a função ifelse nos slides dos vetores e quando estiver retirar dos slides dos DFs
-# na aula dos data frames, no dataframe people, transformar a variavel child num fator (para evitar fazer child == FALSE, NAs podem ser problema)
-# meter os vetores letters e afins na aula dos vetores e quando estiver retirar dos slides de data Wrangling
 
-library(sqldf)
 
 set.seed(1)
 
-Sales <- data.frame(
-  Product = sample(
-    c("Toaster", "Radio", "TV"),
-    size = 7,
-    replace = TRUE
-  ),
-  CustomerID = c(
-    rep("1_2019", 2),
-    paste(2:3, "2019", sep = "_"),
-    paste(1:3, "2020", sep = "_")
+Sales <-data.frame(
+  Product = sample(c("Toaster", "Radio", "TV"),
+    size = 7, replace = TRUE),
+  CustomerID =c(14, 14, 56, 92, 309, 569, 600)
   )
-)
 
 Sales$Price <- round(ifelse(
-  Sales$Product == "TV",
-  rnorm(1, 400, 20),
+  Sales$Product == "TV", rnorm(1, 400, 20),
   ifelse(Sales$Product == "Toaster",
-         rnorm(1, 40, 2), rnorm(1, 35, 2))
-))
+    rnorm(1, 40, 2), rnorm(1, 35, 2))))
 
-Clients <- data.frame(CustomerID = c(paste(2:4, "2019", sep = "_"),
-                                     paste(1:2, "2020", sep = "_")),
-                      State = sample(c("CA", "AZ", "IL", "MA"),
-                                     size = 5, replace = TRUE))
+set.seed(1)
+
+Clients <-data.frame(
+  CustomerID =c(56, 92, 102, 309, 569),
+  State = sample(c("CA", "AZ", "IL", "MA"),
+    size = 5, replace = TRUE))
+
+name <- c("Anne", "Pete", "Frank", "Julia", "Cath") 
+age <- c(28, 30, 21, 39, NA)
+child <- c(FALSE, FALSE, TRUE, FALSE, TRUE)
+heights <- c(175, 170, 166, 182, 172) 
+
+people <- data.frame(name, age, child, 
+  stringsAsFactors = FALSE)
+people$height <- heights
 
 
-(x = merge(x = Sales, y = Clients, by = NULL))
-      
-(y = sqldf("SELECT Product, Sales.CustomerID, Price, Clients.CustomerID, State
-       FROM Sales
-       CROSS JOIN Clients 
-       ORDER BY State DESC, Clients.CustomerID"))
-
-x == y
+df[["marital"]] <- NULL
 
 
-
-sqldf(
-  "select CustomerID FROM Clients ORDER BY CustomerID"
+d <- data.frame(
+  a = 1:4,
+  b = letters[4:1],
+  c = c("yes", "yes", "no", NA)
 )
 
-sort((Clients$CustomerID))
-sort(as.character(Clients$CustomerID))
+d[d$c == "yes", ]
+d$c == "yes"
+
 
 
 
