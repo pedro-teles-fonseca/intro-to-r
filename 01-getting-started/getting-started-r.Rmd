@@ -490,7 +490,14 @@ You can change your working directory using RStudio's menus:
 \caption{Setting the working directory}
 \end{figure}
 
-## Setting and setting the working directory
+## Setting the working directory
+
+\begin{figure}
+\includegraphics[scale = .35]{figures/wd2}
+\caption{Setting the working directory}
+\end{figure}
+
+## Setting the working directory
 
 You can also change the working directory in R's console:
 
@@ -498,44 +505,54 @@ You can also change the working directory in R's console:
 setwd("/Users/pedro/Documents/intro-to-r")
 ```
 
-The problem with absolute paths is that they will only exist on your computer. Solution:
+## Setting the working directory
 
-- Rstudio projects
+- The problem with absolute paths like the one in the last slide is that they only exist in my computer
+
+- This makes it more difficult to share and reproduce scripts
+
+- Solution: Rstudio projects
 
 ## Your first Rstudio project
 
 \begin{figure}
-\includegraphics[scale=0.35]{figures/new-project-1}
+\includegraphics[scale=0.31]{figures/new-project-1}
+\caption{Creating a new project}
 \end{figure}
 
 ## Your first Rstudio project
 
 \begin{figure}
-\includegraphics[scale=0.43]{figures/new-project-2}
+\includegraphics[scale=0.47]{figures/new-project-2}
+\caption{Creating a new project}
 \end{figure}
 
 ## Your first Rstudio project
 
 \begin{figure}
-\includegraphics[scale=0.43]{figures/new-project-3}
+\includegraphics[scale=0.47]{figures/new-project-3}
+\caption{Creating a new project}
 \end{figure}
 
 ## Your first Rstudio project
 
 \begin{figure}
-\includegraphics[scale=0.43]{figures/new-project-4}
+\includegraphics[scale=0.36]{figures/new-project-4}
+\caption{Creating a new project}
 \end{figure}
 
 ## Your first Rstudio project
 
 \begin{figure}
-\includegraphics[scale=0.33]{figures/new-project-5}
+\includegraphics[scale=0.5]{figures/new-project-5}
+\caption{Creating a new project}
 \end{figure}
 
 ## Your first Rstudio project
 
 \begin{figure}
 \includegraphics[scale=0.19]{figures/environment}
+\caption{Creating a new project}
 \end{figure}
 
 ## Advantages of Rstudio projects
