@@ -134,7 +134,7 @@
 \providecommand{\subtitle}[1]{}
 \subtitle{Data Frames}
 \author{Pedro Fonseca}
-\date{07 Maio 2020}
+\date{10 May 2020}
 
 \begin{document}
 \frame{\titlepage}
@@ -445,6 +445,16 @@ Sorting a vector in increasing or decreasing order:
 ## [1]   3.44   2.50  -1.00 -10.00
 \end{verbatim}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rev}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\FloatTok{2.5}\NormalTok{,}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\OperatorTok{-}\DecValTok{10}\NormalTok{,}\FloatTok{3.44}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   3.44 -10.00  -1.00   2.50
+\end{verbatim}
+
 \end{frame}
 
 \begin{frame}[fragile]{Some Statistical Functions}
@@ -460,7 +470,7 @@ normal distribution (default: \(\mu = 0\), \(\sigma = 1\))
 \end{Shaded}
 
 \begin{verbatim}
-## [1] -1.2067290 -0.6803377 -0.2182001
+## [1] -2.2224915 -1.5229102 -0.6033468
 \end{verbatim}
 
 \begin{Shaded}
@@ -470,7 +480,7 @@ normal distribution (default: \(\mu = 0\), \(\sigma = 1\))
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 4.841469 5.639049 7.480188 6.494767
+## [1] 6.034940 4.790165 2.722318 5.206313
 \end{verbatim}
 
 Other functions related do the normal distribution:
@@ -514,7 +524,7 @@ Try this command many times:
 \end{Shaded}
 
 \begin{verbatim}
-## [1]  1.0358944 -0.7403707
+## [1] -0.9166766 -0.1330268
 \end{verbatim}
 
 Each time you will get a different output. Now try this:
@@ -1439,6 +1449,79 @@ names:
 \begin{verbatim}
 ## [1] "X1" "X2" "X3" "X4" "X5"
 \end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Built in constants}
+\protect\hypertarget{built-in-constants}{}
+
+R provides some built in constants and vectors. We already used one:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pi}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.141593
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Built in constants}
+\protect\hypertarget{built-in-constants-1}{}
+
+In this lecture we will also use \texttt{letters}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(letters)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "a" "b" "c" "d" "e" "f"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(letters)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "u" "v" "w" "x" "y" "z"
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Built in constants}
+\protect\hypertarget{built-in-constants-2}{}
+
+There is also an upper-case version:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(LETTERS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "A" "B" "C" "D" "E" "F"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(LETTERS)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "U" "V" "W" "X" "Y" "Z"
+\end{verbatim}
+
+For a complete list of built in constants see \texttt{?Constants}
 
 \end{frame}
 

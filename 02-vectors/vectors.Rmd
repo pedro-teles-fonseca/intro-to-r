@@ -121,6 +121,7 @@ sort(myvec2, decreasing = TRUE)
 sort(c(2.5, -1, -10, 3.44))
 sort(c(2.5,-1,-10,3.44), decreasing = TRUE)
 sort(c(2.5,-1,-10,3.44), TRUE)
+rev(c(2.5,-1,-10,3.44))
 ```
 
 ## Some Statistical Functions
