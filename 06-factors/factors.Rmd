@@ -13,53 +13,57 @@ knitr::opts_chunk$set(echo = TRUE, fig.align = 'center')
 
 ## What are factors?
 
-- A factor is a vector that can contain only predefined values.
-- Factors are used to represent categorical data.
+- A factor is a vector that can contain only predefined values
 
-## What are factors?
-
-- Factors are built on top of integers.
-
-- They come with two attributes: 
-
-  - Levels, which define the set of allowed values.
-  - Their own class, "factor", which makes them behave differently from regular integers.
+- Factors are used to represent categorical data
 
 ## Categorical variables
 
-- Categorical variables have a limited and known set of possible outcomes.
+- Categorical variables have a limited and known set of possible outcomes
 
-- Categorical variables typically qualitative.
+- Categorical variables typically qualitative
 
 ## Categorical variables
 
 Examples:
 
 - flip of a coin (heads or tails)
+
 - size of a shirt (S, M, L, XL, XXL, XXXL)
+
 - marital status (single, married, divorced, widowed)
+
 - credit rating (very bad, bad, average, good, excellent)
+
 - school grades (A, B, C, D, E, F)
 
 ## Categorical variables
 
 ![Dataset with categorical variables](figures/dataset.png)
 
+## More about factors
+
+- Factors are built on top of integers
+
+- They come with two attributes: 
+
+  - Levels, which define the set of allowed values
+  
+  - Their own class, "factor", which makes them behave differently from regular integers
+
 ## Creating a factor
 
-Let´s start with a character vector:
+Let's start with a character vector:
 
 ```{r}
 blood <- c("B", "AB", "O", "A", "O", "O", "A") 
 
 blood
-
-typeof(blood)
 ```
 
 ## Creating a factor
 
-The `factor()` function encodes a vector as a factor:
+The `factor` function encodes a vector as a factor:
 
 ```{r}
 blood_factor <- factor(blood) 
@@ -67,7 +71,7 @@ blood_factor <- factor(blood)
 blood_factor
 ```
 
-Note that R sorts the levels alphabetically.
+Note that R sorts the levels alphabetically
 
 ## Creating a factor
 
@@ -77,30 +81,72 @@ typeof(blood_factor)
 class(blood_factor)
 ```
 
-## Order levels differently
+## Creating a factor
+
+When creating a factor, we can set the ordering of the levels:
 
 ```{r}
+
+blood_factor
+
 blood_factor2 <- factor(blood,
                     levels = c("O", "A", "B", "AB"))
-
 blood_factor2
+
+```
+
+## Order levels differently
+
+We can modify the ordering of the levels of an existing factor:
+
+```{r}
 blood_factor
+
+factor(blood_factor, levels = c("O", "A", "B", "AB"))
+```
+
+## Order levels differently
+
+`Relevel` re-orders the levels of a factor so that the level specified by `ref` is the first level:
+
+```{r}
+blood_factor
+
+relevel(blood_factor, ref = "O")
+```
+
+## Order levels differently
+
+With `rev` we can reverse the ordering of the levels of a factor:
+
+```{r}
+blood_factor
+
+factor(blood_factor, 
+  levels = rev(levels(blood_factor)))
 ```
 
 ## The internal structure of a factor
 
-The `str()` function displays the internal structure of an object: 
+The `str` function displays the internal structure of an object: 
 
 ```{r}
+blood_factor
 str(blood_factor)
-str(blood_factor2)
 ```
 
 - Note that the values are stored as integers!
 
-- The levels are just a set of character values to print when the factor is displayed. 
+- The levels are just a set of character values to print when the factor is displayed
 
-## Invalid factor level
+## The internal structure of a factor
+
+```{r}
+blood_factor2
+str(blood_factor2)
+```
+
+## Invalid factor levels
 
 ```{r, warning=FALSE}
 blood_factor
@@ -112,7 +158,6 @@ blood_factor[3] <- "C"
 blood_factor
 ```
 
-
 ## Table a factor
 
 How many people there are with each type of blood?
@@ -122,7 +167,7 @@ table(blood_factor)
 table(blood_factor2)
 ```
 
-## Rename factor levels
+## Renaming factor levels
 
 ```{r}
 blood_factor2 
@@ -134,14 +179,14 @@ blood_factor2
 
 ## Levels and labels
 
-- Levels are input (alphabetic order by default). 
-- Labels are associated to levels and control how they are displayed in the output.
+- Levels are input (alphabetic order by default)
+
+- Labels are associated to levels and control how they are displayed in the output
 
 ## Levels and labels
 
 ```{r}
 blood <- c("B", "AB", "O", "A", "O", "O", "A", "B") 
-
 factor(blood)
 
 factor(blood, 
@@ -179,7 +224,7 @@ blood_factor <- factor(blood)
 blood_factor[1] < blood_factor[2]
 ```
 
-This logical comparison is not meaningful, since the factor is not ordered.
+This logical comparison is not meaningful, since the factor is not ordered
 
 ## Nominal versus ordinal factors
 
@@ -201,6 +246,47 @@ tshirt_factor
 tshirt_factor[1] < tshirt_factor[2]
 tshirt_factor[1] > tshirt_factor[2]
 ```
+
+## Nominal versus ordinal factors
+
+Ordered factors differ from factors in their class:
+
+```{r}
+class(blood_factor)
+class(tshirt_factor)
+```
+
+## Nominal versus ordinal factors
+
+`ordered(x)` is an alternative to `factor(x, ordered = TRUE)`:
+
+```{r}
+factor(tshirt, ordered = TRUE, 
+  levels = c("S", "M", "L"))
+ordered(tshirt, levels = c("S", "M", "L"))
+```
+
+## Testing and coercing
+
+```{r}
+is.factor(blood_factor)
+is.ordered(blood_factor)
+as.ordered(blood_factor)
+```
+
+## Testing and coercing
+
+```{r}
+is.factor(blood)
+as.factor(blood)
+as.ordered(blood)
+```
+
+## Testing and coercing
+
+Curious about the the differences between `factor` and `as.factor`?
+
+  - See [stackoverflow.com/questions/39279238/why-use-as-factor-instead-of-just-factor](https://stackoverflow.com/questions/39279238/why-use-as-factor-instead-of-just-factor)
 
 ## Bivariate tables
 
@@ -251,13 +337,15 @@ table(hair_color, eye_color, shirt_size)
 ```
 \normalsize
 
-## Creating factors with `cut()`
+## Creating factors with `cut`
 
-- The `cut()` function transforms numerical vectors into factors.
-- `cut()` breaks the range of a numerical vector into intervals.
-- The limits of the intervals are provided as input.
+- The `cut` function transforms numerical vectors into factors
 
-## Creating factors with `cut()`
+- `cut` breaks the range of a numerical vector into intervals
+
+- The limits of the intervals are provided as input
+
+## Creating factors with `cut`
 
 ```{r}
 y <- c(5.4, 1.5, 3.33, 0.01, 2, 4.2, 1.99, 1.01)
@@ -270,7 +358,7 @@ y_factor
 
 ```
 
-## Creating factors with `cut()`
+## Creating factors with `cut`
 
 ```{r}
 table(y_factor)
