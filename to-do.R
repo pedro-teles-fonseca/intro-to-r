@@ -1,6 +1,4 @@
 
-# meter a função ifelse nos slides dos vetores e quando estiver retirar dos slides dos DFs
-
 
 set.seed(1)
 

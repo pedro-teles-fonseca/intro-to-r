@@ -146,6 +146,15 @@ blood_factor2
 str(blood_factor2)
 ```
 
+## The internal structure of a factor
+
+To see the underlying integer coding of a factor we can coerce the factor to numeric:
+
+```{r}
+blood_factor
+as.numeric(blood_factor)
+```
+
 ## Invalid factor levels
 
 ```{r, warning=FALSE}
@@ -264,6 +273,27 @@ class(tshirt_factor)
 factor(tshirt, ordered = TRUE, 
   levels = c("S", "M", "L"))
 ordered(tshirt, levels = c("S", "M", "L"))
+```
+
+## Nominal versus ordinal factors
+
+The underlying integer coding of the `tshirt` factor:
+
+```{r}
+tshirt_factor
+as.numeric(tshirt_factor)
+```
+
+## Nominal versus ordinal factors
+
+Reordering levels changes the underlying integer coding of the factor:
+
+```{r}
+tshirt_factor_2 <- factor(tshirt_factor, 
+  levels = c("L", "M", "S"))
+
+tshirt_factor_2
+as.numeric(tshirt_factor_2)
 ```
 
 ## Testing and coercing
