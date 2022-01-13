@@ -1,7 +1,6 @@
 
 ## Lecture 2
 
-
 logical_value <- FALSE
 
 
