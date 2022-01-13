@@ -136,7 +136,7 @@ Now lets standardize the income column:
 
 ```{r}
 standardize <- function(x){
-  z <- (x-mean(x, na.rm = TRUE))/sd(x, na.rm = TRUE)
+  z <- (x - mean(x, na.rm = TRUE))/sd(x, na.rm = TRUE)
   round(z, 2)
   }
 ```
@@ -342,7 +342,9 @@ sqldf("SELECT *
 
 ## Subgroup summaries with `aggregate()`
 
-The `aggregate()` function can be used to compute subgroup summary statistics.
+- The `aggregate()` function computes subgroup summary statistics
+
+- `aggregate()` collapses datasets across factor levels
 
 ## Subgroup summaries with `aggregate()`
 
@@ -366,6 +368,26 @@ my_df
 
 ## Subgroup summaries with `aggregate()`
 
+```{r}
+aggregate(
+  x = my_df$income,
+  by = list(my_df$child), 
+  FUN = mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
+To get more meaningfull output, we must explicitly name variables:
+
+```{r}
+aggregate(
+  x = list(income = my_df$income),
+  by = list(child = my_df$child), 
+  FUN = mean)
+```
+
+## Subgroup summaries with `aggregate()`
+
 On average, do people with children earn more than people without children?
 
 ```{r}
@@ -381,7 +403,6 @@ aggregate(
   x = my_df["income"],
   by = list(child = my_df$child), 
   FUN = mean)
-
 ```
 
 ## Subgroup summaries with `aggregate()`
