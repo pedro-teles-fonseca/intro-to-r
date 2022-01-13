@@ -119,7 +119,6 @@ t_no_nas <- na.omit(y)
 
 M <- matrix(c(1:3, NA, c(5, 9)), nrow = 3, byrow = TRUE)
 
-
 M
 
 na.omit(M)
