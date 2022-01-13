@@ -9,7 +9,9 @@ set.seed(123)
 
 ## Example 1:  "Standardize" observations from normal(5, 3) distribution
 
-x <- rnorm(n = 100, mean = 5, sd = 3) # 100 pseudo-random extractions from a N(5, 3) distribution
+start_time <- Sys.time()
+
+x <- rnorm(n = 10000000, mean = 5, sd = 3) # 100 pseudo-random extractions from a N(5, 3) distribution
 
 # Non-vectorized calculation
 
@@ -23,13 +25,29 @@ for (i in 1:length(x)) {
 
 results
 
+stop_time <- Sys.time()
+
+loop_time <- stop_time - start_time
+
 # Vectorized calculation
+
+start_time <- Sys.time()
 
 (x-5)/3
 
+stop_time <- Sys.time()
+
+vectorized_time <- stop_time - start_time
+
+
+paste((as.double(loop_time, units='secs') - as.double(vectorized_time, units='secs')/as.double(vectorized_time, units='secs'))*100, "%")
+  
+
+
+
 # Are they the same?
 
-results == (x-5)/3 
+aall.equal(results, (x-5)/3)
 
 ## Example 2:  Sum two vectors
 
