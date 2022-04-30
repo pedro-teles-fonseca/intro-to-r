@@ -19,7 +19,7 @@ R provides many built in datasets. For a complete list see:
 library(help = "datasets")
 ```
 
-In this lecture we will use some of these datasets, namely:
+In this lecture we will the following datasets:
 
   - USArrests
   - airquality
@@ -32,9 +32,11 @@ For information about a specific dataset see, for example:
 
 ## The `USArrests` dataset
 
-- This data set contains the arrests per 100.000 residents for assault, murder, and rape in each of the 50 USA states in 1973.
+This data set contains:
 
-- There is also one column with the percentage of population living in urban areas.
+-  Arrests per 100.000 residents for assault, murder and rape in each of the 50 USA states in 1973.
+
+- There is also a column with the percentage of population living in urban areas.
 
 ## The `USArrests` dataset
 
