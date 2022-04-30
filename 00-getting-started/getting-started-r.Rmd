@@ -16,50 +16,66 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R and Rstudio
 
-- R is a programming language and a free and open source software environment for statistical computing and graphics
+- R is a programming language and a free and open source software environment 
+for statistical computing and graphics
 
-- RStudio is an integrated development environment (IDE) for R with free/open source and commercial versions
+- RStudio is an integrated development environment (IDE) for R with free/open 
+source and commercial versions
 
-- You can use R without using RStudio, but you can't use Rstudio without using R
+- You can use R without using RStudio, but you cannot use Rstudio without 
+using R
 
 ## This is how R looks like
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale = .3]{figures/Screenshot_1}
 \caption{R on Windows}
 \end{figure}
+```
 
 ## This is how R looks like
 
+```{=tex}
 \begin{figure}
-\includegraphics[scale = .26]{figures/r-mac}
+\includegraphics[scale = .3]{figures/r-mac}
 \caption{R on macOS}
 \end{figure}
+```
 
 ## This is how R looks like
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale = .3]{figures/r-linux}
 \caption{R on Ubuntu}
 \end{figure}
+```
+
+## Why use RStudio?
+
+- R is command line driven
+
+- RStudio provides more a user-friendly and interactive interface to R
 
 ## This is how Rstudio looks like
 
-Rstudio provides  a user-friendly and interactive interface to R:
-
+```{=tex}
 \begin{figure}[H]
-\includegraphics[scale = 0.15]{figures/Screenshot_mac}
+\includegraphics[scale = 0.17]{figures/Screenshot_mac}
 \caption{RStudio}
 \end{figure}
-
+```
 ## The console
 
 The pane on the left is the console. It can be used as a calculator:
 
+```{=tex}
 \begin{figure}[H]
 \includegraphics[scale = 0.35]{figures/calc}
 \caption{R's console as a calculator}
 \end{figure}
+```
 
 ## R as a calculator
 
@@ -72,7 +88,7 @@ The pane on the left is the console. It can be used as a calculator:
 
 ## R as a calculator
 
-We can chain as many operations as we want. But be carefull with the parentheses!
+We can chain as many operations as we want. But be careful with the parentheses!
 
 ```{r}
 (3 ^ 2) + 14 / (6 + 5)
@@ -81,7 +97,7 @@ We can chain as many operations as we want. But be carefull with the parentheses
 
 ## R as a calculator
 
-Square root: 
+Square root:
 
 ```{r}
 sqrt(x = 25)
@@ -93,7 +109,7 @@ Natural logarithm:
 log(x = 5)
 ```
 
-Base 10 logarithm: 
+Common logarithm:
 
 ```{r}
 log10(x = 5)
@@ -113,9 +129,9 @@ exp(x = 3)
 Nested operations:
 
 ```{r}
-10^log10(x = 5)
+10 ^ log10(x = 5)
 log(x = exp(x = 4))
-sqrt(x = 25)^2 + log(x = exp(x = 5))
+sqrt(x = 25) ^ 2 + log(x = exp(x = 5))
 ```
 
 ## R as a calculator
@@ -131,39 +147,50 @@ sin(x = 0.6) / cos(x = 0.6)
 
 ## Functions
 
-- R has a large collection of built-in functions
+- R includes a large collection of built-in functions
 
-- We already used `log`, `log10`, `sqrt`, `exp`, `sin`, `cos` and `tan`
+- We already used `log()`, `log10()`, `sqrt()`, `exp()`, `sin()`, `cos()` and
+`tan()`
 
 ## Functions
 
 Most functions have more than one argument:
 
-  - Some arguments are mandatory
-  
-  - Some arguments are optional and have default values
+- Some arguments are mandatory
+
+- Some arguments are optional and have default values
 
 ## Functions
 
-The `log` function has two arguments: 
+The `log()` function has two arguments:
 
-  - `x` is mandatory 
-  
-  - `base` is optional. The default value of `base` is `exp(1)`
+- `x` is mandatory
+
+- `base` is optional. The default value of `base` is `exp(1)`
 
 ```{r}
 log(x = 243)
 log(x = 243, base = exp(1))
-log(x = 243, base = 6)
+log(x = 243, base = 2)
 ```
 
 ## Functions
 
-The `round` function rounds numbers to a specified number of decimal places. It has two arguments: 
+The `log10()` function only has one argument, `x`, and it is mandatory:
 
-  - `x` is mandatory 
-  
-  - `digits` is optional. The default value of `digits` is `0`
+```{r}
+log10(x = 243)
+log(x = 243, base = 10)
+```
+
+## Functions
+
+The `round()` function rounds numbers to a specified number of decimal places. 
+It has two arguments:
+
+- `x` is mandatory
+
+- `digits` is optional. The default value of `digits` is `0`
 
 ```{r}
 round(x = 5.23452)
@@ -173,7 +200,8 @@ round(x = 5.23452, digits = 3)
 
 ## Functions
 
-`sqrt`, `log10()`, `exp`, `sin`, `cos` and `tan` have only one argument, `x`, and it is mandatory:
+`sqrt()`, `log10()`, `exp()`, `sin()`, `cos()` and `tan()` have only one
+argument, `x`, and it is mandatory:
 
 ```{r}
 sqrt(x = 5)
@@ -203,7 +231,8 @@ sqrt(25)
 
 ## Functions
 
-R does positional matching for unnamed arguments. Therefore, in functions with more than one argument we must pay attention to the ordering of the arguments:
+R does positional matching for unnamed arguments. Therefore, in functions with 
+more than one argument we must pay attention to the ordering of the arguments:
 
 ```{r}
 log(243, 2)
@@ -221,27 +250,9 @@ log(base = 2, x = 243)
 
 ## Functions
 
-Help pages can be useful:
-
-```{r, eval=FALSE}
-?log
-```
-
-In the help page of a function you can find:
-  
-- An ordered list of arguments 
-
-- Details about the arguments and their admissible values
-
-- The interpretation of the output of the function
-
-- Examples
-
-- Related functions
-
-## Functions
-
-Most of the times it is safe to drop the name of the first argument. Providing the names of the remaining arguments is usually a good idea: it avoids mistakes and improves readability.
+It is usually safe to drop the name of the first argument. Providing the names 
+of the remaining arguments is usually a good idea: it avoids mistakes and 
+improves readability.
 
 ```{r}
 log(4, base = 3)
@@ -249,11 +260,34 @@ round(pi, digits = 2)
 round(sqrt(2), digits = 4)
 ```
 
+## Functions
+
+Help pages can be very useful:
+
+```{r, eval=FALSE}
+?log
+```
+
+In the help page of a function you can find:
+
+- An ordered list of the function's arguments
+
+- Details about the arguments and their admissible values
+
+- Details about how the function works
+
+- The interpretation of the output of the function
+
+- Examples
+
+- Related functions
+
 ## R scripts
 
-- So far we've been using Rstudio's console
+- So far we have only been using Rstudio's console
 
-- Code sent directly to the console is executed but you won't be able to modify it or reuse it later
+- Code sent directly to the console is executed but you won't be able to modify 
+it or reuse it later
 
 - Using scripts is a better option
 
@@ -261,40 +295,47 @@ round(sqrt(2), digits = 4)
 
 ## Your first R script
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.35]{figures/new-script}
 \caption{Creating a new script}
 \end{figure}
+```
 
 ## Editor
 
--  R opens scripts in the editor pane
+- R opens scripts in the editor pane (top left)
 
--  This is where you should write your code
+- This is where you should write your code
 
--  In the editor you can modify, rerun and save your code at any time
+- In the editor you can modify, rerun and save your code at any time
+
+- Scripts are the holly grail of reproducible data analysis
 
 ## Rstudio Panes
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.18]{figures/panes}
 \caption{R studio's console and editor}
 \end{figure}
+```
 ## Some useful shortcuts
 
-- New script: Cmd/Ctrl + Shift + N 
+- New script: Cmd/Ctrl + Shift + N
 
 - Save the script: Cmd/Ctrl + S
 
 - Send code from the script to the console:
 
   - Cmd/Ctrl + Enter (current line or current selection)
-  
+
   - Cmd/Ctrl + Shift + S (entire script)
-  
+
 ## The assignment operator
 
-To store values in R's memory you need to assign them to objects. You can use the equal sign (`=`) or the assignment operator (`<-`):
+To store values in R's memory you need to assign them to objects. You can use 
+the equal sign (`=`) or the assignment operator (`<-`):
 
 ```{r}
 x <- 5
@@ -326,30 +367,33 @@ x + 2 * y
 
 Stored objects are visible in the upper-right pane, under the "Environment" tab:
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=.45]{figures/objects}
 \caption{Our session's global envoronment}
 \end{figure}
+```
 
 ## Workflow
 
 Our workflow so far:
 
-  - Write code in the editor
-  
-  - Send code to the console
-  
-  - The code is exectued and the results are printed in the console
-  
-  - The objects we created are listed in the environment tab
+- Write code in the editor
+
+- Send code to the console
+
+- The code is exectued and the results are printed in the console
+
+- The objects we created are listed in the environment tab
 
 ## Workflow
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.18]{figures/wf}
 \caption{Workflow}
 \end{figure}
-
+```
 ## Commenting
 
 - We can make comments in our code using `#`
@@ -374,21 +418,26 @@ x
 
 Since we already edited our script, let's save it:
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.32]{figures/save}
 \caption{Saving a script}
 \end{figure}
+```
 
 ## Saving scripts
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.18]{figures/saved}
 \caption{The script is now saved}
 \end{figure}
+```
 
 ## Naming Objects
 
-- Object names must start with a letter and can only contain letters, numbers, underscores and dots
+- Object names must start with a letter and can only contain letters, numbers, 
+underscores and dots
 
 - Ideally, one should follow a convention
 
@@ -432,24 +481,32 @@ rm(x, y)
 ```
 
 To remove all stored objects all once, use the following command:
-  
+
 ```{r, eval=FALSE}
 rm(list = ls())
 ```
 
 <!-- ## How to print the assigned value -->
 
-<!-- Assignment is a silent operation: when you make an assignment, you don't get to see the assigned value. You're then tempted to double-check the result: -->
+<!-- Assignment is a silent operation: when you make an assignment, you don't 
+get to see the assigned value. You're then tempted to double-check the result: 
+-->
 
 <!-- ```{r} -->
+
 <!-- y <- log(2) + 1 -->
+
 <!-- y -->
+
 <!-- ``` -->
 
-<!-- This common action can be shortened by surrounding the assignment with parentheses, which causes assignments to print: -->
+<!-- This common action can be shortened by surrounding the assignment with 
+parentheses, which causes assignments to print: -->
 
 <!-- ```{r} -->
+
 <!-- (y <- log(2) + 1) -->
+
 <!-- ``` -->
 
 ## Overwritting stored values
@@ -467,7 +524,8 @@ x
 
 ## Working directory
 
-An R session always has an associated working directory. R will use the working directory by default to:
+An R session always has an associated working directory. R will use the working 
+directory by default to:
 
 - Search for files
 
@@ -475,7 +533,7 @@ An R session always has an associated working directory. R will use the working 
 
 - Save outputs (tables, plots, etc)
 
-To check your workig directory:
+To check your working directory:
 
 ```{r, eval = FALSE}
 getwd()
@@ -485,17 +543,21 @@ getwd()
 
 You can change your working directory using RStudio's menus:
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale = .40]{figures/wd}
 \caption{Setting the working directory}
 \end{figure}
+```
 
 ## Setting the working directory
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale = .35]{figures/wd2}
 \caption{Setting the working directory}
 \end{figure}
+```
 
 ## Setting the working directory
 
@@ -507,7 +569,8 @@ setwd("/Users/pedro/Documents/intro-to-r")
 
 ## Setting the working directory
 
-- The problem with absolute paths like the one in the last slide is that they only exist in my computer
+- The problem with absolute paths like the one in the last slide is that they 
+only exist in my computer
 
 - This makes it more difficult to share and reproduce scripts
 
@@ -515,57 +578,73 @@ setwd("/Users/pedro/Documents/intro-to-r")
 
 ## Your first Rstudio project
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.31]{figures/new-project-1}
 \caption{Creating a new project}
 \end{figure}
+```
 
 ## Your first Rstudio project
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.47]{figures/new-project-2}
 \caption{Creating a new project}
 \end{figure}
+```
 
 ## Your first Rstudio project
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.47]{figures/new-project-3}
 \caption{Creating a new project}
 \end{figure}
+```
 
 ## Your first Rstudio project
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.36]{figures/new-project-4}
 \caption{Creating a new project}
 \end{figure}
+```
 
 ## Your first Rstudio project
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.5]{figures/new-project-5}
 \caption{Creating a new project}
 \end{figure}
+```
 
 ## Your first Rstudio project
 
+```{=tex}
 \begin{figure}
 \includegraphics[scale=0.19]{figures/environment}
 \caption{Creating a new project}
 \end{figure}
+```
 
 ## Advantages of Rstudio projects
 
 - Rstudio projects are self-contained.
 
-- They put together all the files that are relevant for a particular project (article, book, research project) in the same folder
+- They put together all the files that are relevant for a particular project 
+(article, book, research project) in the same folder
 
 - The project's working directory always points to that folder by default
 
-- Rstudio projects can be moved around on your computer or onto other computers and will still “just work”. No directory changes are needed.
+- Rstudio projects can be moved around on your computer or onto other computers 
+and will still "just work". No directory changes are needed.
 
-- If you need to create additional folders or start moving around parts of you project around dont use the `setwd` function. It is safer to reference the full path.
+- If you need to create additional folders or start moving around parts of you 
+project around dont use the `setwd` function. It is safer to reference the full 
+path.
 
 ## Packages
 
@@ -573,7 +652,8 @@ setwd("/Users/pedro/Documents/intro-to-r")
 
 - Packages are developed by the R core team and also by the community of R users
 
-- You can develop your own packages and make them available to the community through [CRAN](https://cran.r-project.org) (The Comprehensive R Archive Network)
+- You can develop your own packages and make them available to the community 
+through [CRAN](https://cran.r-project.org) (The Comprehensive R Archive Network)
 
 ## Packages
 
@@ -583,7 +663,7 @@ Later in this course, we will use the `sqldf` package. Let's install it:
 install.packages("sqldf")
 ```
 
-If you want to use an installed package, you must load it first: 
+If you want to use an installed package, you must load it first:
 
 ```{r, eval=FALSE}
 library("sqldf")
@@ -597,18 +677,18 @@ update.packages("sqldf")
 
 ## Packages
 
-- It is recommended that you start your scripts by loading the packages that will be used
+- It is recommended that you start your scripts by loading the packages that 
+will be used
 
-- That way, if you share your code with others (even if that's future you), they can easily see what packages they need to install 
+- That way, if you share your code with others (even if that's future you), they 
+can easily see what packages they need to install
 
 ## Packages
 
-- Note, however, that you should never include `install.packages` or `setwd` in a script that you share
+- Note, however, that you should never include `install.packages` or `setwd` in 
+a script that you share
 
 - Use `library` instead
 
-- It is very antisocial to change settings or install software on someone else’s computer!
-
-
-
-
+- It is very antisocial to change settings or install software on someone else's 
+computer!
