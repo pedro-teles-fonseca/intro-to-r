@@ -307,7 +307,7 @@ merge(x = Sales, y = Clients,
 
 - SQL queries must be provided to the `sqldf()` function as strings.
 
-```{r, message = FALSE}
+```{r, message = FALSE, warning = FALSE}
 library(sqldf)
 ```
 
